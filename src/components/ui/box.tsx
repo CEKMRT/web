@@ -1,7 +1,7 @@
 // components/ScheduleComponent.tsx
 
 import { useEffect, useState } from "react";
-import { fetchScheduleData, Schedule } from "@/app/api/req"; // Adjust the path according to your directory structure
+import { fetchScheduleData, Schedule } from "@/api/req"; // Adjust the path according to your directory structure
 
 const ScheduleComponent = ({
   apiUrl,
