@@ -1,7 +1,7 @@
 // components/ScheduleComponent.tsx
 
 import { useEffect, useState } from "react";
-import { fetchScheduleData, Schedule } from "@/api/req"; // Adjust the path according to your directory structure
+import { fetchScheduleData, Schedule } from "@/app/api/req"; // Adjust the path according to your directory structure
 
 const ScheduleComponent = ({
   apiUrl,
@@ -53,6 +53,7 @@ const ScheduleComponent = ({
   const getNearestSchedule = (schedules: Schedule[]) => {
     const now = getUserTime();
     const nowMinutes = getMinutesSinceMidnight(now.hours, now.minutes);
+
     const futureSchedules = schedules.filter((schedule) => {
       const scheduleDate = new Date(schedule.jadwal);
       const scheduleMinutes = getMinutesSinceMidnight(
@@ -62,7 +63,7 @@ const ScheduleComponent = ({
       return scheduleMinutes > nowMinutes;
     });
 
-    console.log("nowMinute:", nowMinutes); 
+    console.log("nowMinute:", nowMinutes);
 
     console.log("Future schedules:", futureSchedules); // Debug log
 
@@ -85,40 +86,42 @@ const ScheduleComponent = ({
     return futureSchedules[0];
   };
 
-  if (loading) return (
-    <div className="flex items-center space-x-4">
-      {/* <SkeletonCard /> */}
-    </div>  
-  ); 
+  if (loading)
+    return (
+      <div className="flex items-center space-x-4">
+        {/* <SkeletonCard /> */}
+      </div>
+    );
   if (error) return <div>Error: {error.message}</div>;
 
   const now = getUserTime();
   console.log("Current time:", now); // Debug log
-  console.log("Schedules:", data); // Debug log
 
   const futureSchedules = data
-    ? data.filter((schedule) => {
-        const scheduleDate = new Date(schedule.jadwal);
-        const scheduleMinutes = getMinutesSinceMidnight(
-          scheduleDate.getUTCHours(),
-          scheduleDate.getUTCMinutes()
-        );
-        const nowMinutes = getMinutesSinceMidnight(now.hours, now.minutes);
-        return scheduleMinutes > nowMinutes;
-      })
+    ? data
+        .filter((schedule) => {
+          const scheduleDate = new Date(schedule.jadwal);
+          const scheduleMinutes = getMinutesSinceMidnight(
+            scheduleDate.getUTCHours(),
+            scheduleDate.getUTCMinutes()
+          );
+          const nowMinutes = getMinutesSinceMidnight(now.hours, now.minutes);
+          return scheduleMinutes > nowMinutes;
+        })
+        .slice(0, 9) // Limit to 9 items
     : [];
 
-  console.log("Test console jadwal:", futureSchedules); // Debug log
+  console.log("Jadwal:", futureSchedules); // Debug log
 
-  const nearestSchedule = getNearestSchedule(data || []);
+  const nearestSchedule = getNearestSchedule(futureSchedules);
   const nearestTime = nearestSchedule
     ? formatTime(nearestSchedule.jadwal)
     : "N/A";
 
   const remainingMinutes = nearestSchedule
     ? Math.floor(
-        (new Date(nearestSchedule.jadwal).getMinutes() -
-          new Date().getUTCMinutes())
+        new Date(nearestSchedule.jadwal).getUTCMinutes() -
+          new Date().getUTCMinutes()
       )
     : "N/A";
 

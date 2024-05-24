@@ -1,12 +1,15 @@
+
+
+// src/api/schedules.ts
 import { NextApiRequest, NextApiResponse } from "next";
 
-interface Schedule {
+type Schedule = {
   id: number;
   station_id: number;
   stasiun_name: string;
   arah: string;
   jadwal: string;
-}
+};
 
 const schedules: Schedule[] = [
   {

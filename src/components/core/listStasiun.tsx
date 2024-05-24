@@ -1,4 +1,4 @@
-import Button from "./ui/button1";
+import Button from "../ui/button1";
 // interface HomePageProps {}
 
 const TombolStasiun = () => {
