@@ -108,7 +108,7 @@ const ScheduleComponent = ({
           const nowMinutes = getMinutesSinceMidnight(now.hours, now.minutes);
           return scheduleMinutes > nowMinutes;
         })
-        .slice(0, 9) // Limit to 9 items
+        .slice(0, 6) // Limit to 9 items
     : [];
 
   console.log("Jadwal:", futureSchedules); // Debug log
@@ -130,7 +130,7 @@ const ScheduleComponent = ({
   console.log("Remaining minutes:", remainingMinutes); // Debug log
 
   return (
-    <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 dark:border-neutral-800 dark:border-2 z-10">
+    <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-2 dark:border-neutral-800 dark:border-2 z-10">
       <div className="p-4 relative">
         <h2 className="text-lg font-semibold text-center text-black dark:text-white">
           {title}
