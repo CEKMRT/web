@@ -121,7 +121,7 @@ const ScheduleComponent = ({
   const remainingMinutes = nearestSchedule
     ? Math.floor(
         new Date(nearestSchedule.jadwal).getUTCMinutes() -
-          new Date().getUTCMinutes()
+          new Date().getUTCMinutes()* -1
       )
     : "N/A";
 
