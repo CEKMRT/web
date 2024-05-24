@@ -122,7 +122,7 @@ const BoxComp: React.FC<BoxCompProps> = ({ selectedSchedule }) => {
         />
       )}
 
-      {selectedSchedule === "Asean" && (
+      {selectedSchedule === "Blok M" && (
         <ScheduleComponent
           apiUrl="http://localhost:8080/schedules/32/Arah%20Lebak%20Bulus"
           title="Blok M -> Lebak Bulus Grab"
@@ -146,7 +146,7 @@ const BoxComp: React.FC<BoxCompProps> = ({ selectedSchedule }) => {
         />
       )}
       {/* ============== Haji Nawi 30 ============== */}
-      {selectedSchedule === "Blok A" && (
+      {selectedSchedule === "Haji Nawi" && (
         <ScheduleComponent
           apiUrl="http://localhost:8080/schedules/30/Arah%20Bundaran%20HI"
           title="Haji Nawi -> Bundaran HI"
@@ -154,7 +154,7 @@ const BoxComp: React.FC<BoxCompProps> = ({ selectedSchedule }) => {
         />
       )}
 
-      {selectedSchedule === "Blok A" && (
+      {selectedSchedule === "Haji Nawi" && (
         <ScheduleComponent
           apiUrl="http://localhost:8080/schedules/30/Arah%20Lebak%20Bulus"
           title="Haji Nawi -> Lebak Bulus Grab"
@@ -193,7 +193,14 @@ const BoxComp: React.FC<BoxCompProps> = ({ selectedSchedule }) => {
           subtitle=""
         />
       )}
-      
+      {/* ============== lebak 20 ============== */}
+      {selectedSchedule === "Lebak Bulus" && (
+        <ScheduleComponent
+          apiUrl="http://localhost:8080/schedules/21/Arah%20Bundaran%20HI"
+          title="Lebak Bulus Grab -> Bundaran HI"
+          subtitle=""
+        />
+      )}
 
       
     </div>

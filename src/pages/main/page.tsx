@@ -11,9 +11,11 @@ const MainPage: React.FC = () => {
   const [selectedSchedule, setSelectedSchedule] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen space-y-4 dark:transparent">
+    <div className="min-h-screen bg-gray-200 space-y-4 dark:bg-zinc-800">
+      <ModeToggle />
       <TombolStasiun onSelectStation={setSelectedSchedule} />
       <BoxComp selectedSchedule={selectedSchedule} />
+      <SplineBg />
     </div>
   );
 };

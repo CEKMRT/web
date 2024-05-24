@@ -130,28 +130,36 @@ const ScheduleComponent = ({
   console.log("Remaining minutes:", remainingMinutes); // Debug log
 
   return (
-    <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-2 dark:border-neutral-800 dark:border-2 z-10">
-      <div className="p-4 relative">
+    <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10">
+      <div className="p-6 relative">
         <h2 className="text-lg font-semibold text-center text-black dark:text-white">
           {title}
         </h2>
         <p className="text-center text-gray-500 mb-4">{subtitle}</p>
-        <div className="grid grid-cols-3 gap-2 text-center mb-4 pb-20">
-          {futureSchedules.map((schedule) => (
+        <div className="grid grid-cols-3 gap-2 text-center mb-auto pb-10">
+          {futureSchedules.map((schedule, index) => (
             <div
               key={schedule.id}
-              className="py-2 rounded bg-green-200 text-green-800 font-bold"
+              className={`py-2 rounded font-bold ${
+                    index === 0
+                  ? "bg-green-400 text-green-000"
+                  : index === 1
+                  ? "bg-green-300 text-green-600"
+                  : index === 2
+                  ? "bg-green-200 text-green-800"
+                  : "bg-gray-200 text-gray-800"
+              }`}
             >
               {formatTime(schedule.jadwal)}
             </div>
           ))}
         </div>
-        <div className="flex justify-between items-center bg-green-500 text-white p-2 rounded-b absolute inset-x-0 bottom-0 index-10">
-          <div className="text-sm dark:font-medium">Jadwal Terdekat</div>
+        <div className="flex justify-around items-center bg-green-500 text-white p-1.5 rounded-b absolute inset-x-0 bottom-0 index-10">
+          <div className="text-sm md:text-sm dark:font-medium">Jadwal Terdekat</div>
           <div className="text-lg font-bold">{nearestTime}</div>
           <div className="text-sm dark:font-medium">
             {typeof remainingMinutes === "number"
-              ? `${remainingMinutes} menit`
+              ? `Dalam ${remainingMinutes} menit`
               : remainingMinutes}
           </div>
         </div>
