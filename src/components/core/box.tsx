@@ -9,8 +9,8 @@ const BoxComp: React.FC<BoxCompProps> = ({ selectedSchedule }) => {
     <div className="space-y-4 px-4">
       {selectedSchedule === "Bundaran HI" && (
         <ScheduleComponent
-          apiUrl="http://localhost:8080/schedules/20/Arah%20Bundaran%20HI"
-          title="Lebak Bulus Grab -> Bundaran HI"
+          apiUrl="http://localhost:8080/schedules/39/Arah Lebak Bulus"
+          title="Bundaran HI-> Lebak Bulus Grab"
           subtitle="Stasiun Akhir"
         />
       )}
@@ -18,16 +18,16 @@ const BoxComp: React.FC<BoxCompProps> = ({ selectedSchedule }) => {
       {selectedSchedule === "DukuhAtas" && (
         <ScheduleComponent
           apiUrl="http://localhost:8080/schedules/38/Arah%20Bundaran%20HI"
-          title="Dukuh Atas BNI > Bundaran HI"
-          subtitle="Stasiun Akhir"
+          title="Dukuh Atas BNI -> Bundaran HI"
+          subtitle=""
         />
       )}
 
       {selectedSchedule === "DukuhAtas" && (
         <ScheduleComponent
           apiUrl="http://localhost:8080/schedules/21/Arah%20Lebak%20Bulus"
-          title="Dukuh Atas BNI > Bundaran HI"
-          subtitle="Stasiun Akhir"
+          title="Dukuh Atas BNI -> Bundaran HI"
+          subtitle=""
         />
       )}
       {/* ============================================= */}

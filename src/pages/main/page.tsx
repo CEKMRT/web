@@ -1,5 +1,4 @@
 "use client";
-
 import { ModeToggle } from "../../components/ui/modeToogle";
 import { useState } from "react";
 import { getCurrentTime } from "@/lib/utils/currentTime";
@@ -12,10 +11,10 @@ const MainPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-200 space-y-4 dark:bg-zinc-800">
-      <ModeToggle />
       <TombolStasiun onSelectStation={setSelectedSchedule} />
       <BoxComp selectedSchedule={selectedSchedule} />
-      <SplineBg />
+      {/* <a data-theme="dark" data-layers="1,2,3,4" data-stack-embed="true" href="https://embed.stackshare.io/stacks/embed/18534deb60d088567033cd19bf09f1"></a><script async src="https://cdn1.stackshare.io/javascripts/client-code.js" charSet="utf-8"></script> */}
+      {/* <SplineBg /> */}
     </div>
   );
 };
