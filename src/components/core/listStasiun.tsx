@@ -17,8 +17,9 @@ const TombolStasiun: React.FC<TombolStasiunProps> = ({ onSelectStation }) => {
           className="px-4 py-2 text-sm font-bold 
         "
         >
-        Cek MRT, pilih salah satu Stasiun
+        CekMRT
         </h1>
+        <a>Pilih salah satu Stasiun</a>
         <NavigationMenuDemo />
       </div>
 

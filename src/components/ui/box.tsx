@@ -33,7 +33,7 @@ const getNearestSchedule = (schedules: Schedule[]) => {
   });
 
   console.log("nowMinute:", nowMinutes);
-  console.log("Future schedules:", futureSchedules); 
+  console.log("Future schedules:", futureSchedules);
 
   if (futureSchedules.length === 0) return null;
 
@@ -56,12 +56,12 @@ const getNearestSchedule = (schedules: Schedule[]) => {
 
 const ScheduleComponent = ({
   apiUrl,
-  title,
-  subtitle,
+  startStation,
+  endStation,
 }: {
   apiUrl: string;
-  title: string;
-  subtitle: string;
+  startStation: string;
+  endStation: string;
 }) => {
   const [data, setData] = useState<Schedule[] | null>(null);
   const [loading, setLoading] = useState(true);
@@ -72,7 +72,7 @@ const ScheduleComponent = ({
     const fetchData = async () => {
       try {
         const result = await fetchScheduleData(apiUrl);
-        console.log("Fetched data:", result); 
+        console.log("Fetched data:", result);
         setData(result);
       } catch (error) {
         setError(error as Error);
@@ -93,13 +93,12 @@ const ScheduleComponent = ({
   }, [apiUrl]);
 
   if (loading)
-    return (
-      <div className="flex items-center space-x-4">
-  
-      </div>
-    );
+    return <div className="flex items-center space-x-4">Mohon Tunggu</div>;
 
-  if (error) return <div>Error: {error.message}</div>;
+  if (error)
+    return (
+      <div className="flex items-center space-x-4">Error: {error.message}</div>
+    );
 
   console.log("Current time:", now);
 
@@ -114,10 +113,10 @@ const ScheduleComponent = ({
           const nowMinutes = getMinutesSinceMidnight(now.hours, now.minutes);
           return scheduleMinutes > nowMinutes;
         })
-        .slice(0, 6) 
+        .slice(0, 6)
     : [];
 
-  console.log("Jadwal:", futureSchedules); 
+  console.log("Jadwal:", futureSchedules);
 
   const nearestSchedule = getNearestSchedule(futureSchedules);
   const nearestTime = nearestSchedule
@@ -126,41 +125,53 @@ const ScheduleComponent = ({
 
   const remainingMinutes = nearestSchedule
     ? Math.floor(
-        (new Date(nearestSchedule.jadwal).getUTCMinutes() - new Date().getUTCMinutes()) /
-          -1
+        (new Date(nearestSchedule.jadwal).getUTCMinutes() -
+          new Date().getUTCMinutes()) *
+          1
       )
     : "N/A";
 
-  console.log("Nearest schedule:", nearestSchedule); 
-  console.log("Nearest time:", nearestTime); 
-  console.log("Remaining minutes:", remainingMinutes); 
+  console.log("Nearest schedule:", nearestSchedule);
+  console.log("Nearest time:", nearestTime);
+  console.log("Remaining minutes:", remainingMinutes);
   return (
     <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10">
       <div className="p-6 relative">
         <h2 className="text-lg font-semibold text-center text-black dark:text-white">
-          {title}
+          {startStation} &rarr; {endStation}
         </h2>
-        <p className="text-center text-gray-500 mb-4">{subtitle}</p>
+        <p className="text-center text-gray-500 mb-4"></p>
         <div className="grid grid-cols-3 gap-2 text-center mb-auto pb-10">
           {futureSchedules.map((schedule, index) => (
             <div
-              key={schedule.id}
-              className={`py-2 rounded font-bold ${
-                    index === 0
-                  ? "bg-green-400 text-green-000"
-                  : index === 1
-                  ? "bg-green-300 text-green-600"
-                  : index === 2
-                  ? "bg-green-200 text-green-800"
-                  : "bg-gray-200 text-gray-800"
-              }`}
-            >
+            key={schedule.id}
+            className={`py-2 rounded font-bold ${
+              index === 0 && (remainingMinutes === "N/A" || parseInt(remainingMinutes.toString()) < 5)
+                ? "bg-red-500 text-white"
+                : index === 0
+                ? "bg-green-400 text-green-000"
+                : index === 1
+                ? "bg-green-300 text-green-600"
+                : index === 2
+                ? "bg-green-200 text-green-800"
+                : "bg-gray-200 text-gray-800"
+            }`}
+          >
               {formatTime(schedule.jadwal)}
             </div>
           ))}
         </div>
-        <div className="flex justify-around items-center bg-green-500 text-white p-1.5 rounded-b absolute inset-x-0 bottom-0 index-10">
-          <div className="text-sm md:text-sm dark:font-medium">Jadwal Terdekat</div>
+        <div
+          className={`flex justify-around items-center p-1.5 rounded-b absolute inset-x-0 bottom-0 index-10 ${
+            remainingMinutes === "N/A" ||
+            parseInt(remainingMinutes.toString()) < 5
+              ? "bg-red-500 text-white"
+              : "bg-green-500 text-white"
+          }`}
+        >
+          <div className="text-sm md:text-sm dark:font-medium">
+            Jadwal Terdekat
+          </div>
           <div className="text-lg font-bold">{nearestTime}</div>
           <div className="text-sm dark:font-medium">
             {typeof remainingMinutes === "number"

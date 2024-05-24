@@ -15,8 +15,8 @@ interface Schedule {
   
   interface ScheduleComponentProps {
     apiUrl: string;
-    title: string;
-    subtitle: string;
+    startStation: string;
+    endStation: string;
   }
 
   interface ButtonProps {
