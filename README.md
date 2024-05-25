@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This is a Open Source Jakarta MRT Project
 
 ## What's in here
@@ -37,3 +38,6 @@ You can check out [the GitHub Repository for the Backend](https://github.com/ver
 The easiest way to deploy this app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) and create your own accounts.
 
 Check out our [Projects deployment documentation](https://nextjs.org/docs/deployment) for more details.
+=======
+Latest
+>>>>>>> 279287fd2a0bb6021ac89d523bd7d30949ede114
