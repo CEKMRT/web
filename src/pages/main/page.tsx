@@ -1,10 +1,10 @@
 "use client";
-import { ModeToggle } from "../../components/ui/modeToogle";
+// import { ModeToggle } from "../../components/ui/modeToogle";
 import { useState } from "react";
-import { getCurrentTime } from "@/lib/utils/currentTime";
+// import { getCurrentTime } from "@/lib/utils/currentTime";
 import TombolStasiun from "@/components/core/listStasiun";
 import BoxComp from "@/components/core/box";
-import SplineBg from "@/components/core/spline";
+// import SplineBg from "@/components/core/spline";
 
 const MainPage: React.FC = () => {
   const [selectedSchedule, setSelectedSchedule] = useState<string | null>(null);
