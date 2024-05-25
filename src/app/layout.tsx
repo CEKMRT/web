@@ -7,7 +7,7 @@ import Header from "@/components/core/header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Cek MRT by Perwira",
+  title: "Cek MRT by MetroBoomin'",
   description: "Find your MRT Schedules from nearest stations!",
   generator: "Next.js",
   applicationName: "MRT API",
