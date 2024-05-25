@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "../ui/button1";
 import { ModeToggle } from "../ui/themebutton";
 import { NavigationMenuDemo } from "../ui/nav";
-import { getCurrentTime } from "@/lib/utils/currentTime";
+
 
 interface TombolStasiunProps {
   onSelectStation: (station: string) => void;
@@ -39,22 +39,8 @@ const TombolStasiun: React.FC<TombolStasiunProps> = ({ onSelectStation }) => {
 
   return (
     <div>
-      <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 py-4 max-w-sm mx-auto bg-white shadow-md rounded-lg md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-neutral-800 dark:border-2 z-10">
-        <ModeToggle />
-        <h1 className="px-4 md:py-2 text-sm font-bold text-center">
-          CekMRT{" "}
-          <a className="font-normal">
-            &#169; Copyright 2055 - PT. Yapping Jaya &nbsp; &nbsp;
-          </a>
-          <span className="text-3xl font-bold text-center mb-4">
-            {getCurrentTime()}
-          </span>
-        </h1>
-        <NavigationMenuDemo />
-      </div>
-
-      <div className="p-4 relative overflow-hidden">
-        <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-neutral-800 dark:border-2 z-10">
+        <div className="p-4 relative overflow-hidden">
+        <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10">
           <Button
             onClick={() => handleSelectStation("Bundaran HI")}
             active={isActive("Bundaran HI")}

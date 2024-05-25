@@ -1,24 +1,13 @@
 import { useEffect, useState } from "react";
-import { fetchScheduleData, Schedule } from "@/app/api/req"; // Adjust the path according to your directory structure
+import { fetchScheduleData, Schedule } from "@/app/api/req";
+import {
+  getUserTime,
+  formatTime,
+  getMinutesSinceMidnight,
+  calculateRemainingMinutes,
+} from "@/lib/utils";
 
-const getUserTime = () => {
-  const date = new Date();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  return { hours, minutes };
-};
-
-const formatTime = (jadwal: string): string => {
-  const date = new Date(jadwal);
-  const hours = String(date.getUTCHours()).padStart(2, "0");
-  const minutes = String(date.getUTCMinutes()).padStart(2, "0");
-  return `${hours}:${minutes}`;
-};
-
-const getMinutesSinceMidnight = (hours: number, minutes: number) => {
-  return hours * 60 + minutes;
-};
-
+// Helper functions
 const getNearestSchedule = (schedules: Schedule[]) => {
   const now = getUserTime();
   const nowMinutes = getMinutesSinceMidnight(now.hours, now.minutes);
@@ -26,14 +15,16 @@ const getNearestSchedule = (schedules: Schedule[]) => {
   const futureSchedules = schedules.filter((schedule) => {
     const scheduleDate = new Date(schedule.jadwal);
     const scheduleMinutes = getMinutesSinceMidnight(
-      scheduleDate.getUTCHours(),
-      scheduleDate.getUTCMinutes()
+      scheduleDate.getHours(),
+      scheduleDate.getMinutes()
     );
     return scheduleMinutes > nowMinutes;
   });
 
-  console.log("nowMinute:", nowMinutes);
-  console.log("Future schedules:", futureSchedules);
+  if (process.env.NODE_ENV === "development") {
+    console.log("nowMinute:", nowMinutes);
+    console.log("Future schedules:", futureSchedules);
+  }
 
   if (futureSchedules.length === 0) return null;
 
@@ -72,7 +63,9 @@ const ScheduleComponent = ({
     const fetchData = async () => {
       try {
         const result = await fetchScheduleData(apiUrl);
-        console.log("Fetched data:", result);
+        if (process.env.NODE_ENV === "development") {
+          console.log("Fetched data:", result);
+        }
         setData(result);
       } catch (error) {
         setError(error as Error);
@@ -100,15 +93,17 @@ const ScheduleComponent = ({
       <div className="flex items-center space-x-4">Error: {error.message}</div>
     );
 
-  console.log("Current time:", now);
+  if (process.env.NODE_ENV === "development") {
+    console.log("Current time:", now);
+  }
 
   const futureSchedules = data
     ? data
         .filter((schedule) => {
           const scheduleDate = new Date(schedule.jadwal);
           const scheduleMinutes = getMinutesSinceMidnight(
-            scheduleDate.getUTCHours(),
-            scheduleDate.getUTCMinutes()
+            scheduleDate.getHours(),
+            scheduleDate.getMinutes()
           );
           const nowMinutes = getMinutesSinceMidnight(now.hours, now.minutes);
 
@@ -116,8 +111,9 @@ const ScheduleComponent = ({
         })
         .slice(0, 6)
     : [];
-
-  console.log("Jadwal:", futureSchedules);
+  if (process.env.NODE_ENV === "development") {
+    console.log("Filtered Future Schedules:", futureSchedules);
+  }
 
   const nearestSchedule = getNearestSchedule(futureSchedules);
   const nearestTime = nearestSchedule
@@ -125,16 +121,9 @@ const ScheduleComponent = ({
     : "Tidak Tersedia";
 
   const remainingMinutes = nearestSchedule
-    ? Math.floor(
-        (new Date(nearestSchedule.jadwal).getUTCMinutes() -
-          new Date().getUTCMinutes()) *
-          1
-      )
+    ? calculateRemainingMinutes(nearestSchedule.jadwal)
     : "N/A";
 
-  console.log("Nearest schedule:", nearestSchedule);
-  console.log("Nearest time:", nearestTime);
-  console.log("Remaining minutes:", remainingMinutes);
   return (
     <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10">
       <div className="p-6 relative">
@@ -146,10 +135,10 @@ const ScheduleComponent = ({
           {futureSchedules.map((schedule, index) => (
             <div
               key={schedule.id}
-              className={`py-2 rounded font-bold ${
+              className={`py-2 rounded-full  font-bold ${
                 index === 0 &&
                 (remainingMinutes === "N/A" ||
-                  parseInt(remainingMinutes.toString()) < 5)
+                  parseInt(remainingMinutes.toString()) < 3)
                   ? "bg-red-500 text-white"
                   : index === 0
                   ? "bg-green-400 text-green-000"
@@ -178,11 +167,16 @@ const ScheduleComponent = ({
           <div className="text-sm md:text-sm dark:font-medium">
             Jadwal Terdekat
           </div>
-          <div className="text-lg font-bold">{nearestTime}</div>
+          <div className="text-lg font-bold">{nearestTime} </div>
           <div className="text-sm dark:font-medium">
-            {typeof remainingMinutes === "number"
-              ? `Dalam ${remainingMinutes} menit`
-              : remainingMinutes}
+            {typeof remainingMinutes === "number" ? (
+              <>
+                Dalam <span className="font-bold">{remainingMinutes}</span>{" "}
+                menit
+              </>
+            ) : (
+              remainingMinutes
+            )}
           </div>
         </div>
       </div>
