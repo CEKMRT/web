@@ -4,7 +4,7 @@ import ScheduleComponent from "../ui/box";
 interface BoxCompProps {
   selectedSchedule: string | null;
 }
-const apiUrlUtama = "http://localhost:8080/schedules/";
+const apiUrlUtama =process.env.CUSTOM_API_URL;;
 const arah1 = "/Arah%20Bundaran%20HI";
 const arah2 = "/Arah%20Lebak%20Bulus";
 
