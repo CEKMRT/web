@@ -10,7 +10,7 @@ export default function ClientFetch() {
       try {
         const response = await fetch('/api/schedules');
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Terputus melalui Server');
         }
         const result: Schedule[] = await response.json();
         setData(result);
