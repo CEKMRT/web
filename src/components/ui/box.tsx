@@ -111,7 +111,7 @@ const ScheduleComponent = ({
             scheduleDate.getUTCMinutes()
           );
           const nowMinutes = getMinutesSinceMidnight(now.hours, now.minutes);
-          // console.log(`Nilai ======= scheduleMinutes: ${scheduleMinutes} & nowMinutes: ${nowMinutes}`)
+
           return scheduleMinutes > nowMinutes;
         })
         .slice(0, 6)
@@ -122,17 +122,15 @@ const ScheduleComponent = ({
   const nearestSchedule = getNearestSchedule(futureSchedules);
   const nearestTime = nearestSchedule
     ? formatTime(nearestSchedule.jadwal)
-    : "N/A";
+    : "Tidak Tersedia";
 
   const remainingMinutes = nearestSchedule
     ? Math.floor(
-        (new Date(nearestSchedule.jadwal).getUTCMinutes() - 
-        new Date().getUTCMinutes()) *
+        (new Date(nearestSchedule.jadwal).getUTCMinutes() -
+          new Date().getUTCMinutes()) *
           1
       )
     : "N/A";
-
-    
 
   console.log("Nearest schedule:", nearestSchedule);
   console.log("Nearest time:", nearestTime);
@@ -147,27 +145,32 @@ const ScheduleComponent = ({
         <div className="grid grid-cols-3 gap-2 text-center mb-auto pb-10">
           {futureSchedules.map((schedule, index) => (
             <div
-            key={schedule.id}
-            className={`py-2 rounded font-bold ${
-              index === 0 && (remainingMinutes === "N/A" || parseInt(remainingMinutes.toString()) < 5)
-                ? "bg-red-500 text-white"
-                : index === 0
-                ? "bg-green-400 text-green-000"
-                : index === 1
-                ? "bg-green-300 text-green-600"
-                : index === 2
-                ? "bg-green-200 text-green-800"
-                : "bg-gray-200 text-gray-800"
-            }`}
-          >
+              key={schedule.id}
+              className={`py-2 rounded font-bold ${
+                index === 0 &&
+                (remainingMinutes === "N/A" ||
+                  parseInt(remainingMinutes.toString()) < 5)
+                  ? "bg-red-500 text-white"
+                  : index === 0
+                  ? "bg-green-400 text-green-000"
+                  : index === 1
+                  ? "bg-green-300 text-green-600"
+                  : index === 2
+                  ? "bg-green-200 text-green-800"
+                  : "bg-gray-200 text-gray-800"
+              }`}
+            >
               {formatTime(schedule.jadwal)}
             </div>
           ))}
         </div>
         <div
           className={`flex justify-around items-center p-1.5 rounded-b absolute inset-x-0 bottom-0 index-10 ${
-            remainingMinutes === "N/A" ||
-            parseInt(remainingMinutes.toString()) < 5
+            remainingMinutes === "N/A"
+              ? "bg-red-500 text-white"
+              : parseInt(remainingMinutes.toString()) === 0
+              ? "bg-gray-500 text-white"
+              : parseInt(remainingMinutes.toString()) < 3
               ? "bg-red-500 text-white"
               : "bg-green-500 text-white"
           }`}

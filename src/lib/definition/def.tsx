@@ -24,6 +24,6 @@ interface Schedule {
     children: React.ReactNode;
     className?: string;
     onClick?: () => void;
-    active?: boolean;
+    active?: boolean; 
   }
   
