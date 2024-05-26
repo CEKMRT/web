@@ -6,20 +6,32 @@ import TombolStasiun from "@/components/core/listStasiun";
 import BoxComp from "@/components/core/box";
 import TambahStation from "@/components/ui/tambahStasiun";
 
-
 const MainPage: React.FC = () => {
   const [selectedSchedule, setSelectedSchedule] = useState<string | null>(null);
+  const [isTombolStasiunOpen, setIsTombolStasiunOpen] =
+    useState<boolean>(false);
+
+  const handleTambahStationClick = () => {
+    setIsTombolStasiunOpen((prevState) => !prevState);
+    // console.log("Tambah Station clicked");
+  };
 
   return (
-    <div className="min-h-screen space-y-2 bg-gray-200 pt-2 dark:bg-zinc-800 no-scrollbar overflow-y-auto">
-      <TambahStation />
-      <TombolStasiun onSelectStation={setSelectedSchedule} />
+    <div className="space-y-2 min-h-screen bg-gray-200 pt-2 dark:bg-zinc-800 no-scrollbar overflow-y-auto">
+      <div className="space-y-0">
+        <TambahStation onClick={handleTambahStationClick} />
+        {isTombolStasiunOpen && (
+          <div className="transition-opacity duration-2000 ease-in-out opacity-100 animate-pulse">
+            <TombolStasiun
+              onSelectStation={setSelectedSchedule}
+              isOpen={isTombolStasiunOpen}
+            />
+          </div>
+        )}
+      </div>
+
       <BoxComp selectedSchedule={selectedSchedule} />
-      {/* <a data-theme="dark" data-layers="1,2,3,4" data-stack-embed="true" href="https://embed.stackshare.io/stacks/embed/18534deb60d088567033cd19bf09f1"></a><script async src="https://cdn1.stackshare.io/javascripts/client-code.js" charSet="utf-8"></script> */}
-      {/* <SplineBg /> */}
     </div>
   );
 };
-
 export default MainPage;
-

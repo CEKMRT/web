@@ -6,11 +6,14 @@ import { NavigationMenuDemo } from "../ui/nav";
 
 interface TombolStasiunProps {
   onSelectStation: (station: string) => void;
+  isOpen: boolean;
+
 }
 
-const TombolStasiun: React.FC<TombolStasiunProps> = ({ onSelectStation }) => {
+const TombolStasiun: React.FC<TombolStasiunProps> = ({ onSelectStation, isOpen }) => {
   // State to track active stations
   const [activeStations, setActiveStations] = useState<string[]>([]);
+  if (!isOpen) return null;
 
   // Function to handle station selection
   const handleSelectStation = (station: string) => {
@@ -39,8 +42,8 @@ const TombolStasiun: React.FC<TombolStasiunProps> = ({ onSelectStation }) => {
 
   return (
     <div>
-        <div className="pt-2 relative overflow-hidden">
-        <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10">
+        <div className="relative overflow-hidden">
+        <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-b-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10">
           <Button
             onClick={() => handleSelectStation("Bundaran HI")}
             active={isActive("Bundaran HI")}

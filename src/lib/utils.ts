@@ -68,3 +68,8 @@ export const calculateRemainingMinutes = (scheduleTime: string): number => {
   }
   return remainingMinutes;
 };
+interface ButtonPropsComp {
+  selectedSchedule: string | null;
+  children: React.ReactNode;
+  onClick: () => void;
+}
