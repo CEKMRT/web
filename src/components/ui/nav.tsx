@@ -97,7 +97,7 @@ export function NavigationMenuDemo() {
               </ListItem>
               <ListItem href="/bantuan" title="Ulasan">
                 Beri ulasan untuk aplikasi ini. Aplikasi Bintang 5, API Bintang
-                Local
+                Bir
               </ListItem>
             </ul>
           </NavigationMenuContent>
