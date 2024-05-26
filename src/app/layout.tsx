@@ -7,8 +7,8 @@ import Header from "@/components/core/header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Cek MRT by MetroBoomin'",
-  description: "Find your MRT Schedules from nearest stations!",
+  title: "MRTJ",
+  description: "Cari Jadwal MRT-mu disini!",
   generator: "Next.js",
   applicationName: "MRT API",
   referrer: "origin-when-cross-origin",
@@ -31,9 +31,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
+
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} min-h-screen bg-gray-200 dark:bg-zinc-800 no-scrollbar overflow-y-auto`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -1,9 +1,10 @@
-"use client"
+"use client";
+import Image from "next/image";
+import * as React from "react";
+import Link from "next/link";
+import logoImg from "../../../public/logoImg.png";
 
-import * as React from "react"
-import Link from "next/link"
-
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 // import { Icons } from "@/components/icons"
 import {
   NavigationMenu,
@@ -13,37 +14,36 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
 
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Showcase Teknologi",
-    href: "/",
-    description:
-      "Rangkuman terkait aplikasi ini secara detail dan lengkap.",
+    href: "/tech",
+    description: "Rangkuman terkait aplikasi ini secara detail dan lengkap.",
   },
   {
     title: "Design",
-    href: "/",
+    href: "/tech",
     description:
       "Aplikasi dibuat menggunakan design yang mudah diterapkan dalam UI.",
   },
   {
     title: "Frontend",
-    href: "/",
+    href: "/tech",
     description:
       "Kami menggunakan framework Next.js, Next.js adalah framework React fleksibel yang memberi Anda landasan untuk membuat aplikasi web full-stack yang cepat",
   },
   {
     title: "Backend",
-    href: "/",
-    description: "Backend kami dibuat melalui bahasa pemrograman Golang, Go digunakan untuk berbagai aplikasi seperti aplikasi cloud dan sisi server, DevOps, alat baris perintah, dan banyak lagi.",
+    href: "/tech",
+    description:
+      "Backend kami dibuat melalui bahasa pemrograman Golang, Go digunakan untuk berbagai aplikasi seperti aplikasi cloud dan sisi server, DevOps, alat baris perintah, dan banyak lagi.",
   },
   {
     title: "API",
-    href: "/",
-    description:
-      "dapatkan akses data melalui API yang disediakan.",
+    href: "/tech",
+    description: "dapatkan akses data melalui API yang disediakan.",
   },
   {
     title: "StackShare.io",
@@ -51,12 +51,19 @@ const components: { title: string; href: string; description: string }[] = [
     description:
       "Cari Kami di StackShare, Tech Stack Intelligence platform and community helping teams to make data-driven technology decisions.",
   },
-]
+];
 
 export function NavigationMenuDemo() {
   return (
-    <NavigationMenu>
+    <NavigationMenu className=" md:visible">
       <NavigationMenuList>
+      <NavigationMenuItem>
+          <Link href="/" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Cek Stasiun
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Bantuan</NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -65,26 +72,32 @@ export function NavigationMenuDemo() {
                 <NavigationMenuLink asChild>
                   <a
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
+                    href="https://jakartamrt.co.id/id" target="_blank"
                   >
-                    {/* <Icons.logo className="h-6 w-6" /> */}
-                    <div className="mb-2 mt-4 text-lg font-medium">
-                      CekMRT
-                    </div>
+                    <Image
+                      src={logoImg}
+                      // width={200}
+                      // height={200}
+                      alt="MRT"
+                    />
+                    <div className="mb-2 mt-4 text-lg font-medium">CekMRT</div>
                     <p className="text-sm leading-tight text-muted-foreground">
                       Aplikasi Pengecekan Transportasi MRT, Install sekarang!
                     </p>
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/" title="Panduan">
+              <ListItem href="/bantuan" title="Panduan">
                 Kendala dalam menggunakan Aplikasi CekMRT? Cek disini.
               </ListItem>
-              <ListItem href="/" title="Bagikan">
-                Sharing is Yapping, Ayo informasikan aplikasi CekMRT ke Keluarga, Istri, Pacar, Tetangga, Dede Inoen, Komeng, dan Lainnya!.
+              <ListItem href="/bantuan" title="Bagikan">
+                Sharing is Yapping, Ayo informasikan aplikasi CekMRT ke
+                Keluarga, Istri, Pacar, Tetangga, Dede Inoen, Komeng, dan
+                Lainnya!.
               </ListItem>
-              <ListItem href="/" title="Ulasan">
-                Beri ulasan untuk aplikasi ini. Aplikasi Bintang 5, API Bintang Local
+              <ListItem href="/bantuan" title="Ulasan">
+                Beri ulasan untuk aplikasi ini. Aplikasi Bintang 5, API Bintang
+                Local
               </ListItem>
             </ul>
           </NavigationMenuContent>
@@ -114,7 +127,7 @@ export function NavigationMenuDemo() {
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
-  )
+  );
 }
 
 const ListItem = React.forwardRef<
@@ -139,6 +152,6 @@ const ListItem = React.forwardRef<
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = "ListItem";
