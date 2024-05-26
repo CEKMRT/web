@@ -23,8 +23,3 @@ const MainPage: React.FC = () => {
 
 export default MainPage;
 
-{
-  /* <h1 className="text-3xl font-bold text-center mb-4">
-        {getCurrentTime()}
-      </h1> */
-}

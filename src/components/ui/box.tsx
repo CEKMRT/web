@@ -1,97 +1,115 @@
-import { useEffect, useState } from "react";
-import { fetchScheduleData, Schedule } from "@/app/api/req";
-import {
-  getUserTime,
-  formatTime,
-  getMinutesSinceMidnight,
-  calculateRemainingMinutes,
-} from "@/lib/utils";
-import { Skeleton } from "@/components/ui/skeleton";
+import React, { useState, useEffect } from "react";
+import { fetchScheduleData } from "@/app/api/req";
+import { Skeleton } from "./skeleton";
+import OnlineIndicator from "./indicator";
+interface Schedule {
+  id: number;
+  station_id: number;
+  stasiun_name: string;
+  arah: string;
+  jadwal: string; // (HH:MM)
+}
 
-// Helper functions
-const getNearestSchedule = (schedules: Schedule[]) => {
-  const now = getUserTime();
-  const nowMinutes = getMinutesSinceMidnight(now.hours, now.minutes);
+function JamKeMenit(time: string): number {
+  const [hours, minutes] = time.split(":").map(Number);
+  return hours * 60 + minutes;
+}
 
-  const futureSchedules = schedules.filter((schedule) => {
-    const scheduleDate = new Date(schedule.jadwal);
-    const scheduleMinutes = getMinutesSinceMidnight(
-      scheduleDate.getHours(),
-      scheduleDate.getMinutes()
-    );
-    return scheduleMinutes > nowMinutes;
-  });
+function FilterData(
+  schedules: Schedule[],
+  userTime: string | number
+): Schedule[] {
+  const userTimeInMinutes =
+    typeof userTime === "string" ? JamKeMenit(userTime) : userTime;
 
-  if (process.env.NODE_ENV === "development") {
-    console.log("nowMinute:", nowMinutes);
-    console.log("Future schedules:", futureSchedules);
-  }
+  // Convert jadwal to minutes and filter schedules
+  const filteredSchedules = schedules
+    .map((schedule) => ({
+      ...schedule,
+      jadwalInMinutes: JamKeMenit(schedule.jadwal),
+    }))
+    .filter((schedule) => schedule.jadwalInMinutes >= userTimeInMinutes)
+    .sort((a, b) => a.jadwalInMinutes - b.jadwalInMinutes);
 
-  if (futureSchedules.length === 0) return null;
+  return filteredSchedules.slice(0, 6);
+}
 
-  futureSchedules.sort((a, b) => {
-    const timeA = new Date(a.jadwal);
-    const timeB = new Date(b.jadwal);
-    const minutesA = getMinutesSinceMidnight(
-      timeA.getHours(),
-      timeA.getMinutes()
-    );
-    const minutesB = getMinutesSinceMidnight(
-      timeB.getHours(),
-      timeB.getMinutes()
-    );
-    return minutesA - minutesB;
-  });
+function Jakarta(): string {
+  const currentTime = new Date();
+  const waktuJakarta = new Date(currentTime.getTime() + 7 * 60 * 60 * 1000);
+  return waktuJakarta.toISOString().slice(11, 16);
+}
 
-  return futureSchedules[0];
-};
+function SelisihWaktu(scheduleTime: string): number | string {
+  const currentTime = Jakarta();
+  const currentTimeHours = parseInt(currentTime.slice(0, 2));
+  const currentTimeMinutes = parseInt(currentTime.slice(3, 5));
 
-const ScheduleComponent = ({
-  apiUrl,
-  startStation,
-  endStation,
-}: {
+  const scheduleTimeHours = parseInt(scheduleTime.slice(0, 2));
+  const scheduleTimeMinutes = parseInt(scheduleTime.slice(3, 5));
+
+  const diffMinutes =
+    (scheduleTimeHours - currentTimeHours) * 60 +
+    (scheduleTimeMinutes - currentTimeMinutes);
+
+  // Convert to seconds for more accuracy
+  const diffSeconds = diffMinutes * 1;
+
+  return diffSeconds >= 0 ? diffSeconds : "Sedang Berhenti";
+}
+
+function formatTime(time: string): string {
+  return time;
+}
+
+const ScheduleComponent: React.FC<{
   apiUrl: string;
   startStation: string;
   endStation: string;
-}) => {
-  const [data, setData] = useState<Schedule[] | null>(null);
-  const [loading, setLoading] = useState(true);
+}> = ({ apiUrl, startStation, endStation }) => {
+  const [data, setData] = useState<Schedule[]>([]);
   const [error, setError] = useState<Error | null>(null);
-  const [now, setNow] = useState(getUserTime());
+  const [loading, setLoading] = useState<boolean>(true);
+  const [now, setNow] = useState<string>(Jakarta());
+
+  const [isFetching, setIsFetching] = useState(false);
+  const fetchData = async () => {
+    setIsFetching(true);
+    try {
+      const result = await fetchScheduleData(apiUrl);
+      setData(result);
+    } catch (error) {
+      setError(error as Error);
+    } finally {
+      setLoading(false);
+      setIsFetching(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await fetchScheduleData(apiUrl);
-        if (process.env.NODE_ENV === "development") {
-          console.log("Fetched data:", result);
-        }
-        setData(result);
-      } catch (error) {
-        setError(error as Error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchData();
 
-    // Set interval to update the current time every 60 seconds
-    const interval = setInterval(() => {
-      setNow(getUserTime());
-    }, 60000);
+    const dataInterval = setInterval(fetchData, 5000);
+    console.log(`Data revalidated at ${Jakarta()} (GMT+7).`);
 
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
-  }, [apiUrl]);
+    // Update current time every 60 seconds
+    const timeInterval = setInterval(() => {
+      setNow(Jakarta());
+    }, 5000);
+
+    // Cleanup intervals on component unmount
+    return () => {
+      clearInterval(dataInterval);
+      clearInterval(timeInterval);
+    };
+  }, [apiUrl]); // Run fetchData when apiUrl changes
 
   if (loading)
     return (
       <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10ex-col space-y-3 justify-center gap-4 py-4 max-w-sm mx-auto">
         <Skeleton
           className=" 
-       w-[450px] h-[20px] rounded-full"
+     w-[450px] h-[20px] rounded-full"
         />
         <Skeleton className="h-[125px] w-[550px] rounded-xl" />
         <div className="space-y-2">
@@ -101,13 +119,12 @@ const ScheduleComponent = ({
         </div>
       </div>
     );
-
   if (error)
     return (
       <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10ex-col space-y-3 justify-center gap-4 py-4 max-w-sm mx-auto">
         <Skeleton
           className=" 
-       w-[450px] h-[20px] rounded-full"
+ w-[450px] h-[20px] rounded-full"
         />
         <Skeleton className="h-[125px] w-[550px] rounded-xl bg-red-800/60 dark:bg-red-800" />
         <div className="space-y-2">
@@ -122,52 +139,23 @@ const ScheduleComponent = ({
       </div>
     );
 
-  if (process.env.NODE_ENV === "development") {
-    console.log("Current time:", now);
-  }
-
-  const futureSchedules = data
-    ? data
-        .filter((schedule) => {
-          const scheduleDate = new Date(schedule.jadwal);
-          const scheduleMinutes = getMinutesSinceMidnight(
-            scheduleDate.getHours(),
-            scheduleDate.getMinutes()
-          );
-          const nowMinutes = getMinutesSinceMidnight(now.hours, now.minutes);
-
-          return scheduleMinutes > nowMinutes;
-        })
-        .slice(0, 6)
-    : [];
-  if (process.env.NODE_ENV === "development") {
-    console.log("Filtered Future Schedules:", futureSchedules);
-  }
-
-  const nearestSchedule = getNearestSchedule(futureSchedules);
-  const nearestTime = nearestSchedule
-    ? formatTime(nearestSchedule.jadwal)
-    : "Tidak Tersedia";
-
-  const remainingMinutes = nearestSchedule
-    ? calculateRemainingMinutes(nearestSchedule.jadwal)
-    : "N/A";
-
+  const jadwalTerbaru = FilterData(data, now);
   return (
     <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10">
       <div className="p-6 relative">
-        <h2 className="text-lg font-semibold text-center text-black dark:text-white">
+        <h2 className="text-lg font-semibold text-center text-black dark:text-white relative">
           {startStation} &rarr; {endStation}
+          <OnlineIndicator isFetching={isFetching} />
         </h2>
         <p className="text-center text-gray-500 mb-4"></p>
         <div className="grid grid-cols-3 gap-2 text-center mb-auto pb-10">
-          {futureSchedules.map((schedule, index) => (
+          {jadwalTerbaru.slice(0, 6).map((schedule, index) => (
             <div
               key={schedule.id}
               className={`py-2 rounded-full  font-bold ${
                 index === 0 &&
-                (remainingMinutes === "N/A" ||
-                  parseInt(remainingMinutes.toString()) < 3)
+                (SelisihWaktu(schedule.jadwal) === "N/A" ||
+                  parseInt(SelisihWaktu(schedule.jadwal).toString()) < 3)
                   ? "bg-red-500 text-white"
                   : index === 0
                   ? "bg-green-400 text-green-000"
@@ -184,11 +172,11 @@ const ScheduleComponent = ({
         </div>
         <div
           className={`flex justify-around items-center p-1.5 rounded-b absolute inset-x-0 bottom-0 index-10 ${
-            remainingMinutes === "N/A"
+            SelisihWaktu(jadwalTerbaru[0].jadwal) === "N/A"
               ? "bg-red-500 text-white"
-              : parseInt(remainingMinutes.toString()) === 0
+              : parseInt(SelisihWaktu(jadwalTerbaru[0].jadwal).toString()) === 0
               ? "bg-gray-500 text-white"
-              : parseInt(remainingMinutes.toString()) < 3
+              : parseInt(SelisihWaktu(jadwalTerbaru[0].jadwal).toString()) < 3
               ? "bg-red-500 text-white"
               : "bg-green-500 text-white"
           }`}
@@ -196,15 +184,20 @@ const ScheduleComponent = ({
           <div className="text-sm md:text-sm dark:font-medium">
             Jadwal Terdekat
           </div>
-          <div className="text-lg font-bold">{nearestTime} </div>
+          <div className="text-lg font-bold">{jadwalTerbaru[0].jadwal} </div>
           <div className="text-sm dark:font-medium">
-            {typeof remainingMinutes === "number" ? (
-              <>
-                Dalam <span className="font-bold">{remainingMinutes}</span>{" "}
-                menit
-              </>
+            {typeof SelisihWaktu(jadwalTerbaru[0].jadwal) === "number" ? (
+              SelisihWaktu(jadwalTerbaru[0].jadwal) !== 0 ? (
+                <>
+                  Dalam{" "}
+                  <span className="font-bold">
+                    {SelisihWaktu(jadwalTerbaru[0].jadwal)}
+                  </span>{" "}
+                  menit
+                </>
+              ) : <div className="text-sm font-bold"> Kereta Tiba </div>
             ) : (
-              remainingMinutes
+              SelisihWaktu(jadwalTerbaru[0].jadwal)
             )}
           </div>
         </div>
