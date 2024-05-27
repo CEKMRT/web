@@ -96,7 +96,7 @@ const ScheduleComponent: React.FC<{
   useEffect(() => {
     fetchData();
     const dataInterval = setInterval(fetchData, 5000);
-    console.log(`Data revalidated at ${Jakarta()} (GMT+7).`);
+    console.log(`Data Terupdate pada ${Jakarta()} (GMT+7).`);
 
     const timeInterval = setInterval(() => {
       setNow(Jakarta());
@@ -107,7 +107,7 @@ const ScheduleComponent: React.FC<{
       clearInterval(timeInterval);
     };
   }, [apiUrl]);
-
+console.log('----------------------------------')
   if (loading) {
     return (
       <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10">
@@ -137,7 +137,7 @@ const ScheduleComponent: React.FC<{
   }
 
   const jadwalTerbaru = FilterData(data, now);
-  console.log(jadwalTerbaru);
+
 
   return (
     <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10">
