@@ -24,16 +24,7 @@ func main() {
 `;
 
   return (
-    <div>
-      {/* <Link
-            rel="stylesheet"
-            href="https://mrt-production.up.railway.app/api/schedules"
-            target="_blank"
-            className="font-bold text-center"
-          >
-            {" "}
-            Disini
-          </Link> */}
+    <div className="mx-4 md:mx-20 overflow-auto max-w-full">
       <CopyBlock
         text={code}
         language="Go"
