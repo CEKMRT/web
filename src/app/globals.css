@@ -7,6 +7,9 @@
     .no-scrollbar::-webkit-scrollbar {
         display: none;
     }
+    .custom-width {
+      width: var(--tw-custom-width);
+    }
    /* Hide scrollbar for IE, Edge and Firefox */
     .no-scrollbar {
         -ms-overflow-style: none;  /* IE and Edge */
@@ -36,6 +39,8 @@
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
+
+    --tw-random-width: 50;
   }
 
   .dark {

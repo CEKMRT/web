@@ -82,11 +82,14 @@ const ScheduleComponent: React.FC<{
   endStation: string;
 }> = ({ apiUrl, startStation, endStation }) => {
   const [data, setData] = useState<Schedule[]>([]);
-  const [error, setError] = useState<Error | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
   const [now, setNow] = useState<string>(Jakarta());
   const [initialFetch, setInitialFetch] = useState(true);
+  // Render
+  const [loading, setLoading] = useState<boolean>(true);
   const [isFetching, setIsFetching] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  //Styling
+  const randomWidth = Math.floor(Math.random() * (600 - 200 + 1)) + 200;
 
   const fetchData = async (isInitialFetch = false) => {
     if (isInitialFetch) {
@@ -134,11 +137,24 @@ const ScheduleComponent: React.FC<{
   if (loading) {
     return (
       <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10">
-        <Skeleton className="w-[450px] h-[20px] rounded-full" />
+        <Skeleton
+          className="h-4 custom-width"
+          style={{ "--tw-custom-width": `${randomWidth}px` } as any}
+        />{" "}
         <Skeleton className="h-[125px] w-[550px] rounded-xl" />
+        <Skeleton
+          className="h-8 custom-width"
+          style={{ "--tw-custom-width": `${randomWidth}px` } as any}
+        />
         <div className="space-y-2">
-          <Skeleton className="h-4 w-[600px]" />
-          <Skeleton className="h-4 w-[600px]" />
+          <Skeleton
+            className="h-4 custom-width"
+            style={{ "--tw-custom-width": `${randomWidth}px` } as any}
+          />{" "}
+          <Skeleton
+            className="h-4 custom-width"
+            style={{ "--tw-custom-width": `${randomWidth}px` } as any}
+          />
         </div>
       </div>
     );
