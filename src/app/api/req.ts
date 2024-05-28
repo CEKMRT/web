@@ -6,46 +6,50 @@ export interface Schedule {
   jadwal: string;
 }
 
-export const fetchScheduleData = async (
-  apiUrl: string
-): Promise<Schedule[]> => {
+  export const fetchScheduleData = async (
+    apiUrl: string
+  ): Promise<Schedule[]> => {
   const authToken = process.env.NEXT_PUBLIC_AUTH_TOKEN;
 
   if (!authToken) {
-    throw new Error("Authorization token is not defined");
+    throw new Error('Authorization token is not defined. Hubungi Admin support@cekmrt.com.');
   }
-
+  
   const response = await fetch(apiUrl, {
     headers: {
       Authorization: `Bearer ${authToken}`,
+
     },
+
   });
   if (!response.ok) {
     switch (response.status) {
       case 400:
         throw new Error(
-          "Permintaan Buruk: Server tidak dapat memahami permintaan karena sintaks yang tidak valid."
+          "Bad Request 404: Server tidak dapat memahami permintaan karena sintaks yang tidak valid.Hubungi Admin support@cekmrt.com."
         );
       case 401:
         throw new Error(
-          "Tidak Sah: Akses ditolak karena kredensial yang tidak valid."
+          "Unauthorized 401: Akses ditolak, kredensial yang tidak valid. Hubungi Admin support@cekmrt.com."
         );
       case 403:
         throw new Error(
-          "Dilarang: Anda tidak memiliki izin untuk mengakses sumber daya ini."
+          "Forbidden 403: Anda tidak memiliki izin untuk mengakses sumber daya ini. Hubungi Admin support@cekmrt.com."
         );
       case 404:
         throw new Error(
-          "Tidak Ditemukan: Sumber daya yang diminta tidak dapat ditemukan."
+          "Not Found 404: Sumber daya yang diminta tidak dapat ditemukan. Hubungi Admin support@cekmrt.com."
         );
       case 500:
         throw new Error(
-          "Kesalahan Server Internal: Server mengalami kesalahan internal dan tidak dapat menyelesaikan permintaan Anda."
+          "Internal Server Error 500: Server mengalami kesalahan Internal dan tidak dapat menyelesaikan permintaan Anda. Hubungi Admin support@cekmrt.com."
         );
       default:
-        throw new Error(`Kesalahan tak terduga: ${response.statusText}`);
+        throw new Error(`Unexpected error: ${response.statusText} . Hubungi Admin support@cekmrt.com.`);
     }
+
   }
+
 
   const result: Schedule[] = await response.json();
   return result;
