@@ -5,17 +5,19 @@ export interface Schedule {
   arah: string;
   jadwal: string;
 }
-// const authToken ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvbWVuZyIsInVzZXJfaWQiOjIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE2OTgwNzQ3fQ.dlDV-3EELKFTrUWD8N1KUmKJQmGVkpdlN5o_DMaIXm8";
-const authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcl9pZCI6MSwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzQ4NDMxMjYzfQ.o1cRVeLyfWSexHM-atIIbKA7uwTU6jMYaBAWUhWlmtY";
+
+
+  
+  
+  export const fetchScheduleData = async (
+    apiUrl: string
+  ): Promise<Schedule[]> => {
+  const authToken = process.env.NEXT_PUBLIC_AUTH_TOKEN;
 
   if (!authToken) {
     throw new Error('Authorization token is not defined');
   }
-
-
-export const fetchScheduleData = async (
-  apiUrl: string
-): Promise<Schedule[]> => {
+  
   const response = await fetch(apiUrl, {
     headers: {
       Authorization: `Bearer ${authToken}`,

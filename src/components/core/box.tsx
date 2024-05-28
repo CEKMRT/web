@@ -4,13 +4,11 @@ import ScheduleComponent from "../ui/box";
 interface BoxCompProps {
   selectedSchedule: string | null;
 }
-// const apiUrlUtama = process.env.NEXT_PUBLIC_API_URL;
-const apiUrlUtama = "https://mrt-production.up.railway.app/api/schedules/";
-// "https://mrt-production.up.railway.app/api/schedules/"
-const arah1 = "/Arah%20Bundaran%20HI";
-const arah2 = "/Arah%20Lebak%20Bulus";
+const apiUrlUtama = process.env.NEXT_PUBLIC_API_URL;
+const arah1 = process.env.NEXT_PUBLIC_API_URL1;
+const arah2 =  process.env.NEXT_PUBLIC_API_URL2;
 
-// ${apiUrlUtama}/38/{arah2}` // yang ini arah Bundaran Hi
+// ${apiUrlUtama}/38/{arah1}` // yang ini arah Bundaran Hi
 // ${apiUrlUtama}/38/{arah2}` // yang ini arah Lebak Bulus
 
 const schedules = [
