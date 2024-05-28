@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/components/ui/themeprovider";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/core/header";
+import keywords from "@/lib/seo";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,14 +11,17 @@ export const metadata: Metadata = {
   icons: {
     icon: '/icon.ico', // /public path
   },
-  title: "MRTJ",
+  title: "MRT Jakarta",
   description: "Cari Jadwal MRT-mu disini!",
   generator: "Next.js",
   applicationName: "MRT API",
   referrer: "origin-when-cross-origin",
-  keywords: ["MRT", "Jadwal", "Stasiun MRT"],
-  authors: [{ name: "Jeremy" }, { name: "Perwira", url: "https://nextjs.org" }],
-  creator: "Jeremy Perwira",
+  keywords: keywords,
+  authors: [
+    { name: "Perwira", url: "https://github.com/Jeremyperwira" },
+    { name: "Albert125", url: "https://github.com/albertus125" },
+  ],
+  creator: "JPerwira",
   publisher: "Vercel",
   formatDetection: {
     email: false,

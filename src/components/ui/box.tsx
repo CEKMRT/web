@@ -23,6 +23,10 @@ const FilterData = (
   const userTimeInMinutes =
     typeof userTime === "string" ? JamKeMenit(userTime) : userTime;
 
+  if (!schedules || schedules.length === 0) {
+    console.log("Error: schedules is null, undefined, or empty.");
+    return []; // Return an empty array or any default value as needed
+  }
   const filteredSchedules = schedules
     .map((schedule) => ({
       ...schedule,
@@ -34,15 +38,18 @@ const FilterData = (
 
   if (process.env.NODE_ENV === "development") {
     console.log("Filtered Schedules:");
-    filteredSchedules.forEach((schedule, index) => {
-      console.log(
-        `${index + 1}. Schedule ID: ${schedule.id}, Jadwal: ${
-          schedule.jadwal
-        }, Jadwal in Minutes: ${schedule.jadwalInMinutes}`
-      );
-    });
+    if (filteredSchedules.length === 0) {
+      console.log("Tidak ada Jadwal Kereta.");
+    } else {
+      filteredSchedules.forEach((schedule, index) => {
+        console.log(
+          `${index + 1}. Schedule ID: ${schedule.id}, Jadwal: ${
+            schedule.jadwal
+          }, Jadwal in Minutes: ${schedule.jadwalInMinutes}`
+        );
+      });
+    }
   }
-
   return filteredSchedules;
 };
 
@@ -110,18 +117,18 @@ const ScheduleComponent: React.FC<{
 
     const dataInterval = setInterval(() => {
       fetchData(false);
-    }, 5000);
+    }, 30000);
     console.log(`Data updated at ${Jakarta()} (GMT+7).`);
 
     const timeInterval = setInterval(() => {
       setNow(Jakarta());
-    }, 5000);
+    }, 30000);
 
     return () => {
       clearInterval(dataInterval);
       clearInterval(timeInterval);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiUrl]);
 
   if (loading) {
@@ -153,8 +160,7 @@ const ScheduleComponent: React.FC<{
   }
 
   const jadwalTerbaru = FilterData(data, now);
-  console.log('----------------------------------')
-
+  console.log("----------------------------------");
 
   return (
     <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10">
@@ -187,7 +193,9 @@ const ScheduleComponent: React.FC<{
               </div>
             ))
           ) : (
-            <div className="col-span-3 text-red-500 font-bold">Tutup / Closed</div>
+            <div className="col-span-3 text-red-500 font-bold">
+              Tutup / Closed
+            </div>
           )}
         </div>
         {jadwalTerbaru.length > 0 && (
