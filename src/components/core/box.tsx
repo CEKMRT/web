@@ -4,8 +4,8 @@ import ScheduleComponent from "../ui/box";
 interface BoxCompProps {
   selectedSchedule: string | null;
 }
-const apiUrlUtama = "https://mrt-production.up.railway.app/api/schedules/";
-
+const apiUrlUtama = process.env.NEXT_PUBLIC_API_URL;
+// "https://mrt-production.up.railway.app/api/schedules/"
 const arah1 = "/Arah%20Bundaran%20HI";
 const arah2 = "/Arah%20Lebak%20Bulus";
 

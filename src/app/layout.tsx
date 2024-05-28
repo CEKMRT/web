@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   icons: {
-    icon: '/favicon.ico', // /public path
+    icon: '/icon.ico', // /public path
   },
   title: "MRTJ",
   description: "Cari Jadwal MRT-mu disini!",
@@ -39,7 +39,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <link rel="icon" href="/favicon.ico" sizes="any" />
+      <link rel="icon" href="/icon.png" sizes="any" />
       <body className={`${inter.className} min-h-screen bg-gray-200 dark:bg-zinc-800 no-scrollbar overflow-y-auto`}>
         <ThemeProvider
           attribute="class"

@@ -5,7 +5,7 @@ const DownloadButton = () => {
   
     const fetchData = async () => {
       try {
-        const data = await fetchScheduleData('https://mrt-production.up.railway.app/api/schedules');
+        const data = await fetchScheduleData(`${process.env.NEXT_PUBLIC_API_URL}/endpoint`);
         setScheduleData(data);
       } catch (error) {
         console.error(error);
