@@ -78,25 +78,40 @@ const ScheduleComponent: React.FC<{
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [now, setNow] = useState<string>(Jakarta());
+  const [initialFetch, setInitialFetch] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
 
-  const fetchData = async () => {
-    setIsFetching(true);
+  const fetchData = async (isInitialFetch = false) => {
+    if (isInitialFetch) {
+      setLoading(true);
+    } else {
+      setIsFetching(true);
+    }
     try {
       const result = await fetchScheduleData(apiUrl);
       setData(result);
+      setError(null); // Clear any previous error
     } catch (error) {
       setError(error as Error);
     } finally {
-      setLoading(false);
+      if (isInitialFetch) {
+        setLoading(false);
+      }
       setIsFetching(false);
     }
   };
 
   useEffect(() => {
-    fetchData();
-    const dataInterval = setInterval(fetchData, 5000);
-    console.log(`Data Terupdate pada ${Jakarta()} (GMT+7).`);
+    setInitialFetch(true);
+    setData([]); // Reset data when apiUrl changes
+    setError(null); // Reset error state when apiUrl changes
+    fetchData(true);
+    setInitialFetch(false);
+
+    const dataInterval = setInterval(() => {
+      fetchData(false);
+    }, 5000);
+    console.log(`Data updated at ${Jakarta()} (GMT+7).`);
 
     const timeInterval = setInterval(() => {
       setNow(Jakarta());
@@ -106,7 +121,9 @@ const ScheduleComponent: React.FC<{
       clearInterval(dataInterval);
       clearInterval(timeInterval);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiUrl]);
+
   if (loading) {
     return (
       <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10">
@@ -170,7 +187,7 @@ const ScheduleComponent: React.FC<{
               </div>
             ))
           ) : (
-            <div className="col-span-3 text-red-500 font-bold">Tutup</div>
+            <div className="col-span-3 text-red-500 font-bold">Tutup / Closed</div>
           )}
         </div>
         {jadwalTerbaru.length > 0 && (
