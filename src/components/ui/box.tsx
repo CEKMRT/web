@@ -118,7 +118,7 @@ const ScheduleComponent: React.FC<{
     const dataInterval = setInterval(() => {
       fetchData(false);
     }, 30000);
-    console.log(`Data updated at ${Jakarta()} (GMT+7).`);
+    console.log(`Data Terbaru pada ${Jakarta()} (GMT+7).`);
 
     const timeInterval = setInterval(() => {
       setNow(Jakarta());

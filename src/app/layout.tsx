@@ -9,10 +9,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   icons: {
-    icon: '/icon.ico', // /public path
+    icon: '/icon.png', // /public path
   },
   title: "MRT Jakarta",
-  description: "Cari Jadwal MRT-mu disini!",
+  description: "Temukan Jadwal MRT-mu disini!, Pulang Kerja, Kuliah, Belanja gak perlu bingung cari waktu buat naik MRT lagi!",
   generator: "Next.js",
   applicationName: "MRT API",
   referrer: "origin-when-cross-origin",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     "google-adsense-account": "ca-pub-6205951690099961",
   },
 };
-export const revalidate = 60; // revalidate
+export const revalidate = 3600; // revalidate
 export default function RootLayout({
   children,
 }: Readonly<{
