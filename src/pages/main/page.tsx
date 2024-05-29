@@ -1,19 +1,23 @@
 "use client";
-// import { ModeToggle } from "../../components/ui/modeToogle";
 import { useState } from "react";
-// import { getCurrentTime } from "@/lib/utils/currentTime";
 import TombolStasiun from "@/components/core/listStasiun";
 import BoxComp from "@/components/core/box";
 import TambahStation from "@/components/ui/tambahStasiun";
 
 const MainPage: React.FC = () => {
-  const [selectedSchedule, setSelectedSchedule] = useState<string | null>(null);
-  const [isTombolStasiunOpen, setIsTombolStasiunOpen] =
-    useState<boolean>(false);
+  const [selectedSchedules, setSelectedSchedules] = useState<string[]>([]);
+  const [isTombolStasiunOpen, setIsTombolStasiunOpen] = useState<boolean>(false);
 
   const handleTambahStationClick = () => {
     setIsTombolStasiunOpen((prevState) => !prevState);
-    // console.log("Tambah Station clicked");
+  };
+
+  const handleSelectStation = (station: string) => {
+    setSelectedSchedules((prevSelectedSchedules) => 
+      prevSelectedSchedules.includes(station)
+        ? prevSelectedSchedules.filter((s) => s !== station)
+        : [...prevSelectedSchedules, station]
+    );
   };
 
   return (
@@ -23,15 +27,18 @@ const MainPage: React.FC = () => {
         {isTombolStasiunOpen && (
           <div className="transition-opacity duration-2000 ease-in-out opacity-100 animate-pulse">
             <TombolStasiun
-              onSelectStation={setSelectedSchedule}
+              onSelectStation={handleSelectStation}
               isOpen={isTombolStasiunOpen}
             />
           </div>
         )}
       </div>
 
-      <BoxComp selectedSchedule={selectedSchedule} />
+      {selectedSchedules.map((schedule) => (
+        <BoxComp key={schedule} selectedSchedule={schedule} />
+      ))}
     </div>
   );
 };
+
 export default MainPage;
