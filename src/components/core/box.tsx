@@ -23,7 +23,7 @@ const schedules = [
     ],
   },
   {
-    id: "DukuhAtas",
+    id: "Dukuh Atas BNI",
     routes: [
       {
         apiUrl: `${apiUrlUtama}38${arah1}`,
@@ -38,7 +38,7 @@ const schedules = [
     ],
   },
   {
-    id: "Setiabudi",
+    id: "Setiabudi Astra",
     routes: [
       {
         apiUrl: `${apiUrlUtama}37${arah1}`,
@@ -53,7 +53,7 @@ const schedules = [
     ],
   },
   {
-    id: "Benhil",
+    id: "Bendungan Hilir",
     routes: [
       {
         apiUrl: `${apiUrlUtama}36${arah1}`,
@@ -68,7 +68,7 @@ const schedules = [
     ],
   },
   {
-    id: "Mandiri",
+    id: "Istora Mandiri",
     routes: [
       {
         apiUrl: `${apiUrlUtama}35${arah1}`,
@@ -98,7 +98,7 @@ const schedules = [
     ],
   },
   {
-    id: "Asean",
+    id: "ASEAN",
     routes: [
       {
         apiUrl: `${apiUrlUtama}33${arah1}`,
@@ -188,7 +188,7 @@ const schedules = [
     ],
   },
   {
-    id: "Lebak Bulus",
+    id: "Lebak Bulus Grab",
     routes: [
       {
         apiUrl: `${apiUrlUtama}20${arah1}`,

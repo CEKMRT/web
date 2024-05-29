@@ -133,7 +133,9 @@ const ScheduleComponent: React.FC<{
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiUrl]);
-
+  const handleRefresh = () => {
+    window.location.reload(); // Manually refresh the page
+  };
   if (loading) {
     return (
       <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10">
@@ -168,7 +170,10 @@ const ScheduleComponent: React.FC<{
         <div className="space-y-2">
           <h1 className="font-medium text-slate-600/80 dark:text-red-800/60">
             Gagal Menampilkan Data -{" "}
-            <span className="text-red-800">{error.message}</span>
+            <span  className="text-red-800">
+              {error.message}
+            </span><span/>
+            <a onClick={handleRefresh} className="font-medium text-slate-600/80 dark:text-red-800/60 hover:text-green-800 hover:font-bold hover:underline">Refresh</a>
           </h1>
         </div>
       </div>
