@@ -1,5 +1,5 @@
-"use client";
-import { useState } from "react";
+"use client"
+import { useState, useEffect } from "react";
 import TombolStasiun from "@/components/core/listStasiun";
 import BoxComp from "@/components/core/box";
 import TambahStation from "@/components/ui/tambahStasiun";
@@ -8,16 +8,34 @@ const MainPage: React.FC = () => {
   const [selectedSchedules, setSelectedSchedules] = useState<string[]>([]);
   const [isTombolStasiunOpen, setIsTombolStasiunOpen] = useState<boolean>(false);
 
+  // Load from localStorage when the component mounts
+  useEffect(() => {
+    const savedSchedules = localStorage.getItem("selectedSchedules");
+    if (savedSchedules) {
+      setSelectedSchedules(JSON.parse(savedSchedules));
+    }
+  }, []);
+
+  // Save to localStorage whenever selectedSchedules changes
+  useEffect(() => {
+    localStorage.setItem("selectedSchedules", JSON.stringify(selectedSchedules));
+  }, [selectedSchedules]);
+
   const handleTambahStationClick = () => {
     setIsTombolStasiunOpen((prevState) => !prevState);
   };
 
   const handleSelectStation = (station: string) => {
-    setSelectedSchedules((prevSelectedSchedules) => 
+    setSelectedSchedules((prevSelectedSchedules) =>
       prevSelectedSchedules.includes(station)
         ? prevSelectedSchedules.filter((s) => s !== station)
         : [...prevSelectedSchedules, station]
     );
+  };
+
+  const handleClearAll = () => {
+    setSelectedSchedules([]);
+    localStorage.removeItem("selectedSchedules");
   };
 
   return (
@@ -29,6 +47,8 @@ const MainPage: React.FC = () => {
             <TombolStasiun
               onSelectStation={handleSelectStation}
               isOpen={isTombolStasiunOpen}
+              activeStations={selectedSchedules}
+              onClearAll={handleClearAll}
             />
           </div>
         )}
