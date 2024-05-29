@@ -7,7 +7,7 @@ const StatusButton = () => {
       {/* <OnlineIndicator /> */}
 
       <a
-        href="https://jakartamrt.co.id/sites/default/files/inline-images/routemapmrtj.jpg"
+        href="https://jakartamrt.co.id/sites/default/files/2020-09/Feb-2019%20%281%29.jpeg"
         target="_blank"
         className="text-gray-500 hover:underline font-medium"
       >
