@@ -54,9 +54,9 @@ const TombolStasiun: React.FC<TombolStasiunProps> = ({
   const isActive = (station: string): boolean => localActiveStations.includes(station);
 
   const stations = [
-    "Bundaran HI", "DukuhAtas", "Setiabudi", "Benhil", "Mandiri",
-    "Senayan", "Asean", "Blok M", "Blok A", "Haji Nawi",
-    "Cipete", "Fatmawati", "Lebak Bulus"
+    "Bundaran HI", "Dukuh Atas BNI", "Setiabudi Astra", "Bendungan Hilir", "Istora Mandiri",
+    "Senayan", "ASEAN", "Blok M", "Blok A", "Haji Nawi",
+    "Cipete", "Fatmawati", "Lebak Bulus Grab"
   ];
 
 
