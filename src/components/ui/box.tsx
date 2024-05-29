@@ -181,7 +181,6 @@ const ScheduleComponent: React.FC<{
   }
 
   const jadwalTerbaru = FilterData(data, now);
-  console.log("----------------------------------");
 
   return (
     <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10">
