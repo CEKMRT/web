@@ -1,26 +1,37 @@
-export interface Schedule {
-  id: number;
-  station_id: number;
-  stasiun_name: string;
-  arah: string;
-  jadwal: string;
-}
+// import { fetchScheduleData } from "@/pages/api/req";
 
-const cachedData: Map<string, Schedule[]> = new Map(); // Define a cache Map
+// Define a Map for caching
+const cachedData: Map<string, Schedule[]> = new Map();
 
+// Function to clear cache if it's 2 AM Jakarta time
+const clearCacheAt2AM = () => {
+  const currentTime = new Date();
+  const currentTimeJakarta = new Date(currentTime.getTime() + 7 * 60 * 60 * 1000);
+
+  // Check if it's 2 AM Jakarta time
+  if (currentTimeJakarta.getHours() === 2 && currentTimeJakarta.getMinutes() === 0) {
+    cachedData.clear(); // Clear the cache
+    console.log("Cache cleared at 2 AM Jakarta time.");
+  }
+};
+
+// Periodically check and clear cache at 2 AM Jakarta time
+setInterval(clearCacheAt2AM, 60000); // Check every minute
+
+// Modify fetchScheduleData function to utilize the cache
 export const fetchScheduleData = async (
   apiUrl: string
 ): Promise<Schedule[]> => {
-
+  // Check if data is cached
   if (cachedData.has(apiUrl)) {
     return cachedData.get(apiUrl)!; // Use cached data if available
   }
 
-  if (!navigator.onLine) {
-    throw new Error(
-      "Jaringan Internet Anda Terputus. Pastikan Jaringan Anda Aktif."
-    );
-  }
+  // if (!navigator.onLine) {
+  //   throw new Error(
+  //     "Jaringan Internet Anda Terputus. Pastikan Jaringan Anda Aktif."
+  //   );
+  // }
   const authToken = process.env.NEXT_PUBLIC_AUTH_TOKEN;
 
   if (!authToken) {
