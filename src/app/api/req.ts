@@ -13,16 +13,16 @@ const clearCachedData = () => {
     now.getMinutes() === 0 &&
     now.getSeconds() === 0
   ) {
-    localStorage.removeItem("DataLocal");
+    localStorage.removeItem("scheduleData");
   }
 };
-
+const cacheTest = null;
 export const fetchScheduleData = async (
   apiUrl: string
 ): Promise<Schedule[]> => {
   clearCachedData(); // Check and clear cached data when fetching data
 
-  const cachedData = localStorage.getItem("DataLocal");
+  const cachedData = localStorage.getItem("scheduleData");
   if (cachedData) {
     return JSON.parse(cachedData);
   }
