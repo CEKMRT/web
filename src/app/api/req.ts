@@ -3,6 +3,13 @@ const saveCachedDataToLocalStorage = (cachedData: Map<string, Schedule[]>) => {
   localStorage.setItem('cachedData', JSON.stringify(Array.from(cachedData.entries())));
 };
 
+
+// // Function to clear cache manually
+// const clearCacheManually = () => {
+//   localStorage.removeItem('cachedData'); // Remove cached data from localStorage
+//   console.log("Cache manually cleared.");
+// };
+
 // Function to clear cache if it's 2 AM Jakarta time
 const clearCacheAt2AM = (cachedData: Map<string, Schedule[]>) => {
   const currentTime = new Date();
