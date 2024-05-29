@@ -6,10 +6,15 @@ export interface Schedule {
   jadwal: string;
 }
 
+const cachedData: Map<string, Schedule[]> = new Map(); // Define a cache Map
+
 export const fetchScheduleData = async (
   apiUrl: string
 ): Promise<Schedule[]> => {
 
+  if (cachedData.has(apiUrl)) {
+    return cachedData.get(apiUrl)!; // Use cached data if available
+  }
 
   if (!navigator.onLine) {
     throw new Error(
@@ -36,8 +41,10 @@ export const fetchScheduleData = async (
     }
 
     const result: Schedule[] = await response.json();
+    cachedData.set(apiUrl, result);
 
     return result;
+    
   } catch (error) {
     // Ensure that error is of type Error
     if (error instanceof Error) {
