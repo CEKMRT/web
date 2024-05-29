@@ -3,7 +3,7 @@
 
 const StatusButton = () => {
   return (
-    <div className="flex justify-center gap-x-4">
+    <div className="flex justify-center gap-x-4 text-sm">
       {/* <OnlineIndicator /> */}
 
       <a
