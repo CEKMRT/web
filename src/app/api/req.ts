@@ -6,26 +6,26 @@ export interface Schedule {
   jadwal: string;
 }
 
-const clearCachedData = () => {
-  const now = new Date();
-  if (
-    now.getHours() === 1 &&
-    now.getMinutes() === 0 &&
-    now.getSeconds() === 0
-  ) {
-    localStorage.removeItem("scheduleData");
-  }
-};
+// const clearCachedData = () => {
+//   const now = new Date();
+//   if (
+//     now.getHours() === 1 &&
+//     now.getMinutes() === 0 &&
+//     now.getSeconds() === 0
+//   ) {
+//     localStorage.removeItem("scheduleData");
+//   }
+// };
 const cacheTest = null;
 export const fetchScheduleData = async (
   apiUrl: string
 ): Promise<Schedule[]> => {
-  clearCachedData(); // Check and clear cached data when fetching data
+  // clearCachedData(); // Check and clear cached data when fetching data
 
-  const cachedData = localStorage.getItem("scheduleData");
-  if (cachedData) {
-    return JSON.parse(cachedData);
-  }
+  // const cachedData = localStorage.getItem("scheduleData");
+  // if (cachedData) {
+  //   return JSON.parse(cachedData);
+  // }
 
   if (!navigator.onLine) {
     throw new Error(
