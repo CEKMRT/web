@@ -25,7 +25,7 @@ const FilterData = (
 
   if (!schedules || schedules.length === 0) {
     console.log("Error: schedules is null, undefined, or empty.");
-    return []; // Return an empty array or any default value as needed
+    return []; 
   }
   const filteredSchedules = schedules
     .map((schedule) => ({
@@ -113,8 +113,8 @@ const ScheduleComponent: React.FC<{
 
   useEffect(() => {
     setInitialFetch(true);
-    setData([]); // Reset data when apiUrl changes
-    setError(null); // Reset error state when apiUrl changes
+    setData([]);
+    setError(null); 
     fetchData(true);
     setInitialFetch(false);
 

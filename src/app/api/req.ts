@@ -6,9 +6,27 @@ export interface Schedule {
   jadwal: string;
 }
 
+const clearCachedData = () => {
+  const now = new Date();
+  if (
+    now.getHours() === 1 &&
+    now.getMinutes() === 0 &&
+    now.getSeconds() === 0
+  ) {
+    localStorage.removeItem("DataLocal");
+  }
+};
+
 export const fetchScheduleData = async (
   apiUrl: string
 ): Promise<Schedule[]> => {
+  clearCachedData(); // Check and clear cached data when fetching data
+
+  const cachedData = localStorage.getItem("DataLocal");
+  if (cachedData) {
+    return JSON.parse(cachedData);
+  }
+
   if (!navigator.onLine) {
     throw new Error(
       "Jaringan Internet Anda Terputus. Pastikan Jaringan Anda Aktif."
@@ -30,38 +48,21 @@ export const fetchScheduleData = async (
     });
 
     if (!response.ok) {
-      switch (response.status) {
-        case 400:
-          throw new Error(
-            "Bad Request 400: Server tidak dapat memahami permintaan karena sintaks yang tidak valid. Hubungi Admin support@cekmrt.com."
-          );
-        case 401:
-          throw new Error(
-            "Unauthorized 401: Kredensial yang tidak valid. Hubungi Admin support@cekmrt.com."
-          );
-        case 403:
-          throw new Error(
-            "Forbidden 403: Anda tidak memiliki izin untuk mengakses sumber daya ini. Hubungi Admin support@cekmrt.com."
-          );
-        case 404:
-          throw new Error(
-            "Not Found 404: Sumber daya yang diminta tidak dapat ditemukan. Hubungi Admin support@cekmrt.com."
-          );
-        case 500:
-          throw new Error(
-            "Internal Server Error 500: Server mengalami kesalahan Internal dan tidak dapat menyelesaikan permintaan Anda. Hubungi Admin support@cekmrt.com."
-          );
-        default:
-          throw new Error(
-            `Unexpected error: ${response.statusText} . Hubungi Admin support@cekmrt.com.`
-          );
-      }
+      throw new Error("Failed to fetch data");
     }
 
     const result: Schedule[] = await response.json();
+
+    // Store the fetched data in localStorage
+    localStorage.setItem("scheduleData", JSON.stringify(result));
+
     return result;
-  } catch (error: any) {
-    // Handle network-related errors here
-    throw new Error("Network error: " + error.message);
+  } catch (error) {
+    // Ensure that error is of type Error
+    if (error instanceof Error) {
+      throw new Error("Error fetching data: " + error.message);
+    } else {
+      throw new Error("Error fetching data");
+    }
   }
 };
