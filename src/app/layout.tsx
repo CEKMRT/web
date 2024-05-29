@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/components/ui/themeprovider";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/core/header";
+import Footer from "@/components/core/footer";
 import keywords from "@/lib/seo";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -53,6 +54,7 @@ export default function RootLayout({
         >
           <Header />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

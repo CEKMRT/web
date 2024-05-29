@@ -57,6 +57,8 @@ const MainPage: React.FC = () => {
       {selectedSchedules.map((schedule) => (
         <BoxComp key={schedule} selectedSchedule={schedule} />
       ))}
+
+      {/* Status Button */}
     </div>
   );
 };
