@@ -1,5 +1,4 @@
 import SplineBg from "@/components/core/spline";
-import Spline from "@splinetool/react-spline";
 const Page = () => {
   return (
     <div className="p-4 relative overflow-hidden">

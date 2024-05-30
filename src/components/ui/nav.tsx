@@ -55,8 +55,17 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function NavigationMenuDemo() {
   return (
-    <NavigationMenu className=" invisible md:visible py-2">
+    <NavigationMenu className="invisible md:visible py-2 justify-center align-center">
       <NavigationMenuList>
+
+      <NavigationMenuItem>
+          <Link href="/" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Home
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+
       <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
@@ -64,6 +73,8 @@ export function NavigationMenuDemo() {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
+
+
         <NavigationMenuItem>
           <NavigationMenuTrigger>Bantuan</NavigationMenuTrigger>
           <NavigationMenuContent>

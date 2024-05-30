@@ -45,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="icon" href="/icon.png" sizes="any" />
-      <body className={`${inter.className} min-h-screen bg-gray-200 dark:bg-zinc-800 no-scrollbar overflow-y-auto select-none` }>
+      <body className={`${inter.className} min-h-screen bg-gray-200 dark:bg-zinc-800 no-scrollbar overflow-y-auto select-none relative` }>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
