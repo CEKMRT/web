@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { fetchScheduleData } from "@/app/api/req";
 import { Skeleton } from "./skeleton";
 import OnlineIndicator from "./indicator";
-
+import { ArrowsRightLeftIcon } from "@heroicons/react/16/solid";
 interface Schedule {
   id: number;
   station_id: number;
@@ -25,7 +25,7 @@ const FilterData = (
 
   if (!schedules || schedules.length === 0) {
     console.log("Error: schedules is null, undefined, or empty.");
-    return []; 
+    return [];
   }
   const filteredSchedules = schedules
     .map((schedule) => ({
@@ -119,12 +119,12 @@ const ScheduleComponent: React.FC<{
 
     const dataInterval = setInterval(() => {
       fetchData(false);
-    }, 30000);
+    }, 10000);
     console.log(`Data Terbaru pada ${Jakarta()} (GMT+7).`);
 
     const timeInterval = setInterval(() => {
       setNow(Jakarta());
-    }, 30000);
+    }, 10000);
 
     return () => {
       clearInterval(dataInterval);
@@ -179,13 +179,19 @@ const ScheduleComponent: React.FC<{
   const jadwalTerbaru = FilterData(data, now);
 
   return (
-    
     <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10">
       <div className="p-6 relative">
-        <h2 className="text-lg font-semibold text-center text-black dark:text-white relative">
-          {startStation} &rarr; {endStation}
-          <OnlineIndicator isFetching={isFetching} />
-        </h2>
+        <div className="flex justify-center w-full">
+          <h2 className="text-lg font-semibold text-black dark:text-white relative flex items-center">
+            {startStation}
+            <ArrowsRightLeftIcon
+              className="size-6 mx-2"
+              style={{ verticalAlign: "middle" }}
+            />
+            {endStation}
+            {/* <OnlineIndicator isFetching={isFetching} /> */}
+          </h2>
+        </div>
         <div className="grid grid-cols-3 gap-2 text-center mb-auto pt-4 pb-10 ">
           {jadwalTerbaru.length > 0 ? (
             jadwalTerbaru.map((schedule, index) => (
@@ -210,19 +216,21 @@ const ScheduleComponent: React.FC<{
               </div>
             ))
           ) : (
-            <div className="col-span-3 text-red-500 font-bold">Tutup / Closed</div>
+            <div className="col-span-3 text-red-500 font-bold">
+              Tutup / Closed
+            </div>
           )}
         </div>
         {jadwalTerbaru.length > 0 && (
           <div
-            className={`flex justify-around items-center p-1.5 rounded-b absolute inset-x-0 bottom-0 index-10 ${
+            className={`flex justify-around items-center p-1.5 rounded-b absolute inset-x-0 bottom-0 index-10 transition-colors duration-1000 ease-in-out ${
               SelisihWaktu(jadwalTerbaru[0].jadwal) === "N/A"
                 ? "bg-red-500 text-white "
                 : parseInt(SelisihWaktu(jadwalTerbaru[0].jadwal).toString()) ===
                   0
-                ? "bg-gray-500 text-white"
+                ? "bg-gray-500 text-white duration-200 animate-pulse"
                 : parseInt(SelisihWaktu(jadwalTerbaru[0].jadwal).toString()) < 3
-                ? "bg-red-500 text-white animate-pulse  "
+                ? "bg-red-500 text-white motion-safe:animate-pulse  "
                 : "bg-green-500 text-white"
             }`}
           >
@@ -257,3 +265,18 @@ const ScheduleComponent: React.FC<{
 };
 
 export default ScheduleComponent;
+
+
+/* const statusClass = () => {
+  const selisih = SelisihWaktu(jadwalTerbaru[0].jadwal);
+
+  if (selisih === "N/A") {
+    return "bg-red-500 text-white";
+  } else if (parseInt(selisih.toString()) === 0) {
+    return "bg-gray-500 text-white";
+  } else if (parseInt(selisih.toString()) < 3) {
+    return "bg-red-500 text-white animate-pulse";
+  } else {
+    return "bg-green-500 text-white";
+  }
+}; */
