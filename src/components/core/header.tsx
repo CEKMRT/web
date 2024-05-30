@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <div className="bg-gray-200 space-y-4 dark:bg-zinc-800 relative
+    <div className="bg-gray-200 space-y-4 dark:bg-zinc-800 relative z-20
     animate-flip-down animate-once animate-delay-200 animate-ease-in
     ">
       <div className="justify-center content-center place-content-evenly max-w-sm mx-auto bg-white shadow-md rounded-lg md:max-w-2xl px-4 dark:bg-black dark:border-neutral-800 dark:border-2 z-10 relative">
