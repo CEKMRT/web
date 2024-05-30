@@ -60,7 +60,7 @@ export function NavigationMenuDemo() {
       <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Cek Stasiun
+              Stasiun
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

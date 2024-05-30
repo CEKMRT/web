@@ -1,5 +1,6 @@
 import { ModeToggle } from "../ui/themebutton";
 import { NavigationMenuDemo } from "../ui/nav";
+import Link from "next/link";
 // import { getCurrentTime } from "@/lib/utils/currentTime";
 
 export default function Header() {
@@ -12,9 +13,9 @@ export default function Header() {
           <div className="text-3xl font-bold text-center">
             {/* {getCurrentTime()} */}
           </div>
-          <a className="font-normal md:text-xs text-sm">
-           Lacak Data MRT secara Realtime - 
-          </a>
+          <h1 className="font-normal md:text-xs text-sm">
+           Lacak Jadwal MRT secara Realtime -{">"} Made by <Link className="text-green-500 font-bold" target="_blank" href="https://github.com/CEKMRT">Cek MRT</Link>
+          </h1>
         </div>
         <NavigationMenuDemo />
       </div>

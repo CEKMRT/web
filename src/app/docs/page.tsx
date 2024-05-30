@@ -21,7 +21,7 @@ const Page = () => {
             Disini
           </Link>
         </p>
-        <CodeBlockk />
+        {/* <CodeBlockk /> */}
         <div>
           <DownloadButton />
         </div>
