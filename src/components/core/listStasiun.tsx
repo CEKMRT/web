@@ -15,16 +15,21 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ onClick, active, children }) => {
   return (
-    <button
-      onClick={onClick}
-      className={`px-4 py-2 rounded-md text-sm ${
+    <div className="flex flex-wrap grow shrink space-x-20">
+      <button
+        onClick={onClick}
+        className={`flex-1 grow shrink px-2 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium border transition transform delay-100 duration-300 ease-in-out
+      ${
         active
-          ? "text-white bg-green-600 border-green-700"
-          : "text-black bg-slate-50 border-slate-200 hover:bg-green-600 hover:text-white dark:border-slate-800 dark:text-white dark:bg-zinc-800 dark:border-2"
-      }`}
-    >
-      {children}
-    </button>
+          ? "text-white bg-green-600 border-green-700 scale-105 shadow-lg"
+          : "text-black bg-slate-50 border-slate-200 hover:bg-gray-700 hover:text-white hover:scale-110 hover:shadow-xl dark:border-slate-800 dark:text-white dark:bg-zinc-800 dark:border-2"
+      }
+      ${active ? "no-animation animate-none	" : ""}
+      `}
+      >
+        {children}
+      </button>
+    </div>
   );
 };
 
@@ -34,7 +39,8 @@ const TombolStasiun: React.FC<TombolStasiunProps> = ({
   activeStations,
   onClearAll,
 }) => {
-  const [localActiveStations, setLocalActiveStations] = useState<string[]>(activeStations);
+  const [localActiveStations, setLocalActiveStations] =
+    useState<string[]>(activeStations);
 
   useEffect(() => {
     setLocalActiveStations(activeStations);
@@ -51,17 +57,28 @@ const TombolStasiun: React.FC<TombolStasiunProps> = ({
     onSelectStation(station);
   };
 
-  const isActive = (station: string): boolean => localActiveStations.includes(station);
+  const isActive = (station: string): boolean =>
+    localActiveStations.includes(station);
 
   const stations = [
-    "Bundaran HI", "Dukuh Atas BNI", "Setiabudi Astra", "Bendungan Hilir", "Istora Mandiri",
-    "Senayan", "ASEAN", "Blok M", "Blok A", "Haji Nawi",
-    "Cipete", "Fatmawati", "Lebak Bulus Grab"
+    "Bundaran HI",
+    "Dukuh Atas BNI",
+    "Setiabudi Astra",
+    "Bendungan Hilir",
+    "Istora Mandiri",
+    "Senayan",
+    "ASEAN",
+    "Blok M",
+    "Blok A",
+    "Haji Nawi",
+    "Cipete",
+    "Fatmawati",
+    "Lebak Bulus Grab",
   ];
 
-
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden
+    animate-fade-down animate-once animate-duration-500 animate-delay-200 animate-ease-in">
       <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-b-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10">
         {stations.map((station) => (
           <Button
@@ -79,8 +96,7 @@ const TombolStasiun: React.FC<TombolStasiunProps> = ({
           Reset Stasiun
         </button>
       </div>
-      <div className="flex justify-center mt-4">
-      </div>
+      <div className="flex justify-center mt-4"></div>
     </div>
   );
 };

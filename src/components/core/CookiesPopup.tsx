@@ -19,15 +19,18 @@ const CookiesPopup: React.FC = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 p-4 bg-gray-800 text-white rounded-lg shadow-lg flex justify-between items-center z-50">
+    <div
+      className="fixed bottom-4 left-4 right-4 p-4 bg-gray-900/90 text-white rounded-lg shadow-lg flex md:flex-row flex-col space-y-2 md:space-y-0 justify-between items-center z-50 shadow-md
+      animate-fade-up animate-once animate-duration-1000 animate-delay-500 animate-ease-in"    >
       <p className="mr-4 text-xs md:text-base">
-        "Cek MRT Jakarta" MRT Jakarta merupakan aplikasi non-resmi dari
-        komunitas developer dalam upaya menyebarkan informasi serta mendukung
-        pengunaan transportasi publik.
+        <a className="text-green-500 font-medium"> Cek MRT Jakarta</a> merupakan
+        aplikasi non-resmi dari komunitas developer dalam upaya mendukung serta
+        menyebarkan informasi pengunaan transportasi publik.
       </p>
       <button
         onClick={handleClose}
-        className="bg-green-500 hover:bg-green-700 text-white fomt-medium md:font-bold py-2 px-2 md:px-4 rounded text-xs md:text-sm"
+        className="bg-green-500 hover:bg-green-700 text-white fomt-medium md:font-bold py-2 px-2 md:px-4 rounded text-xs md:text-sm
+        text-nowrap"
       >
         Ok, Mengerti
       </button>

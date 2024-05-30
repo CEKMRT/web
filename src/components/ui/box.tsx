@@ -180,10 +180,12 @@ const ScheduleComponent: React.FC<{
   const jadwalTerbaru = FilterData(data, now);
 
   return (
-    <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10">
-      <div className="p-6 relative">
+    <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10
+    animate-fade-up animate-once animate-delay-200 animate-ease-in    
+    ">
+      <div className="p-6 relative  ">
         <div className="flex justify-center w-full">
-          <h2 className="sm:text-sm md:text-lg font-semibold text-black dark:text-white relative flex items-center">
+          <h2 className="text-sm md:text-lg font-semibold text-black dark:text-white relative flex items-center">
             {startStation}
             <ChevronDoubleRightIcon
               className="size-6 mx-2"
@@ -203,7 +205,7 @@ const ScheduleComponent: React.FC<{
                   index === 0 &&
                   (SelisihWaktu(schedule.jadwal) === "N/A" ||
                     parseInt(SelisihWaktu(schedule.jadwal).toString()) < 3)
-                    ? "bg-red-500 text-white hover:animate-ping"
+                    ? "bg-red-500 text-white hover:animate-ping "
                     : index === 0
                     ? "bg-green-400 text-green-000"
                     : index === 1
@@ -229,7 +231,7 @@ const ScheduleComponent: React.FC<{
                 ? "bg-red-500 text-white "
                 : parseInt(SelisihWaktu(jadwalTerbaru[0].jadwal).toString()) ===
                   0
-                ? "bg-gray-500 text-white duration-500 animate-pulse"
+                ? "bg-gray-500 text-white motion-safe:animate-pulse"
                 : parseInt(SelisihWaktu(jadwalTerbaru[0].jadwal).toString()) < 3
                 ? "bg-red-500 text-white motion-safe:animate-pulse  "
                 : "bg-green-500 text-white"
@@ -250,7 +252,7 @@ const ScheduleComponent: React.FC<{
                     menit
                   </>
                 ) : (
-                  <div className="text-sm font-bold animate-bounce">
+                  <div className="text-sm font-bold animate-wiggle animate-infinite animate-duration-200 animate-ease-in-out">
                     Kereta Tiba
                   </div>
                 )
@@ -266,7 +268,6 @@ const ScheduleComponent: React.FC<{
 };
 
 export default ScheduleComponent;
-
 
 /* const statusClass = () => {
   const selisih = SelisihWaktu(jadwalTerbaru[0].jadwal);

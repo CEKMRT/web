@@ -25,7 +25,8 @@
     "react-code-blocks": "^0.1.6",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "tailwindcss-animated": "^1.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",

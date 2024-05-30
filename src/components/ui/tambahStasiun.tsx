@@ -20,12 +20,12 @@ const TambahStation: React.FC<TambahStationProps> = ({ onClick }) => {
     <div onClick={handleClick} className="relative">
       <div
         className={`flex items-center justify-center gap-4 md:py-4 py-2 max-w-sm mx-auto shadow-md rounded-t-full md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10
-      transition ease-in-out delay-500 duration-300
-      ${
-        !isUp
-          ? "bg-white rounded-full"
-          : "bg-green-600 text-white rounded-t-ful"
-      }`}
+        animate-fade animate-once animate-duration-1000 animate-delay-[1200ms] animate-ease-in
+                      ${
+                        !isUp
+                          ? "bg-white rounded-full"
+                          : "bg-green-600 text-white rounded-t-ful"
+                      }`}
       >
         <div className="mx-auto my-auto text-center flex items-center justify-center gap-4 font-medium">
           <div
