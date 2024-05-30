@@ -55,7 +55,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function NavigationMenuDemo() {
   return (
-    <NavigationMenu className=" invisible md:visible">
+    <NavigationMenu className=" invisible md:visible py-2">
       <NavigationMenuList>
       <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
