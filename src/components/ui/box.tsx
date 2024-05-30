@@ -228,7 +228,7 @@ const ScheduleComponent: React.FC<{
                 ? "bg-red-500 text-white "
                 : parseInt(SelisihWaktu(jadwalTerbaru[0].jadwal).toString()) ===
                   0
-                ? "bg-gray-500 text-white duration-200 animate-pulse"
+                ? "bg-gray-500 text-white duration-500 animate-pulse"
                 : parseInt(SelisihWaktu(jadwalTerbaru[0].jadwal).toString()) < 3
                 ? "bg-red-500 text-white motion-safe:animate-pulse  "
                 : "bg-green-500 text-white"
