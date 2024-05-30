@@ -27,3 +27,7 @@ interface Schedule {
     active?: boolean; 
   }
   
+  interface AnnouncementPopupProps {
+    isOpen: boolean;
+    onClose: () => void;
+  }

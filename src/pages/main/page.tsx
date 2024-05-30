@@ -3,10 +3,13 @@ import { useState, useEffect } from "react";
 import TombolStasiun from "@/components/core/listStasiun";
 import BoxComp from "@/components/core/box";
 import TambahStation from "@/components/ui/tambahStasiun";
+import CookiesPopup from "@/components/core/CookiesPopup";
+
 
 const MainPage: React.FC = () => {
   const [selectedSchedules, setSelectedSchedules] = useState<string[]>([]);
   const [isTombolStasiunOpen, setIsTombolStasiunOpen] = useState<boolean>(false);
+
 
   // Load from localStorage when the component mounts
   useEffect(() => {
@@ -38,9 +41,11 @@ const MainPage: React.FC = () => {
     localStorage.removeItem("selectedSchedules");
   };
 
+
   return (
     <div className="space-y-2 min-h-screen bg-gray-200 pt-2 dark:bg-zinc-800 no-scrollbar overflow-y-auto pb-16">
       <div className="space-y-0">
+      <CookiesPopup />
         <TambahStation onClick={handleTambahStationClick} />
         {isTombolStasiunOpen && (
           <div className="transition-opacity duration-2000 ease-in-out opacity-100 animate-pulse">

@@ -55,7 +55,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function NavigationMenuDemo() {
   return (
-    <NavigationMenu className="invisible md:visible py-2 justify-center align-center">
+    <NavigationMenu className="invisible md:visible  md:py-2 justify-center align-center">
       <NavigationMenuList>
 
       <NavigationMenuItem>
