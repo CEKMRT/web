@@ -180,18 +180,24 @@ const ScheduleComponent: React.FC<{
   const jadwalTerbaru = FilterData(data, now);
 
   return (
-    <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10
+    <div
+      className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10
     animate-fade-up animate-once animate-delay-200 animate-ease-in    
-    ">
+    "
+    >
       <div className="p-6 relative  ">
         <div className="flex justify-center w-full">
           <h2 className="text-sm md:text-lg font-semibold text-black dark:text-white relative flex items-center">
-            {startStation}
+            <span className="animate-fade-right animate-once animate-delay-[800ms] animate-ease-in">
+              {startStation}
+            </span>
             <ChevronDoubleRightIcon
-              className="size-6 mx-2"
+              className="size-6 mx-2 animate-fade-right animate-once animate-delay-[500ms] animate-ease-in"
               style={{ verticalAlign: "middle" }}
             />
-            {endStation}
+            <span className="animate-fade-left animate-once animate-delay-[1000ms] animate-ease-in">
+              {endStation}
+            </span>
             {/* <OnlineIndicator isFetching={isFetching} /> */}
           </h2>
         </div>
@@ -201,7 +207,9 @@ const ScheduleComponent: React.FC<{
               <div
                 key={schedule.id}
                 className={`py-2 rounded-full font-bold 
-                transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 ${
+                transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 
+                animate-fade animate-once animate-delay-1000 animate-ease-in
+                ${
                   index === 0 &&
                   (SelisihWaktu(schedule.jadwal) === "N/A" ||
                     parseInt(SelisihWaktu(schedule.jadwal).toString()) < 3)
@@ -226,16 +234,20 @@ const ScheduleComponent: React.FC<{
         </div>
         {jadwalTerbaru.length > 0 && (
           <div
-            className={`flex justify-around items-center p-1.5 rounded-b absolute inset-x-0 bottom-0 index-10 transition-colors duration-1000 ease-in-out ${
-              SelisihWaktu(jadwalTerbaru[0].jadwal) === "N/A"
-                ? "bg-red-500 text-white "
-                : parseInt(SelisihWaktu(jadwalTerbaru[0].jadwal).toString()) ===
-                  0
-                ? "bg-gray-500 text-white motion-safe:animate-pulse"
-                : parseInt(SelisihWaktu(jadwalTerbaru[0].jadwal).toString()) < 3
-                ? "bg-red-500 text-white motion-safe:animate-pulse  "
-                : "bg-green-500 text-white"
-            }`}
+            className={`flex justify-around items-center p-1.5 rounded-b absolute inset-x-0 bottom-0 index-10 transition-colors duration-1000 ease-in-out
+            animate-flip-up animate-once animate-ease-in 
+             ${
+               SelisihWaktu(jadwalTerbaru[0].jadwal) === "N/A"
+                 ? "bg-red-500 text-white "
+                 : parseInt(
+                     SelisihWaktu(jadwalTerbaru[0].jadwal).toString()
+                   ) === 0
+                 ? "bg-gray-500 text-white motion-safe:animate-pulse"
+                 : parseInt(SelisihWaktu(jadwalTerbaru[0].jadwal).toString()) <
+                   3
+                 ? "bg-red-500 text-white motion-safe:animate-pulse  "
+                 : "bg-green-500 text-white"
+             }`}
           >
             <div className="text-sm md:text-sm dark:font-medium">
               Jadwal Terdekat
