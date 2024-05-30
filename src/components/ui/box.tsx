@@ -3,6 +3,7 @@ import { fetchScheduleData } from "@/app/api/req";
 import { Skeleton } from "./skeleton";
 import OnlineIndicator from "./indicator";
 import { ArrowsRightLeftIcon } from "@heroicons/react/16/solid";
+import { ChevronDoubleRightIcon } from "@heroicons/react/16/solid";
 interface Schedule {
   id: number;
   station_id: number;
@@ -184,7 +185,7 @@ const ScheduleComponent: React.FC<{
         <div className="flex justify-center w-full">
           <h2 className="text-lg font-semibold text-black dark:text-white relative flex items-center">
             {startStation}
-            <ArrowsRightLeftIcon
+            <ChevronDoubleRightIcon
               className="size-6 mx-2"
               style={{ verticalAlign: "middle" }}
             />
