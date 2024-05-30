@@ -1,8 +1,5 @@
-// Define cachedData outside of fetchScheduleData function
-const cachedData: Map<string, Schedule[]> = new Map();
-
 // Function to save cached data to localStorage
-const saveCachedDataToLocalStorage = () => {
+const saveCachedDataToLocalStorage = (cachedData: Map<string, Schedule[]>) => {
   localStorage.setItem('cachedData', JSON.stringify(Array.from(cachedData.entries())));
 };
 
@@ -21,13 +18,10 @@ const clearCacheAt2AM = (cachedData: Map<string, Schedule[]>) => {
   // Check if it's 2 AM Jakarta time
   if (currentTimeJakarta.getHours() === 2 && currentTimeJakarta.getMinutes() === 0) {
     cachedData.clear(); // Clear the cache
-    saveCachedDataToLocalStorage(); // Save updated cache to localStorage
+    saveCachedDataToLocalStorage(cachedData); // Save updated cache to localStorage
     console.log("Cache cleared at 2 AM Jakarta time.");
   }
 };
-
-// Periodically check and clear cache at 2 AM Jakarta time
-setInterval(() => clearCacheAt2AM(cachedData), 60000); // Check every minute
 
 // Define fetchScheduleData function
 export const fetchScheduleData = async (
@@ -64,7 +58,7 @@ export const fetchScheduleData = async (
     
     const result: Schedule[] = await response.json();
     cachedData.set(apiUrl, result); // Cache the fetched data
-    saveCachedDataToLocalStorage(); // Save cached data to localStorage
+    saveCachedDataToLocalStorage(cachedData); // Save cached data to localStorage
     return result;
     
   } catch (error) {

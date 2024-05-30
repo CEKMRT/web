@@ -120,12 +120,12 @@ const ScheduleComponent: React.FC<{
 
     const dataInterval = setInterval(() => {
       fetchData(false);
-    }, 10000);
+    }, 30000);
     console.log(`Data Terbaru pada ${Jakarta()} (GMT+7).`);
 
     const timeInterval = setInterval(() => {
       setNow(Jakarta());
-    }, 10000);
+    }, 30000);
 
     return () => {
       clearInterval(dataInterval);
@@ -183,7 +183,7 @@ const ScheduleComponent: React.FC<{
     <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10">
       <div className="p-6 relative">
         <div className="flex justify-center w-full">
-          <h2 className="text-lg font-semibold text-black dark:text-white relative flex items-center">
+          <h2 className="sm:text-sm md:text-lg font-semibold text-black dark:text-white relative flex items-center">
             {startStation}
             <ChevronDoubleRightIcon
               className="size-6 mx-2"
