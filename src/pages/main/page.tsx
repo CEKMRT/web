@@ -39,7 +39,7 @@ const MainPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-2 min-h-screen bg-gray-200 pt-2 dark:bg-zinc-800 no-scrollbar overflow-y-auto">
+    <div className="space-y-2 min-h-screen bg-gray-200 pt-2 dark:bg-zinc-800 no-scrollbar overflow-y-auto pb-16">
       <div className="space-y-0">
         <TambahStation onClick={handleTambahStationClick} />
         {isTombolStasiunOpen && (

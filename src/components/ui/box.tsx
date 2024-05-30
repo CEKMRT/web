@@ -82,10 +82,9 @@ const ScheduleComponent: React.FC<{
   endStation: string;
 }> = ({ apiUrl, startStation, endStation }) => {
   const [data, setData] = useState<Schedule[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [now, setNow] = useState<string>(Jakarta());
   const [initialFetch, setInitialFetch] = useState(true);
-  // Render
-  const [loading, setLoading] = useState<boolean>(true);
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   //Styling
@@ -113,8 +112,8 @@ const ScheduleComponent: React.FC<{
 
   useEffect(() => {
     setInitialFetch(true);
-    setData([]);
-    setError(null); 
+    setData([]); // Reset data when apiUrl changes
+    setError(null); // Reset error state when apiUrl changes
     fetchData(true);
     setInitialFetch(false);
 
@@ -170,10 +169,7 @@ const ScheduleComponent: React.FC<{
         <div className="space-y-2">
           <h1 className="font-medium text-slate-600/80 dark:text-red-800/60">
             Gagal Menampilkan Data -{" "}
-            <span  className="text-red-800">
-              {error.message}
-            </span><span/>
-            <a onClick={handleRefresh} className="font-medium text-slate-600/80 dark:text-red-800/60 hover:text-green-800 hover:font-bold hover:underline">Refresh</a>
+            <span className="text-red-800">{error.message}</span>
           </h1>
         </div>
       </div>
@@ -183,6 +179,7 @@ const ScheduleComponent: React.FC<{
   const jadwalTerbaru = FilterData(data, now);
 
   return (
+    
     <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10">
       <div className="p-6 relative">
         <h2 className="text-lg font-semibold text-center text-black dark:text-white relative">
@@ -213,9 +210,7 @@ const ScheduleComponent: React.FC<{
               </div>
             ))
           ) : (
-            <div className="col-span-3 text-red-500 font-bold">
-              Tutup / Closed
-            </div>
+            <div className="col-span-3 text-red-500 font-bold">Tutup / Closed</div>
           )}
         </div>
         {jadwalTerbaru.length > 0 && (
