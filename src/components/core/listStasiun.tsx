@@ -79,7 +79,9 @@ const TombolStasiun: React.FC<TombolStasiunProps> = ({
   return (
     <div className="relative overflow-hidden
     animate-fade-down animate-once animate-duration-500 animate-delay-200 animate-ease-in">
-      <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-b-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10">
+      <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-b-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10
+      
+      ">
         {stations.map((station) => (
           <Button
             key={station}
@@ -91,7 +93,8 @@ const TombolStasiun: React.FC<TombolStasiunProps> = ({
         ))}
         <button
           onClick={onClearAll}
-          className="px-4 py-2 rounded-md text-sm text-white bg-gray-600 hover:bg-red-700"
+          className="px-4 py-2 rounded-md text-sm text-white bg-gray-600 hover:bg-red-700
+          hover:animate-spin animate-once animate-delay-1000 animate-ease-in"
         >
           Reset Stasiun
         </button>

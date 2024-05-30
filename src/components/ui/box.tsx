@@ -208,19 +208,19 @@ const ScheduleComponent: React.FC<{
                 key={schedule.id}
                 className={`py-2 rounded-full font-bold 
                 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 
-                animate-fade animate-once animate-delay-1000 animate-ease-in
+                
                 ${
                   index === 0 &&
                   (SelisihWaktu(schedule.jadwal) === "N/A" ||
                     parseInt(SelisihWaktu(schedule.jadwal).toString()) < 3)
-                    ? "bg-red-500 text-white hover:animate-ping "
+                    ? "bg-red-500 text-white animate-fade animate-once animate-delay-1000 animate-ease-in"
                     : index === 0
-                    ? "bg-green-400 text-green-000"
+                    ? "bg-green-400 text-green-000 animate-fade animate-once animate-delay-[1200ms] animate-ease-in"
                     : index === 1
-                    ? "bg-green-300 text-green-600"
+                    ? "bg-green-300 text-green-600 animate-fade animate-once animate-delay-[1400ms] animate-ease-in"
                     : index === 2
-                    ? "bg-green-200 text-green-800"
-                    : "bg-gray-200 text-gray-800"
+                    ? "bg-green-200 text-green-800 animate-fade animate-once animate-delay-[1600ms] animate-ease-in"
+                    : "bg-gray-200 text-gray-800 animate-fade animate-once animate-delay-[2000ms] animate-ease-in"
                 }`}
               >
                 {formatTime(schedule.jadwal)}
