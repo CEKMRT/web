@@ -1,12 +1,12 @@
 import React from "react";
-import ScheduleComponent from "../ui/box";
+import ScheduleComponent from "./renderJadwal";
 
 interface BoxCompProps {
   selectedSchedule: string | null;
 }
 const apiUrlUtama = process.env.NEXT_PUBLIC_API_URL;
 const arah1 = process.env.NEXT_PUBLIC_API_URL1;
-const arah2 =  process.env.NEXT_PUBLIC_API_URL2;
+const arah2 = process.env.NEXT_PUBLIC_API_URL2;
 
 // ${apiUrlUtama}/38/{arah1}` // yang ini arah Bundaran Hi
 // ${apiUrlUtama}/38/{arah2}` // yang ini arah Lebak Bulus
@@ -19,9 +19,8 @@ const schedules = [
         apiUrl: `${apiUrlUtama}39${arah2}`,
         startStation: "Bundaran HI",
         endStation: "Lebak Bulus Grab",
-        startLrt:[],
-        endLrt:["7A","8","D21"],
-
+        startLrt: [],
+        endLrt: ["7A", "8", "D21"],
       },
     ],
   },
@@ -86,16 +85,16 @@ const schedules = [
     ],
   },
   {
-    id: "Senayan",
+    id: "Senayan Mastercard",
     routes: [
       {
         apiUrl: `${apiUrlUtama}34${arah1}`,
-        startStation: "Senayan",
+        startStation: "Senayan Mastercard",
         endStation: "Bundaran HI",
       },
       {
         apiUrl: `${apiUrlUtama}34${arah2}`,
-        startStation: "Senayan",
+        startStation: "Senayan Mastercard",
         endStation: "Lebak Bulus Grab",
       },
     ],
@@ -116,21 +115,21 @@ const schedules = [
     ],
   },
   {
-    id: "Blok M",
+    id: "Blok M BCA",
     routes: [
       {
         apiUrl: `${apiUrlUtama}32${arah1}`,
-        startStation: "Blok M",
+        startStation: "Blok M BCA",
         endStation: "Bundaran HI",
-        startLrt:["1","1E","1K","1M","1Q","6M","7B","8D","13A"],
-        endLrt:[],
+        startLrt: ["1", "1E", "1K", "1M", "1Q", "6M", "7B", "8D", "13A"],
+        endLrt: [],
       },
       {
         apiUrl: `${apiUrlUtama}32${arah2}`,
-        startStation: "Blok M",
+        startStation: "Blok M BCA",
         endStation: "Lebak Bulus Grab",
-        startLrt:["1","1E","1K","1M","1Q","6M","7B","8D","13A"],
-        endLrt:[],
+        startLrt: ["1", "1E", "1K", "1M", "1Q", "6M", "7B", "8D", "13A"],
+        endLrt: [],
       },
     ],
   },
@@ -141,15 +140,15 @@ const schedules = [
         apiUrl: `${apiUrlUtama}31${arah1}`,
         startStation: "Blok A",
         endStation: "Bundaran HI",
-        startLrt:["1E"],
-        endLrt:[],
+        startLrt: ["1E"],
+        endLrt: [],
       },
       {
         apiUrl: `${apiUrlUtama}31${arah2}`,
         startStation: "Blok A",
         endStation: "Lebak Bulus Grab",
-        startLrt:["1E"],
-        endLrt:[],
+        startLrt: ["1E"],
+        endLrt: [],
       },
     ],
   },
@@ -160,53 +159,53 @@ const schedules = [
         apiUrl: `${apiUrlUtama}30${arah1}`,
         startStation: "Haji Nawi",
         endStation: "Bundaran HI",
-        startLrt:["1E"],
-        endLrt:[],
+        startLrt: ["1E"],
+        endLrt: [],
       },
       {
         apiUrl: `${apiUrlUtama}30${arah2}`,
         startStation: "Haji Nawi",
         endStation: "Lebak Bulus Grab",
-        startLrt:["1E"],
-        endLrt:[],
+        startLrt: ["1E"],
+        endLrt: [],
       },
     ],
   },
   {
-    id: "Cipete",
+    id: "Cipete Raya",
     routes: [
       {
         apiUrl: `${apiUrlUtama}29${arah1}`,
-        startStation: "Cipete",
+        startStation: "Cipete Raya",
         endStation: "Bundaran HI",
-        startLrt:["1E"],
-        endLrt:[],
+        startLrt: ["1E"],
+        endLrt: [],
       },
       {
         apiUrl: `${apiUrlUtama}29${arah2}`,
-        startStation: "Cipete",
+        startStation: "Cipete Raya",
         endStation: "Lebak Bulus Grab",
-        startLrt:["1E"],
-        endLrt:[],
+        startLrt: ["1E"],
+        endLrt: [],
       },
     ],
   },
   {
-    id: "Fatmawati",
+    id: "Fatmawati Indomaret",
     routes: [
       {
         apiUrl: `${apiUrlUtama}21${arah1}`,
-        startStation: "Fatmawati",
+        startStation: "Fatmawati Indomaret",
         endStation: "Bundaran HI",
-        startLrt:[],
-        endLrt:["7A","8","D21"],
+        startLrt: [],
+        endLrt: ["7A", "8", "D21"],
       },
       {
         apiUrl: `${apiUrlUtama}21${arah2}`,
-        startStation: "Fatmawati",
+        startStation: "Fatmawati Indomaret",
         endStation: "Lebak Bulus Grab",
-        startLrt:[],
-        endLrt:["7A","8","D21"],
+        startLrt: [],
+        endLrt: ["7A", "8", "D21"],
       },
     ],
   },
@@ -217,8 +216,8 @@ const schedules = [
         apiUrl: `${apiUrlUtama}20${arah1}`,
         startStation: "Lebak Bulus Grab",
         endStation: "Bundaran HI",
-        startLrt:["7A","8","D21"],
-        endLrt:[],
+        startLrt: ["7A", "8", "D21"],
+        endLrt: [],
       },
     ],
   },
@@ -238,8 +237,6 @@ const BoxComp: React.FC<BoxCompProps> = ({ selectedSchedule }) => {
             endStation={route.endStation}
             // startLrt={route.startLrt}
             // endLrt={route.endLrt}
-            
-            
           />
         ))}
     </>

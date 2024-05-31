@@ -1,115 +1,62 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { fetchScheduleData } from "@/app/api/req";
-import { Skeleton } from "./skeleton";
-import OnlineIndicator from "./indicator";
-import { ArrowsRightLeftIcon } from "@heroicons/react/16/solid";
 import { ChevronDoubleRightIcon } from "@heroicons/react/16/solid";
-interface Schedule {
-  id: number;
-  station_id: number;
-  stasiun_name: string;
-  arah: string;
-  jadwal: string; // (HH:MM)
-}
+import ErrorComponent from "../../ui/LoadingError/error";
+import LoadingComponent from "../../ui/LoadingError/loading";
+import {
+  JamKeMenit,
+  Jakarta,
+  SelisihWaktu,
+  formatTime,
+} from "@/lib/utils/timeUtils";
+import {
+  Schedule,
+  FilterData,
+  findLatestJadwal,
+} from "@/lib/utils/scheduleUtils";
 
-const JamKeMenit = (time: string): number => {
-  const [hours, minutes] = time.split(":").map(Number);
-  return hours * 60 + minutes;
-};
-
-const FilterData = (
-  schedules: Schedule[],
-  userTime: string | number
-): Schedule[] => {
-  const userTimeInMinutes =
-    typeof userTime === "string" ? JamKeMenit(userTime) : userTime;
-
-  if (!schedules || schedules.length === 0) {
-    console.log("Error: schedules is null, undefined, or empty.");
-    return [];
-  }
-  const filteredSchedules = schedules
-    .map((schedule) => ({
-      ...schedule,
-      jadwalInMinutes: JamKeMenit(schedule.jadwal),
-    }))
-    .filter((schedule) => schedule.jadwalInMinutes >= userTimeInMinutes)
-    .sort((a, b) => a.jadwalInMinutes - b.jadwalInMinutes)
-    .slice(0, 6);
-
-  if (process.env.NODE_ENV === "development") {
-    console.log("Filtered Schedules:");
-    if (filteredSchedules.length === 0) {
-      console.log("Tidak ada Jadwal Kereta.");
-    } else {
-      filteredSchedules.forEach((schedule, index) => {
-        console.log(
-          `${index + 1}. Schedule ID: ${schedule.id}, Jadwal: ${
-            schedule.jadwal
-          }, Jadwal in Minutes: ${schedule.jadwalInMinutes}`
-        );
-      });
-    }
-  }
-  return filteredSchedules;
-};
-
-const Jakarta = (): string => {
-  const currentTime = new Date();
-  const waktuJakarta = new Date(currentTime.getTime() + 7 * 60 * 60 * 1000);
-  return waktuJakarta.toISOString().slice(11, 16);
-};
-
-const SelisihWaktu = (scheduleTime: string): number | string => {
-  const currentTime = Jakarta();
-  const [currentTimeHours, currentTimeMinutes] = currentTime
-    .split(":")
-    .map(Number);
-  const [scheduleTimeHours, scheduleTimeMinutes] = scheduleTime
-    .split(":")
-    .map(Number);
-
-  const diffMinutes =
-    (scheduleTimeHours - currentTimeHours) * 60 +
-    (scheduleTimeMinutes - currentTimeMinutes);
-  return diffMinutes >= 0 ? diffMinutes : "N/A";
-};
-
-const formatTime = (time: string): string => time;
-
-const ScheduleComponent: React.FC<{
+interface ScheduleComponentProps {
   apiUrl: string;
   startStation: string;
   endStation: string;
-}> = ({ apiUrl, startStation, endStation }) => {
+}
+
+const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
+  apiUrl,
+  startStation,
+  endStation,
+}) => {
   const [data, setData] = useState<Schedule[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [now, setNow] = useState<string>(Jakarta());
   const [initialFetch, setInitialFetch] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  //Styling
+
   const randomWidth = Math.floor(Math.random() * (600 - 200 + 1)) + 200;
 
-  const fetchData = async (isInitialFetch = false) => {
-    if (isInitialFetch) {
-      setLoading(true);
-    } else {
-      setIsFetching(true);
-    }
-    try {
-      const result = await fetchScheduleData(apiUrl);
-      setData(result);
-      setError(null); // Clear any previous error
-    } catch (error) {
-      setError(error as Error);
-    } finally {
+  const fetchData = useCallback(
+    async (isInitialFetch = false) => {
       if (isInitialFetch) {
-        setLoading(false);
+        setLoading(true);
+      } else {
+        setIsFetching(true);
       }
-      setIsFetching(false);
-    }
-  };
+      try {
+        const result = await fetchScheduleData(apiUrl);
+        setData(result);
+        setError(null); // Clear any previous error
+      } catch (error) {
+        setError(error as Error);
+      } finally {
+        if (isInitialFetch) {
+          setLoading(false);
+        }
+        setIsFetching(false);
+      }
+    },
+    [apiUrl]
+  );
 
   useEffect(() => {
     setInitialFetch(true);
@@ -131,60 +78,25 @@ const ScheduleComponent: React.FC<{
       clearInterval(dataInterval);
       clearInterval(timeInterval);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [apiUrl]);
+  }, [apiUrl, fetchData]);
+
   const handleRefresh = () => {
     window.location.reload(); // Manually refresh the page
   };
+
   if (loading) {
-    return (
-      <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10">
-        <Skeleton
-          className="h-4 custom-width"
-          style={{ "--tw-custom-width": `${randomWidth}px` } as any}
-        />{" "}
-        <Skeleton className="h-[125px] w-[550px] rounded-xl" />
-        <Skeleton
-          className="h-8 custom-width"
-          style={{ "--tw-custom-width": `${randomWidth}px` } as any}
-        />
-        <div className="space-y-2">
-          <Skeleton
-            className="h-4 custom-width"
-            style={{ "--tw-custom-width": `${randomWidth}px` } as any}
-          />{" "}
-          <Skeleton
-            className="h-4 custom-width"
-            style={{ "--tw-custom-width": `${randomWidth}px` } as any}
-          />
-        </div>
-      </div>
-    );
+    return <LoadingComponent randomWidth={randomWidth} />;
   }
 
   if (error) {
-    return (
-      <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10">
-        <Skeleton className="w-[450px] h-[20px] rounded-full" />
-        <Skeleton className="h-[125px] w-[550px] rounded-xl bg-red-800/60 dark:bg-red-800" />
-        <div className="space-y-2">
-          <h1 className="font-medium text-slate-600/80 dark:text-red-800/60">
-            Gagal Menampilkan Data -{" "}
-            <span className="text-red-800">{error.message}</span>
-          </h1>
-        </div>
-      </div>
-    );
+    return <ErrorComponent errorMessage={error.message} />;
   }
 
   const jadwalTerbaru = FilterData(data, now);
+  const latestJadwal = findLatestJadwal(data);
 
   return (
-    <div
-      className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10
-    animate-fade-up animate-once animate-delay-200 animate-ease-in    
-    "
-    >
+    <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10 animate-fade-up animate-once animate-delay-200 animate-ease-in">
       <div className="p-6 relative  ">
         <div className="flex justify-center w-full">
           <h2 className="text-sm md:text-lg font-semibold text-black dark:text-white relative flex items-center">
@@ -198,7 +110,6 @@ const ScheduleComponent: React.FC<{
             <span className="animate-fade-left animate-once animate-delay-[1000ms] animate-ease-in">
               {endStation}
             </span>
-            {/* <OnlineIndicator isFetching={isFetching} /> */}
           </h2>
         </div>
         <div className="grid grid-cols-3 gap-2 text-center mb-auto pt-4 pb-10 ">
@@ -234,8 +145,8 @@ const ScheduleComponent: React.FC<{
         </div>
         {jadwalTerbaru.length > 0 && (
           <div
-            className={`flex justify-around items-center p-1.5 rounded-b absolute inset-x-0 bottom-0 index-10 transition-colors duration-1000 ease-in-out
-            animate-flip-up animate-once animate-ease-in 
+            className={`flex grow justify-around items-center p-2 rounded-b absolute inset-x-0 bottom-0 index-10 transition-colors duration-1000 ease-in-out 
+            animate-flip-up animate-once animate-ease-in px-2 
              ${
                SelisihWaktu(jadwalTerbaru[0].jadwal) === "N/A"
                  ? "bg-red-500 text-white "
@@ -249,16 +160,19 @@ const ScheduleComponent: React.FC<{
                  : "bg-green-500 text-white"
              }`}
           >
-            <div className="text-sm md:text-sm dark:font-medium">
-              Jadwal Terdekat
+            <div className="text-xs md:text-sm dark:font-medium">
+              <span className="hidden sm:block">Jadwal Terdekat</span>
+              <span className="sm:hidden"> Terdekat</span>
             </div>
-            <div className="text-lg font-bold">{jadwalTerbaru[0].jadwal}</div>
-            <div className="text-sm dark:font-medium">
+            <div className="text-xs md:text-sm font-bold">
+              {jadwalTerbaru[0].jadwal}
+            </div>
+            <div className="text-xs md:text-base dark:font-medium">
               {typeof SelisihWaktu(jadwalTerbaru[0].jadwal) === "number" ? (
                 SelisihWaktu(jadwalTerbaru[0].jadwal) !== 0 ? (
                   <>
                     Dalam{" "}
-                    <span className="font-bold">
+                    <span className="font-bold ">
                       {SelisihWaktu(jadwalTerbaru[0].jadwal)}
                     </span>{" "}
                     menit
@@ -271,6 +185,14 @@ const ScheduleComponent: React.FC<{
               ) : (
                 SelisihWaktu(jadwalTerbaru[0].jadwal)
               )}
+            </div>
+
+            <div className="text-xs md:text-sm font-bold">
+              {latestJadwal}
+            </div>
+            <div className="text-xs md:text-sm dark:font-medium">
+              <span className="hidden sm:block">Jadwal Terkahir</span>
+              <span className="sm:hidden"> Terakhir</span>
             </div>
           </div>
         )}

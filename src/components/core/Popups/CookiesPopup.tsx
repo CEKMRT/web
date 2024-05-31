@@ -21,9 +21,10 @@ const CookiesPopup: React.FC = () => {
   return (
     <div
       className="fixed bottom-4 left-4 right-4 p-4 bg-gray-900/90 text-white rounded-lg shadow-lg flex md:flex-row flex-col space-y-2 md:space-y-0 justify-between items-center z-50 shadow-md
-      animate-fade-up animate-once animate-duration-1000 animate-delay-500 animate-ease-in"    >
-      <p className="mr-4 text-xs md:text-base">
-        <a className="text-green-500 font-medium"> Cek MRT Jakarta</a> merupakan
+      animate-fade-up animate-once animate-duration-1000 animate-delay-500 animate-ease-in animate-pulse"
+    >
+      <p className="md:mr-4 text-xs md:text-base text-center text-pretty">
+        <a className="text-green-500 font-bold "> Cek MRT Jakarta</a> merupakan
         aplikasi non-resmi dari komunitas developer dalam upaya mendukung serta
         menyebarkan informasi pengunaan transportasi publik.
       </p>

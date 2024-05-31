@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import logoImg from "../../../public/logoImg.png";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 // import { Icons } from "@/components/icons"
 import {
   NavigationMenu,
@@ -55,10 +55,9 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function NavigationMenuDemo() {
   return (
-    <NavigationMenu className="invisible md:visible  md:py-2 justify-center align-center">
+    <NavigationMenu className="hidden sm:block md:py-2 justify-center align-center">
       <NavigationMenuList>
-
-      <NavigationMenuItem>
+        <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Home
@@ -66,14 +65,13 @@ export function NavigationMenuDemo() {
           </Link>
         </NavigationMenuItem>
 
-      <NavigationMenuItem>
+        <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Stasiun
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
-
 
         <NavigationMenuItem>
           <NavigationMenuTrigger>Bantuan</NavigationMenuTrigger>
@@ -83,7 +81,8 @@ export function NavigationMenuDemo() {
                 <NavigationMenuLink asChild>
                   <a
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="https://jakartamrt.co.id/id" target="_blank"
+                    href="https://jakartamrt.co.id/id"
+                    target="_blank"
                   >
                     <Image
                       src={logoImg}

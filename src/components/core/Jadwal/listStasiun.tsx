@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({ onClick, active, children }) => {
       ${
         active
           ? "text-white bg-green-600 border-green-700 scale-105 shadow-lg"
-          : "text-black bg-slate-50 border-slate-200 hover:bg-gray-700 hover:text-white hover:scale-110 hover:shadow-xl dark:border-slate-800 dark:text-white dark:bg-zinc-800 dark:border-2"
+          : "text-black bg-slate-50 border-slate-200 hover:bg-gray-400 hover:text-white hover:scale-110 hover:shadow-xl dark:border-slate-800 dark:text-white dark:bg-zinc-800 dark:border-2"
       }
       ${active ? "no-animation animate-none	" : ""}
       `}
@@ -66,22 +66,26 @@ const TombolStasiun: React.FC<TombolStasiunProps> = ({
     "Setiabudi Astra",
     "Bendungan Hilir",
     "Istora Mandiri",
-    "Senayan",
+    "Senayan Mastercard",
     "ASEAN",
-    "Blok M",
+    "Blok M BCA",
     "Blok A",
     "Haji Nawi",
-    "Cipete",
-    "Fatmawati",
+    "Cipete Raya",
+    "Fatmawati Indomaret",
     "Lebak Bulus Grab",
   ];
 
   return (
-    <div className="relative overflow-hidden
-    animate-fade-down animate-once animate-duration-500 animate-delay-200 animate-ease-in">
-      <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-b-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10
+    <div
+      className="relative overflow-hidden
+    animate-fade-down animate-once animate-duration-500 animate-delay-100 animate-ease-in"
+    >
+      <div
+        className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-b-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10
       
-      ">
+      "
+      >
         {stations.map((station) => (
           <Button
             key={station}
@@ -94,7 +98,7 @@ const TombolStasiun: React.FC<TombolStasiunProps> = ({
         <button
           onClick={onClearAll}
           className="px-4 py-2 rounded-md text-sm text-white bg-gray-600 hover:bg-red-700
-          hover:animate-spin animate-once animate-delay-1000 animate-ease-in"
+          hover:animate-spin animate-once animate-ease-in"
         >
           Reset Stasiun
         </button>

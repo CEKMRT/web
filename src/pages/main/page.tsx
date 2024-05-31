@@ -1,15 +1,14 @@
-"use client"
+'use client';
 import { useState, useEffect } from "react";
-import TombolStasiun from "@/components/core/listStasiun";
-import BoxComp from "@/components/core/box";
+import TombolStasiun from "@/components/core/Jadwal/listStasiun";
+import BoxComp from "@/components/core/Jadwal/routeJadwal";
 import TambahStation from "@/components/ui/tambahStasiun";
-import CookiesPopup from "@/components/core/CookiesPopup";
-
+import CookiesPopup from "@/components/core/Popups/CookiesPopup";
 
 const MainPage: React.FC = () => {
   const [selectedSchedules, setSelectedSchedules] = useState<string[]>([]);
-  const [isTombolStasiunOpen, setIsTombolStasiunOpen] = useState<boolean>(false);
-
+  const [isTombolStasiunOpen, setIsTombolStasiunOpen] =
+    useState<boolean>(false);
 
   // Load from localStorage when the component mounts
   useEffect(() => {
@@ -21,7 +20,10 @@ const MainPage: React.FC = () => {
 
   // Save to localStorage whenever selectedSchedules changes
   useEffect(() => {
-    localStorage.setItem("selectedSchedules", JSON.stringify(selectedSchedules));
+    localStorage.setItem(
+      "selectedSchedules",
+      JSON.stringify(selectedSchedules)
+    );
   }, [selectedSchedules]);
 
   const handleTambahStationClick = () => {
@@ -41,11 +43,10 @@ const MainPage: React.FC = () => {
     localStorage.removeItem("selectedSchedules");
   };
 
-
   return (
     <div className="space-y-2 min-h-screen bg-gray-200 pt-2 dark:bg-zinc-800 no-scrollbar overflow-y-auto pb-16">
       <div className="space-y-0">
-      <CookiesPopup />
+        <CookiesPopup />
         <TambahStation onClick={handleTambahStationClick} />
         {isTombolStasiunOpen && (
           <div className="transition-opacity duration-2000 ease-in-out opacity-100 animate-pulse">
@@ -58,12 +59,9 @@ const MainPage: React.FC = () => {
           </div>
         )}
       </div>
-
       {selectedSchedules.map((schedule) => (
         <BoxComp key={schedule} selectedSchedule={schedule} />
       ))}
-
-      {/* Status Button */}
     </div>
   );
 };

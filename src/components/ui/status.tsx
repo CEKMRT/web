@@ -3,7 +3,7 @@ import { MapIcon } from "@heroicons/react/16/solid";
 import { ChartBarIcon } from "@heroicons/react/16/solid";
 import { CodeBracketIcon } from "@heroicons/react/16/solid";
 import { ExclamationTriangleIcon } from "@heroicons/react/16/solid";
-import GeneralPopup from "../core/PopUpGeneral";
+import GeneralPopup from "../core/Popups/PopUpGeneral";
 import { useState } from "react";
 
 const StatusButton: React.FC = () => {
@@ -16,7 +16,7 @@ const StatusButton: React.FC = () => {
     setShowPopup(false);
   };
   return (
-    <div className="flex flex-nowrap justify-center  gap-x-1 md:gap-x-4 text-xs md:text-base text-nowrap ">
+    <div className="relative flex flex-nowrap justify-center  gap-x-1 md:gap-x-4 text-xs md:text-base">
       {/* <OnlineIndicator /> */}
 
       <a
@@ -43,7 +43,7 @@ const StatusButton: React.FC = () => {
         <CodeBracketIcon className="h-4 w-4 no-underline align-middle" />
       </a>
       <button 
-      className="text-gray-500 hover:underline font-medium flex gap-1 align-middle"
+      className="text-gray-500 hover:underline font-medium gap-1 align-middle"
       onClick={handleOpenPopup}>Disclaimer</button>
       <GeneralPopup
         isOpen={showPopup}
