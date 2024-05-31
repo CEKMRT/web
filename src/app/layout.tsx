@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "MRT Jakarta",
   description: "Temukan Jadwal MRT-mu disini!, Pulang Kerja, Kuliah, Belanja gak perlu bingung cari waktu buat naik MRT lagi!",
   generator: "Next.js",
-  applicationName: "MRT API",
+  applicationName: "Jadwal MRT",
   referrer: "origin-when-cross-origin",
   keywords: keywords,
   authors: [
