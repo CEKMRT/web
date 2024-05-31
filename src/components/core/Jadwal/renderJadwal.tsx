@@ -191,7 +191,7 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
               {latestJadwal}
             </div>
             <div className="text-xs md:text-sm dark:font-medium">
-              <span className="hidden sm:block">Jadwal Terkahir</span>
+              <span className="hidden sm:block">Jadwal Terakhir</span>
               <span className="sm:hidden"> Terakhir</span>
             </div>
           </div>
