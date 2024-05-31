@@ -1,4 +1,4 @@
-import SplineBg from "@/components/core/spline";
+// import SplineBg from "@/components/core/spline";
 const Page = () => {
   return (
     <div className="p-4 relative overflow-hidden">
@@ -9,7 +9,7 @@ const Page = () => {
             className="bg-white dark:bg-p-2 rounded-lg
           dark:bg-zinc-900 dark:border-slate-800 dark:border-2"
           >
-            <SplineBg />
+            {/* <SplineBg /> */}
           </div>
         </div>
       </div>
