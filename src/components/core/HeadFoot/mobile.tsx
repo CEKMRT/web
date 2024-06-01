@@ -8,7 +8,7 @@ const MobileMenu: React.FC = () => {
         <Link href="/">
           <button className="text-gray-600 dark:text-gray-200 hover:text-black m-2">Jadwal</button>
         </Link>
-        <Link href="/">
+        <Link href="/stasiun">
           <button className="text-gray-600 dark:text-gray-600 hover:text-black m-2">
             Stasiun
           </button>

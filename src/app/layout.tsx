@@ -10,10 +10,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   icons: {
-    icon: '/icon.png', // /public path
+    icon: "/icon.png", // /public path
   },
   title: "MRT Jakarta",
-  description: "Temukan Jadwal MRT-mu disini!, Pulang Kerja, Kuliah, Belanja gak perlu bingung cari waktu buat naik MRT lagi!",
+  description:
+    "Temukan Jadwal MRT-mu disini!, Pulang Kerja, Kuliah, Belanja gak perlu bingung cari waktu buat naik MRT lagi!",
   generator: "Next.js",
   applicationName: "Jadwal MRT",
   referrer: "origin-when-cross-origin",
@@ -39,22 +40,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-
-
   return (
     <html lang="en">
       <link rel="icon" href="/icon.png" sizes="any" />
-      <body className={`${inter.className} min-h-screen bg-gray-200 dark:bg-zinc-800 no-scrollbar overflow-y-auto select-none relative` }>
+      <body
+        className={`${inter.className} min-h-screen bg-gray-200 dark:bg-zinc-800 no-scrollbar overflow-y-auto select-none relative`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          {children}
-          <Footer />
+            <Header />
+            {children}
+            <Footer />
         </ThemeProvider>
       </body>
     </html>
