@@ -96,18 +96,18 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
   const latestJadwal = findLatestJadwal(data);
 
   return (
-    <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10 animate-fade-up animate-once animate-delay-200 animate-ease-in">
+    <div className="max-w-72 mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10 animate-fade-up animate-once animate-delay-200 animate-ease-in">
       <div className="p-6 relative  ">
         <div className="flex justify-center w-full">
-          <h2 className="text-sm md:text-lg font-semibold text-black dark:text-white relative flex items-center">
-            <span className="animate-fade-right animate-once animate-delay-[800ms] animate-ease-in">
+          <h2 className="text-xs sm:text-sm md:text-lg font-semibold text-black dark:text-white relative flex items-center">
+            <span className="animate-fade-right animate-once animate-delay-[800ms] animate-ease-in text-center">
               {startStation}
             </span>
             <ChevronDoubleRightIcon
-              className="size-6 mx-2 animate-fade-right animate-once animate-delay-[500ms] animate-ease-in"
+              className="size-6 sm:mx-2  animate-fade-right animate-once animate-delay-[500ms] animate-ease-in"
               style={{ verticalAlign: "middle" }}
             />
-            <span className="animate-fade-left animate-once animate-delay-[1000ms] animate-ease-in">
+            <span className="animate-fade-left animate-once animate-delay-[1000ms] animate-ease-in text-center">
               {endStation}
             </span>
           </h2>
@@ -126,12 +126,12 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
                     parseInt(SelisihWaktu(schedule.jadwal).toString()) < 3)
                     ? "bg-red-500 text-white animate-fade animate-once animate-delay-1000 animate-ease-in"
                     : index === 0
-                    ? "bg-green-400 text-green-000 animate-fade animate-once animate-delay-[1200ms] animate-ease-in"
+                    ? "bg-green-400 dark:bg-emerald-600 text-green-000 animate-fade animate-once animate-delay-[1200ms] animate-ease-in"
                     : index === 1
-                    ? "bg-green-300 text-green-600 animate-fade animate-once animate-delay-[1400ms] animate-ease-in"
+                    ? "bg-green-300 dark:bg-emerald-700  dark:text-white animate-fade animate-once animate-delay-[1400ms] animate-ease-in"
                     : index === 2
-                    ? "bg-green-200 text-green-800 animate-fade animate-once animate-delay-[1600ms] animate-ease-in"
-                    : "bg-gray-200 text-gray-800 animate-fade animate-once animate-delay-[2000ms] animate-ease-in"
+                    ? "bg-green-200 dark:bg-emerald-800 text-green-800 dark:text-white animate-fade animate-once animate-delay-[1600ms] animate-ease-in"
+                    : "bg-gray-200 dark:bg-slate-800 text-gray-800 dark:text-gray-200 animate-fade animate-once animate-delay-[2000ms] animate-ease-in"
                 }`}
               >
                 {formatTime(schedule.jadwal)}

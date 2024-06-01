@@ -1,6 +1,6 @@
-import Main from "@/pages/main/page";
+import MainPage from "../pages/main/page";
 export default function HomePage() {
   return (
-    <Main  />
+    <MainPage  />
   );
 }
