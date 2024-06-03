@@ -16,7 +16,7 @@ const StatusButton: React.FC = () => {
     setShowPopup(false);
   };
   return (
-    <div className="relative flex flex-nowrap justify-center  gap-x-1 md:gap-x-4 text-xs md:text-base">
+    <div className="relative hidden flex-nowrap justify-center  gap-x-1 md:gap-x-4 text-xs md:text-base md:flex">
       {/* <OnlineIndicator /> */}
 
       <a
