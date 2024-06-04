@@ -171,11 +171,11 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
               {typeof SelisihWaktu(jadwalTerbaru[0].jadwal) === "number" ? (
                 SelisihWaktu(jadwalTerbaru[0].jadwal) !== 0 ? (
                   <>
-                    Dalam{" "}
+                    -Dalam{" "}
                     <span className="font-bold ">
                       {SelisihWaktu(jadwalTerbaru[0].jadwal)}
                     </span>{" "}
-                    menit
+                    Menit-
                   </>
                 ) : (
                   <div className="text-sm font-bold animate-wiggle animate-infinite animate-duration-200 animate-ease-in-out">
@@ -192,7 +192,7 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
             </div>
             <div className="text-xs md:text-sm dark:font-medium">
               <span className="hidden sm:block">Jadwal Terakhir</span>
-              <span className="sm:hidden"> Terakhir</span>
+              <span className="sm:hidden">Terakhir</span>
             </div>
           </div>
         )}

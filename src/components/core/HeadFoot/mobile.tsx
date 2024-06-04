@@ -1,34 +1,45 @@
-// components/MobileMenu.tsx
+"use client";
 import Link from "next/link";
-import { ModeToggle } from "@/components/ui/themebutton";
+import { usePathname } from "next/navigation";
 const MobileMenu: React.FC = () => {
+  const currentPath = usePathname();
   return (
-    <div className="block md:hidden fixed bottom-0 left-0 w-full bg-gray-100 dark:bg-zinc-900 shadow-md py-2 text-center z-40 rounded-t-lg animate-flip-up animate-ease-in">
-      <nav className="flex flex-wrap justify-center text-sm">
-        <Link href="/">
-          <button className="text-gray-600 dark:text-gray-600 hover:text-black m-2">Jadwal</button>
+    <div className="block md:hidden fixed bottom-0 left-0 w-full bg-gray-100 dark:bg-zinc-900 shadow-md py-2 text-center z-10 rounded-t-lg animate-flip-up animate-ease-in">
+      <nav className="flex flex-wrap justify-center text-sm space-x-4">
+        <Link
+          href="/"
+          className={currentPath === "/" ? "text-green-500" : "text-slate-600"}
+        >
+          Jadwal
         </Link>
-        {/* <Link href="/">
-          <button className="text-gray-600 dark:text-gray-600 hover:text-black m-2">
-            Stasiun
-          </button>
-        </Link> */}
-        <div className="relative m-2  ">
-          <div className="w-8 h-8 rounded-full bg-white dark:bg-black dark:text-gray-600 absolute bottom-full left-1/2 transform -translate-x-1/2 overflow-hidden flex justify-center items-center border-2 border-emerald-900">
-            <div className="mb-4 dark:bg-black">
-              <ModeToggle />
-            </div>
-          </div>
-        </div>
-        <Link href="/bantuan">
-          <button className="text-gray-600 dark:text-gray-600 hover:text-black m-2">
-            Bantuan
-          </button>
+        <Link
+          href="/bantuan"
+          className={
+            currentPath === "/bantuan" ? "text-green-500" : "text-slate-600"
+          }
+        >
+          Bantuan
         </Link>
-        <Link href="/ai">
-          <button className="text-gray-600 dark:text-gray-600 hover:text-black m-2">
-            MRT AI <span className="font-base text-xs"><sup className="text-exponent text-green-500">by CekMRT </sup></span>
-          </button>
+        <Link
+          href="/ai"
+          className={
+            currentPath === "/ai"
+              ? "text-green-500 font-semibold"
+              : "text-slate-600"
+          }
+        >
+          MRT AI{" "}
+          <span className="font-base text-xs row">
+            <sup
+              className={
+                currentPath === "/ai" 
+                  ? "text-green-500 font-light "
+                  : "text-slate-600"
+              }
+            >
+              by CekMRT
+            </sup>
+          </span>
         </Link>
       </nav>
     </div>

@@ -1,11 +1,13 @@
-"use client";
+"use client"
 import { useEffect, useState } from "react";
 import { useChat } from "ai/react";
 import { user_questions } from "@/lib/utils/question";
 import AiPop from "@/components/core/Popups/AIPopups";
 
+
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
+  const [loading, setLoading] = useState(false); // Step 1: Set up loading state
   const [placeholder, setPlaceholder] = useState(
     "Tanyakan seputar Layanan MRT dan Kota Jakarta"
   );
@@ -20,11 +22,12 @@ export default function Chat() {
     return () => clearInterval(interval);
   }, []);
 
+
   return (
     <div className="flex flex-col items-center justify-center max-w-screen h-screen animate-fade-up animate-duration-[3000ms]">
-      <AiPop/>
+      <AiPop />
       <div className="flex flex-col w-full max-w-screen-sm h-full py-12 mx-auto bg-gray-100 dark:bg-zinc-800 border-1 rounded-lg shadow-xl">
-        <div className="flex flex-col flex-grow overflow-y-auto p-6 max-h-min	">
+        <div className="flex flex-col flex-grow overflow-y-auto p-6 max-h-min">
           {messages.map((m) => (
             <div
               key={m.id}
@@ -39,14 +42,7 @@ export default function Chat() {
                     : "text-blue-800 dark:text-blue-200 animate-fade-right animate-duration-[3000ms]"
                 }`}
               >
-                {m.role === "user" ? (
-                  "Kamu "
-                ) : (
-                  <>
-                    <span className="font-bold text-md">MRT AI</span> {""}
-                    <span className="font-normal text-xs">by CekMRT</span>
-                  </>
-                )}
+                {m.role === "user" ? "Kamu " : <>MRT AI <span className="font-normal text-xs">by CekMRT</span></>}
               </span>
 
               <span
