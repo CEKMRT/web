@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 const MobileMenu: React.FC = () => {
   const currentPath = usePathname();
   return (
-    <div className="block md:hidden fixed bottom-0 left-0 w-full bg-gray-100 dark:bg-zinc-900 shadow-md py-2 text-center z-10 rounded-t-lg animate-flip-up animate-ease-in">
+    <div className="block md:hidden fixed bottom-0 pb-6 left-0 w-full bg-gray-100 dark:bg-zinc-900 shadow-md py-2 text-center z-10 rounded-t-lg animate-flip-up animate-ease-in">
       <nav className="flex flex-wrap justify-center text-sm space-x-4">
         <Link
           href="/"
