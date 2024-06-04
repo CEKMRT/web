@@ -104,7 +104,7 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
               {startStation}
             </span>
             <ChevronDoubleRightIcon
-              className="size-6 sm:mx-2  animate-fade-right animate-once animate-delay-[500ms] animate-ease-in"
+              className="size-4 md:size-6 sm:mx-2  animate-fade-right animate-once animate-delay-[500ms] animate-ease-in"
               style={{ verticalAlign: "middle" }}
             />
             <span className="animate-fade-left animate-once animate-delay-[1000ms] animate-ease-in text-center">

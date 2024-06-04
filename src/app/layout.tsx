@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/core/HeadFoot/header";
 import Footer from "@/components/core/HeadFoot/footer";
 import keywords from "@/lib/definition/seo";
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,6 +47,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} min-h-screen bg-gray-200 dark:bg-zinc-800 no-scrollbar overflow-y-auto select-none relative`}
       >
+        <Analytics />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
