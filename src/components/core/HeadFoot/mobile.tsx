@@ -8,17 +8,18 @@ const MobileMenu: React.FC = () => {
       <nav className="flex flex-wrap justify-center text-sm space-x-4">
         <Link
           href="/"
-          className={currentPath === "/" ? "text-green-500" : "text-slate-600"}
+          className={currentPath === "#" ? "text-green-500" : "text-slate-600"}
         >
           Jadwal
         </Link>
         <Link
-          href="/bantuan"
+          href="https://github.com/CEKMRT"
+          target="_blank"
           className={
-            currentPath === "/bantuan" ? "text-green-500" : "text-slate-600"
+            currentPath === "https://github.com/CEKMRT" ? "text-green-500" : "text-slate-600"
           }
         >
-          Bantuan
+          Github
         </Link>
         <Link
           href="/ai"
