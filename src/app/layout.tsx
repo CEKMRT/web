@@ -5,7 +5,8 @@ import "./globals.css";
 import Header from "@/components/core/HeadFoot/header";
 import Footer from "@/components/core/HeadFoot/footer";
 import keywords from "@/lib/definition/seo";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,15 +49,16 @@ export default function RootLayout({
         className={`${inter.className} min-h-screen bg-gray-200 dark:bg-zinc-800 no-scrollbar overflow-y-auto select-none relative`}
       >
         <Analytics />
+        <SpeedInsights />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-            <Header />
-            {children}
-            <Footer />
+          <Header />
+          {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
