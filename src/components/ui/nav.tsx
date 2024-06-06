@@ -84,12 +84,12 @@ export function NavigationMenuDemo() {
                     href="https://jakartamrt.co.id/id"
                     target="_blank"
                   >
-                    <Image
-                      src="#"
+                    {/* <Image
+                      src="/"
                       // width={200}
                       // height={200}
                       alt="MRT"
-                    />
+                    /> */}
                     <div className="mb-2 mt-4 text-lg font-medium">CekMRT</div>
                     <p className="text-sm leading-tight text-muted-foreground">
                       Aplikasi Pengecekan Transportasi MRT, Install sekarang!
