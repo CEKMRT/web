@@ -2,7 +2,7 @@
 import Image from "next/image";
 import * as React from "react";
 import Link from "next/link";
-import logoImg from "../../../public/logoImg.png";
+// import logoImg from "../../../public/logoImg.png";
 
 import { cn } from "@/lib/utils/utils";
 // import { Icons } from "@/components/icons"
@@ -85,7 +85,7 @@ export function NavigationMenuDemo() {
                     target="_blank"
                   >
                     <Image
-                      src={logoImg}
+                      src="#"
                       // width={200}
                       // height={200}
                       alt="MRT"

@@ -7,7 +7,7 @@ interface LoadingComponentProps {
 
 const LoadingComponent: React.FC<LoadingComponentProps> = ({ randomWidth }) => {
   return (
-    <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10">
+    <div className="flex flex-wrap justify-between justify-items-start content-center place-content-evenly gap-4 md:py-4 py-2 max-w-72 mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl px-1 md:px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10">
       <Skeleton
         className="h-4 custom-width"
         style={{ "--tw-custom-width": `${randomWidth}px` } as any}

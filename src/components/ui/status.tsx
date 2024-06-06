@@ -48,7 +48,7 @@ const StatusButton: React.FC = () => {
       <GeneralPopup
         isOpen={showPopup}
         onClose={handleClosePopup}
-        message="This is a disclaimer announcement!"
+        message="Segala konten yang diterbitkan/publikasikan hanya ditujukan guna kepentingan penyampaian informasi kepada publik. Setiap orang/badan dilarang mempergunakan konten yang diterbitkan/dipublikasikan untuk penggunaan secara komersil tanpa persetujuan terlebih dahulu dari PT MRT Jakarta. Setiap pelanggaran atas pengunaan konten sebagaimana dimaksud adalah merupakan pelanggaran hukum. PT MRT Jakarta berhak melakukan segala tindakan/mengambil segala langkah hukum atas pelanggaran sebagaimana dimaksud."
         
       />
 

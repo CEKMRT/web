@@ -4,39 +4,49 @@ import { usePathname } from "next/navigation";
 const MobileMenu: React.FC = () => {
   const currentPath = usePathname();
   return (
-    <div className="block md:hidden fixed bottom-0 pb-6 left-0 w-full bg-gray-100 dark:bg-zinc-900 shadow-md py-2 text-center z-10 rounded-t-lg animate-flip-up animate-ease-in">
-      <nav className="flex flex-wrap justify-center text-sm space-x-4">
+    <div
+      className="md:hidden fixed bottom-0 left-0 w-full h-12 flex items-center justify-center bg-gray-100 dark:bg-zinc-900 py-2 text-center z-10 
+    rounded-t-lg border-2 border-gray-200 shadow-lg
+    
+    animate-flip-up animate-ease-in"
+    >
+      <nav className="flex flex-wrap justify-center items-center text-sm">
         <Link
           href="/"
-          className={currentPath === "#" ? "text-green-500" : "text-slate-600"}
+          className={`flex-1 text-center ${
+            currentPath === "/" ? "text-green-500" : "text-slate-600"
+          }`}
         >
           Jadwal
         </Link>
         <Link
-          href="https://github.com/CEKMRT"
+          href="https://jakartamrt.co.id/id/promo"
           target="_blank"
-          className={
-            currentPath === "https://github.com/CEKMRT" ? "text-green-500" : "text-slate-600"
-          }
+          className={`flex-1 text-center ${
+            currentPath === "https://jakartamrt.co.id/id/promo"
+              ? "text-green-500"
+              : "text-slate-600"
+          }`}
         >
-          Github
+          Promo
         </Link>
         <Link
           href="/ai"
-          className={
+          className={`flex-1 text-center ${
             currentPath === "/ai"
               ? "text-green-500 font-semibold"
               : "text-slate-600"
-          }
+          }`}
         >
-          MRT AI{" "}
-          <span className="font-base text-xs row">
+          MRT AI
+          <span className="relative inline-block">
+            
             <sup
-              className={
-                currentPath === "/ai" 
-                  ? "text-green-500 font-light "
+              className={`relative inline-block -top-1 -right-1 ${
+                currentPath === "/ai"
+                  ? "text-green-500 font-light"
                   : "text-slate-600"
-              }
+              }`}
             >
               by CekMRT
             </sup>

@@ -1,9 +1,8 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import { useChat } from "ai/react";
 import { user_questions } from "@/lib/utils/question";
 import AiPop from "@/components/core/Popups/AIPopups";
-
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
@@ -18,16 +17,27 @@ export default function Chat() {
     const interval = setInterval(() => {
       setPlaceholder(user_questions[index]);
       index = (index + 1) % user_questions.length;
-    }, 5000);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
-
 
   return (
     <div className="flex flex-col items-center justify-center max-w-screen h-screen animate-fade-up animate-duration-[3000ms]">
       <AiPop />
-      <div className="flex flex-col w-full max-w-screen-sm h-full py-12 mx-auto bg-gray-100 dark:bg-zinc-800 border-1 rounded-lg shadow-xl">
+      <div className="flex flex-col w-full max-w-screen-sm h-full py-12 mx-auto bg-gray-100 dark:bg-zinc-900 border-1 rounded-lg shadow-xl">
         <div className="flex flex-col flex-grow overflow-y-auto p-6 max-h-min">
+          <div className="text-left mb-2 mx-2 text-sm ">
+            <div className="font-bold text-sm text-gray-800 dark:text-zinc-200 animate-fade-right animate-duration-[3000ms]">
+              Tips MRT AI
+            </div>
+            <span
+              className=" block whitespace-pre-wrap font-medium text-sm text-gray-800 dark:text-zinc-900 animate-fade-right animate-duration-[3000ms]
+            bg-gray-200 rounded-lg px-4 py-2 fill"
+            >
+              Masukan pesan yang ingin kamu kirimkan pada kolom input dibagian
+              bawah untuk memulai!
+            </span>
+          </div>
           {messages.map((m) => (
             <div
               key={m.id}
@@ -42,7 +52,14 @@ export default function Chat() {
                     : "text-blue-800 dark:text-blue-200 animate-fade-right animate-duration-[3000ms]"
                 }`}
               >
-                {m.role === "user" ? "Kamu " : <>MRT AI <span className="font-normal text-xs">by CekMRT</span></>}
+                {m.role === "user" ? (
+                  "Kamu "
+                ) : (
+                  <>
+                    MRT AI{" "}
+                    <span className="font-normal text-xs">by CekMRT</span>
+                  </>
+                )}
               </span>
 
               <span
@@ -70,11 +87,14 @@ export default function Chat() {
           />
           <button
             type="submit"
-            className="flex-grow p-2 mx-2 border space-x-6 border-gray-300  resize-none rounded shadow-xl dark:bg-slate-900 text-xs md:text-base"
+            className="flex p-2 mx-2 border space-x-6 border-gray-300  resize-none rounded shadow-xl dark:bg-slate-900 text-xs md:text-base"
           >
             Kirim
           </button>
         </form>
+        <div className="flex items-center justify-center text-xs text-gray-400 mx-4">
+          <span className="text-center">MRT AI dapat membuat kesalahan. Pembatasan penggunaan berlaku.</span>
+        </div>
       </div>
     </div>
   );

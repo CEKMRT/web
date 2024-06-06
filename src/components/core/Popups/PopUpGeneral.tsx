@@ -35,13 +35,13 @@ const GeneralPopup: React.FC<GeneralPopupProps> = ({
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg">
-        <h2 className="text-xl font-bold mb-4">Announcement</h2>
+        <h2 className="text-xl font-bold mb-4">Disclaimer</h2>
         <p className="mb-4">{message}</p>
         <button
           onClick={handleClose}
           className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
         >
-          Close
+          Tutup
         </button>
       </div>
     </div>

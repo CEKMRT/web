@@ -3,7 +3,6 @@ import CodeBlockk from "@/components/ui/codeBlock";
 import DownloadButton from "@/components/ui/downloadjson";
 import Link from "next/link";
 
-
 const Page = () => {
   return (
     <div className="p-4 relative overflow-hidden">
@@ -18,13 +17,11 @@ const Page = () => {
             className="font-bold"
           >
             {" "}
-            Disini
+            disini
           </Link>
         </p>
         {/* <CodeBlockk /> */}
-        <div>
-          <DownloadButton />
-        </div>
+        <div></div>
       </div>
     </div>
   );
