@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useChat } from "ai/react";
 import { user_questions } from "@/lib/utils/question";
 import AiPop from "@/components/core/Popups/AIPopups";
+import { markdownToHtml } from "@/lib/utils/remarkHtml";
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
@@ -10,6 +11,7 @@ export default function Chat() {
   const [placeholder, setPlaceholder] = useState(
     "Tanyakan seputar Layanan MRT dan Kota Jakarta"
   );
+  const [formattedMessages, setFormattedMessages] = useState<{id: string, role: string, content: string}[]>([]);
 
   // Dynamically change placeholder every 5 seconds
   useEffect(() => {
@@ -20,6 +22,20 @@ export default function Chat() {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const formatMessages = async () => {
+      const formatted = await Promise.all(
+        messages.map(async (m) => {
+          const htmlContent = await markdownToHtml(m.content);
+          return { ...m, content: htmlContent };
+        })
+      );
+      setFormattedMessages(formatted);
+    };
+
+    formatMessages();
+  }, [messages]);
 
   return (
     <div className="flex flex-col items-center justify-center max-w-screen h-screen animate-fade-up animate-duration-[3000ms]">
@@ -32,13 +48,13 @@ export default function Chat() {
             </div>
             <span
               className=" block whitespace-pre-wrap font-medium text-sm text-gray-800 dark:text-zinc-900 animate-fade-right animate-duration-[3000ms]
-            bg-gray-200 rounded-lg px-4 py-2 fill"
+              bg-gray-200 rounded-lg px-4 py-2 fill"
             >
               Masukan pesan yang ingin kamu kirimkan pada kolom input dibagian
               bawah untuk memulai!
             </span>
           </div>
-          {messages.map((m) => (
+          {formattedMessages.map((m) => (
             <div
               key={m.id}
               className={`mb-2 mx-2 text-sm  ${
@@ -62,15 +78,14 @@ export default function Chat() {
                 )}
               </span>
 
-              <span
-                className={`block whitespace-pre-wrap font-medium ${
+              <div
+                className={`block font-medium ${
                   m.role === "user"
                     ? "bg-green-200 rounded-lg px-4 py-2 text-sm text-gray-800 fill animate-fade-left animate-duration-[3000ms]"
                     : "bg-blue-200 rounded-lg px-4 py-2 text-sm text-black fill animate-fade-right animate-duration-[3000ms]"
                 }`}
-              >
-                {m.content}
-              </span>
+                dangerouslySetInnerHTML={{ __html: m.content }}
+              />
             </div>
           ))}
         </div>

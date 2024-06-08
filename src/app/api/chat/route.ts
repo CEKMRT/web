@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     const { messages } = await req.json();
 
     const response = await openai.chat.completions.create({
-      model:"gpt-4o",
+      model: "gpt-4o",
       stream: true,
       max_tokens: 500,
       messages,
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
 
     const stream = OpenAIStream(response);
     return new StreamingTextResponse(stream);
-  } catch (error) {
+  } catch (error: any) { // Specify the type of error as any
     if (error instanceof OpenAI.APIError) {
       const { name, status, headers, message } = error;
       return NextResponse.json({ name, status, headers, message }, { status });
