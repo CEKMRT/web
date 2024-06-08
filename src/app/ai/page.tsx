@@ -37,6 +37,7 @@ export default function Chat() {
     formatMessages();
   }, [messages]);
 
+  
   return (
     <div className="flex flex-col items-center justify-center max-w-screen h-screen animate-fade-up animate-duration-[3000ms]">
       <AiPop />
