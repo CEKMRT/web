@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { codeExamples } from "@/lib/utils/codeExample";
+import ContactForm from "@/components/ui/forms";
 
 const Page = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("javascript");
@@ -126,6 +127,7 @@ const Page = () => {
               contact us at support@cekmrt.xyz
             </p>
           </section>
+          <ContactForm/>
         </div>
       </div>
     </div>
