@@ -1,5 +1,4 @@
 // Import the necessary modules
-import nextSitemapConfig from './next-sitemap.config';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
