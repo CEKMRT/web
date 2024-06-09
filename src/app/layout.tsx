@@ -32,9 +32,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  other: {
-    "google-adsense-account": "ca-pub-6205951690099961",
-  },
+
 };
 export const revalidate = 3600; // revalidate
 export default function RootLayout({
