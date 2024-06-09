@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   icons: {
-    icon: "/icon.png", // /public path
+    icon: "/icon1.png", // /public path
   },
   title: "MRT Jakarta",
   description:
