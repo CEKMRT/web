@@ -20,7 +20,7 @@ const GeneralPopup: React.FC<GeneralPopupProps> = ({
     if (isVisible) {
       const timeout = setTimeout(() => {
         onClose();
-      }, 5000);
+      }, 10000);
 
       return () => clearTimeout(timeout);
     }
