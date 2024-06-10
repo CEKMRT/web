@@ -1,3 +1,8 @@
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Bantuan',
+}
 const Page = () => {
   return (
 <div className="p-4 relative overflow-hidden">

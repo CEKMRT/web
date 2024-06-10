@@ -1,5 +1,3 @@
-// keywords.js
-
 const keywords = [
     "MRT",
     "Jadwal",
