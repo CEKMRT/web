@@ -34,7 +34,7 @@ const GeneralPopup: React.FC<GeneralPopupProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg">
+      <div className="bg-white p-6 rounded-lg shadow-lg mx-10">
         <h2 className="text-xl font-bold mb-4">Disclaimer</h2>
         <p className="mb-4">{message}</p>
         <button
