@@ -4,7 +4,6 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-// utils.ts
 export const getUserTime = () => {
   const date = new Date();
   const hours = date.getHours();
@@ -68,8 +67,4 @@ export const calculateRemainingMinutes = (scheduleTime: string): number => {
   }
   return remainingMinutes;
 };
-interface ButtonPropsComp {
-  selectedSchedule: string | null;
-  children: React.ReactNode;
-  onClick: () => void;
-}
+

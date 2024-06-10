@@ -137,10 +137,6 @@ export const fetchScheduleData = async (
     }
     return result;
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error("Kamu terputus " + error.message);
-    } else {
-      throw new Error("Error fetching data");
-    }
+    throw new Error(error instanceof Error ? `Kamu terputus ${error.message}` : "Error fetching data");
   }
 };

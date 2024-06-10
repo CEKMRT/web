@@ -5,13 +5,6 @@ interface Schedule {
     arah: string;
     jadwal: string;
   }
-  interface JSONExample {
-    id: number;
-    station_id: number;
-    stasiun_name: string;
-    arah: string;
-    jadwal: string;
-  }
   
   interface ScheduleComponentProps {
     apiUrl: string;

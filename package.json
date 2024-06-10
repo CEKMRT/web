@@ -1,6 +1,6 @@
 {
-  "name": "apitestnext",
-  "version": "0.1.0",
+  "name": "cekmrt",
+  "version": "0.8.5",
   "private": true,
   "scripts": {
     "dev": "next dev --experimental-https",
@@ -38,7 +38,8 @@
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-animated": "^1.1.0",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",
