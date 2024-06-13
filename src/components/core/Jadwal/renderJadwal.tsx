@@ -230,11 +230,11 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
         )}
 
         {/* Show more button */}
-        <ScrollAnimation variants={bounceVariants} className="mb-5 md:mb-7">
+        <ScrollAnimation variants={bounceVariants} className="mb-6 md:mb-7">
           
         {!initialFetch && visibleCount < jadwalTerbaru.length && (
           <button
-          className="bg-gray-200 hover:bg-green-500 text-white  px-2 py-1 text-xs md:text-sm md:px-4 md:py-2 rounded-full mx-auto block"
+          className="bg-gray-200 dark:bg-slate-800 hover:dark:bg-emerald-700 hover:bg-green-500 text-white  px-2 py-1 text-xs md:text-sm md:px-4 md:py-2 rounded-full mx-auto block"
           onClick={handleShowMore}
           >
             Lihat Semua
@@ -242,7 +242,7 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
         )}
         {visibleCount !== 6 && (
           <button
-          className="bg-gray-200 hover:bg-red-600 text-white px-2 py-1 text-xs md:text-sm md:px-4 md:py-2 rounded-full mx-auto block"
+          className="bg-gray-200 dark:bg-slate-800 hover:dark:bg-red-900 hover:bg-red-600 text-white px-2 py-1 text-xs md:text-sm md:px-4 md:py-2 rounded-full mx-auto block"
           onClick={handleShowLess}
           >
             Sembunyikan
