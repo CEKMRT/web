@@ -1,4 +1,4 @@
-This is a Open Source Jakarta MRT Project
+This is a Open Source Jakarta MRT Schedule Project
 
 ## What's in here
 
