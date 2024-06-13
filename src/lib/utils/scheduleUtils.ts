@@ -23,7 +23,7 @@ export const FilterData = (schedules: Schedule[], userTime: string | number): Sc
     }))
     .filter((schedule) => schedule.jadwalInMinutes >= userTimeInMinutes)
     .sort((a, b) => a.jadwalInMinutes - b.jadwalInMinutes)
-    .slice(0, 6);
+    // .slice(0, 6);
 
   if (process.env.NODE_ENV === "development") {
     console.log("Filtered Schedules:");

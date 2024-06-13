@@ -131,12 +131,12 @@ export const fetchScheduleData = async (
     }
 
     const result: Schedule[] = await response.json();
-    cachedData.set(apiUrl, result); // Cache the fetched data
+    cachedData.set(apiUrl, result); 
     if (
       typeof window !== "undefined" &&
       process.env.NODE_ENV === "development"
     ) {
-      saveCachedDataToLocalStorage(cachedData); // Save cached data to localStorage
+      saveCachedDataToLocalStorage(cachedData); 
       console.log(`Data fetched and cached in LocalStorage`);
     }
     return result;

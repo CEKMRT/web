@@ -5,7 +5,11 @@ import ErrorComponent from "../../ui/LoadingError/error";
 import LoadingComponent from "../../ui/LoadingError/loading";
 
 import ScrollAnimation from "@/components/framer/animation";
-import { bounceVariants, fadeInLeftVariants, fadeInUpVariants } from "@/components/framer/anima";
+import {
+  bounceVariants,
+  fadeInLeftVariants,
+  fadeInUpVariants,
+} from "@/components/framer/anima";
 import {
   JamKeMenit,
   Jakarta,
@@ -35,6 +39,7 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
   const [initialFetch, setInitialFetch] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const [visibleCount, setVisibleCount] = useState<number>(6); // State to track number of visible schedules
 
   const randomWidth = Math.floor(Math.random() * (600 - 200 + 1)) + 200;
 
@@ -71,7 +76,6 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
     const dataInterval = setInterval(() => {
       fetchData(false);
     }, 10000);
-    console.log(`Data Terbaru pada ${Jakarta()} (GMT+7).`);
 
     const timeInterval = setInterval(() => {
       setNow(Jakarta());
@@ -83,8 +87,16 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
     };
   }, [apiUrl, fetchData]);
 
-  const handleRefresh = () => {
-    window.location.reload(); // Manually refresh the page
+  // const handleRefresh = () => {
+  //   window.location.reload(); // Manually refresh the page
+  // };
+
+  const handleShowMore = () => {
+    setVisibleCount(jadwalTerbaru.length);
+  };
+
+  const handleShowLess = () => {
+    setVisibleCount(6);
   };
 
   if (loading) {
@@ -99,42 +111,60 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
   const latestJadwal = findLatestJadwal(data);
 
   return (
-    <ScrollAnimation variants={fadeInUpVariants} className="max-w-72 mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10 animate-fade-up animate-once animate-delay-200 animate-ease-in">
+    <ScrollAnimation
+      variants={fadeInUpVariants}
+      className="max-w-72 mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10 animate-fade-up animate-once animate-delay-200 animate-ease-in"
+    >
       <ScrollAnimation variants={fadeInUpVariants} className="p-6 relative  ">
-        <ScrollAnimation variants={bounceVariants} className="flex justify-center w-full">
+        <ScrollAnimation
+          variants={bounceVariants}
+          className="flex justify-center w-full"
+        >
           <h2 className="text-xs sm:text-sm md:text-lg font-semibold text-black dark:text-white relative flex items-center">
-            <ScrollAnimation variants={fadeInUpVariants} className="animate-fade-right animate-once animate-delay-[800ms] animate-ease-in text-center">
+            <ScrollAnimation
+              variants={fadeInUpVariants}
+              className="animate-fade-right animate-once animate-delay-[800ms] animate-ease-in text-center"
+            >
               {startStation}
             </ScrollAnimation>
             <ChevronDoubleRightIcon
               className="size-4 md:size-6 sm:mx-2  animate-fade-right animate-once animate-delay-[500ms] animate-ease-in"
               style={{ verticalAlign: "middle" }}
             />
-            <ScrollAnimation variants={fadeInUpVariants} className="animate-fade-left animate-once animate-delay-[1000ms] animate-ease-in text-center">
+            <ScrollAnimation
+              variants={fadeInUpVariants}
+              className="animate-fade-left animate-once animate-delay-[1000ms] animate-ease-in text-center"
+            >
               {endStation}
             </ScrollAnimation>
           </h2>
         </ScrollAnimation>
-        <div className="grid grid-cols-3 gap-2 text-center mb-auto pt-4 pb-10 ">
+        <div className="grid grid-cols-3 gap-2 text-center mb-auto pt-4 pb-4 ">
           {jadwalTerbaru.length > 0 ? (
-            jadwalTerbaru.map((schedule, index) => (
-              <ScrollAnimation variants={bounceVariants}
+            jadwalTerbaru.slice(0, visibleCount).map((schedule, index) => (
+              <ScrollAnimation
+                variants={fadeInUpVariants}
                 key={schedule.id}
                 className={`py-2 rounded-full font-bold 
-                transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 
+                  hover:-translate-y-1 hover:scale-140 duration-300
                 
                 ${
                   index === 0 &&
                   (SelisihWaktu(schedule.jadwal) === "N/A" ||
                     parseInt(SelisihWaktu(schedule.jadwal).toString()) < 3)
-                    ? "bg-red-500 text-white animate-fade animate-once animate-delay-1000 animate-ease-in"
+                    ? "bg-red-500 text-white  " 
+                    // animate-fade animate-once animate-delay-1000 animate-ease-in
                     : index === 0
-                    ? "bg-green-400 dark:bg-emerald-600 text-green-000 animate-fade animate-once animate-delay-[1200ms] animate-ease-in"
+                    ? "bg-green-400 dark:bg-emerald-600 text-green-000 "
+                    // animate-fade animate-once animate-delay-[1200ms] animate-ease-in
                     : index === 1
-                    ? "bg-green-300 dark:bg-emerald-700  dark:text-white animate-fade animate-once animate-delay-[1400ms] animate-ease-in"
+                    ? "bg-green-300 dark:bg-emerald-700  dark:text-white "
+                    // animate-fade animate-once animate-delay-[1400ms] animate-ease-in
                     : index === 2
-                    ? "bg-green-200 dark:bg-emerald-800 text-green-800 dark:text-white animate-fade animate-once animate-delay-[1600ms] animate-ease-in"
-                    : "bg-gray-200 dark:bg-slate-800 text-gray-800 dark:text-gray-200 animate-fade animate-once animate-delay-[2000ms] animate-ease-in"
+                    ? "bg-green-200 dark:bg-emerald-800 text-green-800 dark:text-white "
+                    // animate-fade animate-once animate-delay-[1600ms] animate-ease-in
+                    : "bg-gray-200 dark:bg-slate-800 text-gray-800 dark:text-gray-200"
+                    //  animate-fade animate-once animate-delay-[2000ms] animate-ease-in
                 }`}
               >
                 {formatTime(schedule.jadwal)}
@@ -147,7 +177,8 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
           )}
         </div>
         {jadwalTerbaru.length > 0 && (
-          <ScrollAnimation variants={bounceVariants}
+          <ScrollAnimation
+            variants={bounceVariants}
             className={`flex grow justify-around items-center p-2 rounded-b absolute inset-x-0 bottom-0 index-10 transition-colors duration-1000 ease-in-out 
             animate-flip-up animate-once animate-ease-in px-2 
              ${
@@ -197,6 +228,27 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
             <div className="text-xs md:text-sm font-bold">{latestJadwal}</div>
           </ScrollAnimation>
         )}
+
+        {/* Show more button */}
+        <ScrollAnimation variants={bounceVariants} className="mb-5 md:mb-7">
+          
+        {!initialFetch && visibleCount < jadwalTerbaru.length && (
+          <button
+          className="bg-gray-200 hover:bg-green-500 text-white  px-2 py-1 text-xs md:text-sm md:px-4 md:py-2 rounded-full mx-auto block"
+          onClick={handleShowMore}
+          >
+            Lihat Semua
+          </button>
+        )}
+        {visibleCount !== 6 && (
+          <button
+          className="bg-gray-200 hover:bg-red-600 text-white px-2 py-1 text-xs md:text-sm md:px-4 md:py-2 rounded-full mx-auto block"
+          onClick={handleShowLess}
+          >
+            Sembunyikan
+          </button>
+        )}
+      </ScrollAnimation>
       </ScrollAnimation>
     </ScrollAnimation>
   );
