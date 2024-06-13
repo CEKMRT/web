@@ -53,7 +53,7 @@ const StatusButton: React.FC = () => {
       />
 
       <a className="text-gray-500 hover:text-green-500 font-medium align-middle flex gap-1">
-        V0.8.5 (Beta)
+        V0.9.5 (Beta)
         <ExclamationTriangleIcon className="h-4 w-4 text-red-500 align-middle no-underline flex" />
       </a>
     </div>
