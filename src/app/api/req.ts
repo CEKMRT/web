@@ -27,7 +27,7 @@ const clearCache = () => {
 
 // Function to check and clear stale cache on initialization
 const checkAndClearStaleCache = () => {
-  if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
+  if (typeof window !== "undefined") {
     const lastCacheClearDate = localStorage.getItem("lastCacheClearDate");
     console.log("Last cache clear date from localStorage:", lastCacheClearDate);
     if (lastCacheClearDate) {
@@ -56,7 +56,7 @@ const checkAndClearStaleCache = () => {
 const initializeCache = () => {
   checkAndClearStaleCache();
 
-  if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
+  if (typeof window !== "undefined") {
     const cachedDataString = localStorage.getItem("cachedData");
     if (cachedDataString) {
       try {
@@ -96,7 +96,7 @@ const clearCacheAt2AM = (() => {
 })();
 
 // Periodically check and clear cache at 2 AM Jakarta time
-if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
+if (typeof window !== "undefined" ) {
   setInterval(() => clearCacheAt2AM(cachedData), 3600000); // Check every hour
 }
 
@@ -104,10 +104,10 @@ if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
 export const fetchScheduleData = async (
   apiUrl: string
 ): Promise<Schedule[]> => {
-  if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
+  if (typeof window !== "undefined" ) {
     // Check if data is cached
     if (cachedData.has(apiUrl)) {
-      console.log(`Showing data from cached data`);
+      console.log(`Showing Data from cached data`);
       return cachedData.get(apiUrl)!;
     }
   }
