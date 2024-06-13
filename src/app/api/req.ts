@@ -3,11 +3,15 @@ const cachedData: Map<string, Schedule[]> = new Map<string, Schedule[]>();
 
 // Function to save cached data to localStorage
 const saveCachedDataToLocalStorage = (cachedData: Map<string, Schedule[]>) => {
-  if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
-    localStorage.setItem(
-      "cachedData",
-      JSON.stringify(Array.from(cachedData.entries()))
-    );
+  if (typeof window !== "undefined") {
+    try {
+      localStorage.setItem(
+        "cachedData",
+        JSON.stringify(Array.from(cachedData.entries()))
+      );
+    } catch (error) {
+      console.error("Error saving cached data to localStorage:", error);
+    }
   }
 };
 
@@ -137,6 +141,10 @@ export const fetchScheduleData = async (
     }
     return result;
   } catch (error) {
-    throw new Error(error instanceof Error ? `Kamu terputus ${error.message}` : "Error fetching data");
+    throw new Error(
+      error instanceof Error
+        ? `Kamu terputus ${error.message}`
+        : "Error fetching data"
+    );
   }
 };
