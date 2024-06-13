@@ -1,12 +1,14 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+
 const MobileMenu: React.FC = () => {
   const currentPath = usePathname();
   return (
     <div
       className="md:hidden fixed bottom-0 left-0 w-full h-12 flex items-center justify-center bg-gray-100 dark:bg-zinc-900 py-2 text-center z-10 
-    rounded-t-lg border-2 border-gray-200 shadow-lg
+    rounded-t-lg border-gray-200 shadow-lg
     
     animate-flip-up animate-ease-in"
     >

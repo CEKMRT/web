@@ -3,6 +3,9 @@ import { fetchScheduleData } from "@/app/api/req";
 import { ChevronDoubleRightIcon } from "@heroicons/react/16/solid";
 import ErrorComponent from "../../ui/LoadingError/error";
 import LoadingComponent from "../../ui/LoadingError/loading";
+
+import ScrollAnimation from "@/components/framer/animation";
+import { bounceVariants, fadeInLeftVariants, fadeInUpVariants } from "@/components/framer/anima";
 import {
   JamKeMenit,
   Jakarta,
@@ -67,12 +70,12 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
 
     const dataInterval = setInterval(() => {
       fetchData(false);
-    }, 30000);
+    }, 10000);
     console.log(`Data Terbaru pada ${Jakarta()} (GMT+7).`);
 
     const timeInterval = setInterval(() => {
       setNow(Jakarta());
-    }, 30000);
+    }, 10000);
 
     return () => {
       clearInterval(dataInterval);
@@ -96,26 +99,26 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
   const latestJadwal = findLatestJadwal(data);
 
   return (
-    <div className="max-w-72 mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10 animate-fade-up animate-once animate-delay-200 animate-ease-in">
-      <div className="p-6 relative  ">
-        <div className="flex justify-center w-full">
+    <ScrollAnimation variants={fadeInUpVariants} className="max-w-72 mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl dark:bg-zinc-950 border-1 dark:border-neutral-800 dark:border-2 z-10 animate-fade-up animate-once animate-delay-200 animate-ease-in">
+      <ScrollAnimation variants={fadeInUpVariants} className="p-6 relative  ">
+        <ScrollAnimation variants={bounceVariants} className="flex justify-center w-full">
           <h2 className="text-xs sm:text-sm md:text-lg font-semibold text-black dark:text-white relative flex items-center">
-            <span className="animate-fade-right animate-once animate-delay-[800ms] animate-ease-in text-center">
+            <ScrollAnimation variants={fadeInUpVariants} className="animate-fade-right animate-once animate-delay-[800ms] animate-ease-in text-center">
               {startStation}
-            </span>
+            </ScrollAnimation>
             <ChevronDoubleRightIcon
               className="size-4 md:size-6 sm:mx-2  animate-fade-right animate-once animate-delay-[500ms] animate-ease-in"
               style={{ verticalAlign: "middle" }}
             />
-            <span className="animate-fade-left animate-once animate-delay-[1000ms] animate-ease-in text-center">
+            <ScrollAnimation variants={fadeInUpVariants} className="animate-fade-left animate-once animate-delay-[1000ms] animate-ease-in text-center">
               {endStation}
-            </span>
+            </ScrollAnimation>
           </h2>
-        </div>
+        </ScrollAnimation>
         <div className="grid grid-cols-3 gap-2 text-center mb-auto pt-4 pb-10 ">
           {jadwalTerbaru.length > 0 ? (
             jadwalTerbaru.map((schedule, index) => (
-              <div
+              <ScrollAnimation variants={bounceVariants}
                 key={schedule.id}
                 className={`py-2 rounded-full font-bold 
                 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 
@@ -135,7 +138,7 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
                 }`}
               >
                 {formatTime(schedule.jadwal)}
-              </div>
+              </ScrollAnimation>
             ))
           ) : (
             <div className="col-span-3 text-red-500 font-bold">
@@ -144,7 +147,7 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
           )}
         </div>
         {jadwalTerbaru.length > 0 && (
-          <div
+          <ScrollAnimation variants={bounceVariants}
             className={`flex grow justify-around items-center p-2 rounded-b absolute inset-x-0 bottom-0 index-10 transition-colors duration-1000 ease-in-out 
             animate-flip-up animate-once animate-ease-in px-2 
              ${
@@ -192,10 +195,10 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
               <span className="sm:hidden">Terakhir</span>
             </div>
             <div className="text-xs md:text-sm font-bold">{latestJadwal}</div>
-          </div>
+          </ScrollAnimation>
         )}
-      </div>
-    </div>
+      </ScrollAnimation>
+    </ScrollAnimation>
   );
 };
 

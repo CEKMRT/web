@@ -4,6 +4,8 @@ import TombolStasiun from "@/components/core/Jadwal/listStasiun";
 import BoxComp from "@/components/core/Jadwal/routeJadwal";
 import TambahStation from "@/components/ui/tambahStasiun";
 import CookiesPopup from "@/components/core/Popups/CookiesPopup";
+import ScrollAnimation from "@/components/framer/animation";
+import { bounceVariants } from "@/components/framer/anima";
 
 const MainPage: React.FC = () => {
   const [selectedSchedules, setSelectedSchedules] = useState<string[]>([]);
@@ -45,7 +47,7 @@ const MainPage: React.FC = () => {
 
   return (
     <div className="space-y-2 min-h-screen bg-gray-200 pt-2 dark:bg-zinc-800 no-scrollbar overflow-y-auto pb-16">
-      <div className="space-y-0">
+      <ScrollAnimation variants={bounceVariants} className="space-y-0">
         <CookiesPopup />
         <TambahStation onClick={handleTambahStationClick} />
         {isTombolStasiunOpen && (
@@ -58,7 +60,8 @@ const MainPage: React.FC = () => {
             />
           </div>
         )}
-      </div>
+      </ScrollAnimation>
+      
       {selectedSchedules.map((schedule) => (
         <BoxComp key={schedule} selectedSchedule={schedule} />
       ))}
