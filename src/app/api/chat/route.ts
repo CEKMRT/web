@@ -2,9 +2,9 @@ import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { NextResponse } from "next/server";
 
-// buat OpenAI Client requuuuuuestt
+// buat OpenAI Client Req
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // Key API, Jangan dishare
+  apiKey: process.env.OPENAI_API_KEY, 
 });
 
 

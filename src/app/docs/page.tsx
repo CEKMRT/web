@@ -1,7 +1,7 @@
-"use client";
+'use client'
 import React, { useState } from "react";
 import { codeExamples } from "@/lib/utils/codeExample";
-import ContactForm from "@/components/ui/forms";
+// import ContactForm from "@/components/ui/forms";
 
 const Page = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("javascript");
@@ -26,7 +26,6 @@ const Page = () => {
   return (
     <div className="p-4 relative overflow-hidden">
       <div className="flex flex-col justify-center items-center h-full gap-4 md:py-4 py-2 max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden md:max-w-2xl px-4 dark:bg-zinc-900 dark:border-slate-800 dark:border-2 z-10">
-        {/* <h1>Akan Hadir Dokumentasi API</h1> */}
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold mb-6">API Documentation</h1>
 
@@ -67,7 +66,6 @@ const Page = () => {
                 <strong>GET /api/schedules/&apos;id&apos;</strong>: Get a
                 specific station by ID.
               </li>
-              {/* Add more endpoints here */}
             </ul>
           </section>
 
@@ -93,7 +91,6 @@ const Page = () => {
                 <option value="java">Java</option>
                 <option value="golang">Golang</option>
 
-                {/* Add more language options here */}
               </select>
             </div>
             <div className="relative">
@@ -117,7 +114,6 @@ const Page = () => {
               A: You can obtain an API key by signing up on our website and
               generating one in the developer portal.
             </p>
-            {/* Add more FAQs here */}
           </section>
 
           <section className="mb-8 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg p-4 transition duration-300">
@@ -127,7 +123,7 @@ const Page = () => {
               contact us at support@cekmrt.xyz
             </p>
           </section>
-          <ContactForm/>
+          {/* <ContactForm/> */}
         </div>
       </div>
     </div>
@@ -135,18 +131,3 @@ const Page = () => {
 };
 
 export default Page;
-
-{
-  /* <p>
-Akses Link API
-<Link
-  rel="stylesheet"
-  href="https://mrt-production.up.railway.app/api/schedules"
-  target="_blank"
-  className="font-bold"
->
-  {" "}
-  disini
-</Link>
-</p> */
-}

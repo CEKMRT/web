@@ -75,7 +75,7 @@ const initializeCache = () => {
 
 initializeCache();
 
-// Function to clear cache if it's 2 AM Jakarta time
+// Function to clear cache if it's subuh time (2 AM)
 const clearCacheAt2AM = (() => {
   let clearedToday = false;
   return (cachedData: Map<string, Schedule[]>) => {

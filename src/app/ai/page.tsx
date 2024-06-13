@@ -7,7 +7,7 @@ import { markdownToHtml } from "@/lib/utils/remarkHtml";
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
-  const [loading, setLoading] = useState(false); // Step 1: Set up loading state
+  const [loading, setLoading] = useState(false); 
   const [placeholder, setPlaceholder] = useState(
     "Tanyakan seputar Layanan MRT dan Kota Jakarta"
   );
@@ -109,7 +109,7 @@ export default function Chat() {
           </button>
         </form>
         <div className="flex items-center justify-center text-xs text-gray-400 mx-4">
-          <span className="text-center">MRT AI dapat membuat kesalahan. Pembatasan penggunaan berlaku.</span>
+          <span className="text-center">MRT AI dapat membuat kesalahan. Pembatasan berlaku.</span>
         </div>
       </div>
     </div>
