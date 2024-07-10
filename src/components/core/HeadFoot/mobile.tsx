@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { FaHome, FaCalendarAlt, FaRobot, FaUserAlt } from 'react-icons/fa';
+import { FaHome, FaCalendarAlt, FaRobot, FaUserAlt,FaNewspaper  } from 'react-icons/fa';
 
 const MobileNavigation = () => {
   const currentPath = usePathname();
@@ -11,13 +11,13 @@ const MobileNavigation = () => {
   const navItems = [
     { href: '/', label: 'Jadwal', icon: FaCalendarAlt },
     { href: '/ai', label: 'MRT AI', icon: FaRobot },
-    { href: '/aa', label: 'Home', icon: FaHome },
+    { href: '/news', label: 'Berita', icon: FaNewspaper },
     { href: '/profile', label: 'Profile', icon: FaUserAlt },
   ];
 
   return (
     <motion.nav
-      className="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-800 shadow-lg"
+      className="block md:hidden fixed bottom-0 left-0 w-full bg-white dark:bg-gray-800 shadow-lg"
       initial={{ y: 100 }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}

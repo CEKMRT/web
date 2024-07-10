@@ -16,15 +16,15 @@ const NotFoundPage = () => {
       >
         <FileQuestion className="mx-auto h-16 w-16 text-yellow-500 mb-4" />
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">404 - Page Not Found</h1>
-        <p className="text-gray-600 dark:text-gray-400 mb-6">Oops! The page you're looking for doesn't exist.</p>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">Oops! Halaman yang kamu cari belum ada.</p>
         <Link href="/" passHref>
           <motion.span
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded inline-flex items-center"
+            className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded inline-flex items-center"
           >
             <ChevronLeft className="mr-2 h-4 w-4" />
-            Back to Home
+            Kembali ke Jadwal
           </motion.span>
         </Link>
       </motion.div>

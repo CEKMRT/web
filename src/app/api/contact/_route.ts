@@ -12,7 +12,7 @@ export async function postHandler(req: NextApiRequest, res: NextApiResponse) {
       service: 'Zoho',
       auth: {
         user: 'support@cekmrt.xyz',
-        pass: 'supportcekmrt' // Replace with your Zoho Mail password
+        pass: '' // Replace with your Zoho Mail password
       }
     });
 

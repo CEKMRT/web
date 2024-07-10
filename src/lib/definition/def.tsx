@@ -24,3 +24,15 @@ interface Schedule {
     isOpen: boolean;
     onClose: () => void;
   }
+   interface MRTNewsItem {
+    title: string;
+    date: string;
+    link: string;
+  }
+  
+  interface CachedData {
+    _id: string;
+    data: MRTNewsItem[];
+    timestamp: number;
+  }
+  

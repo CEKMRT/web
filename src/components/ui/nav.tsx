@@ -100,10 +100,8 @@ export function NavigationMenuDemo() {
               <ListItem href="/bantuan" title="Panduan">
                 Kendala dalam menggunakan Aplikasi CekMRT? Cek disini.
               </ListItem>
-              <ListItem href="/bantuan" title="Bagikan">
-                Sharing is Yapping, Ayo informasikan aplikasi CekMRT ke
-                Keluarga, Istri, Pacar, Tetangga, Dede Inoen, Komeng, dan
-                Lainnya!.
+              <ListItem href="/news" title="Berita">
+                Informasi terkini Terkait MRT
               </ListItem>
               <ListItem href="/bantuan" title="Ulasan">
                 Beri ulasan untuk aplikasi ini. Aplikasi Bintang 5, API Bintang
