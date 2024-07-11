@@ -62,7 +62,7 @@ const RunningText: React.FC = () => {
       <div className="whitespace-nowrap animate-marquee text-white text-xs md:font-medium md:text-md px-4">
         <span>{currentItem.title}{" "}
           <a
-            href={currentItem.link}
+            href={`https://jakartamrt.co.id/${currentItem.link}`}
             className="text-green-400 hover:underline"
             target="_blank"
             rel="noopener noreferrer"

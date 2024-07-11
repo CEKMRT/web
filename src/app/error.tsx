@@ -6,7 +6,7 @@ import { AlertCircle, ChevronLeft } from 'lucide-react';
 
 const ErrorPage = ({ error, reset }: { error: Error; reset: () => void }) => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-transparent  px-4">
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -14,7 +14,7 @@ const ErrorPage = ({ error, reset }: { error: Error; reset: () => void }) => {
         className="text-center"
       >
         <AlertCircle className="mx-auto h-16 w-16 text-red-500 mb-4" />
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Oops! Something went wrong</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Oops! Terdapat Kendala!</h1>
         <p className="text-gray-600 dark:text-gray-400 mb-6">{error.message}</p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <motion.button
