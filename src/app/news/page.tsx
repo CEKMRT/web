@@ -1,4 +1,5 @@
 import redis from "@/lib/utils/redis";
+import NewsItem from "@/components/ui/news";
 
 async function getMRTNews(): Promise<MRTNewsItem[]> {
   const CACHE_KEY = "mrt_news_latest";
@@ -33,30 +34,17 @@ export default async function MRTNews() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">
-        Jakarta MRT News
-      </h1>
+      <h1 className="text-3xl font-bold text-gray-800">Berita Terbaru</h1>
+      <h2 className="text-md font-light mb-6 text-gray-600">
+        Informasi terbaru yang diambil melalui website resmi{" "}
+        <span className="text-green-600 font-medium"> MRT Jakarta.</span> <br />
+        <span className="text-xs text-gray-400 mb-0">
+          *Informasi diupdate secara rutin dan berkala.
+        </span>
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {newsItems.map((item, index) => (
-          <div
-            key={index}
-            className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
-          >
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">
-                {item.title}
-              </h3>
-              <p className="text-sm text-gray-600 mb-4">{item.date}</p>
-              <a
-                href={item.link}
-                className="inline-block bg-emerald-500 text-white py-2 px-4 rounded hover:bg-emerald-600 transition-colors duration-300"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Baca Lebih
-              </a>
-            </div>
-          </div>
+          <NewsItem key={index} item={item} />
         ))}
       </div>
     </div>
