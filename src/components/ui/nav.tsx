@@ -66,6 +66,14 @@ export function NavigationMenuDemo() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
+          <Link href="/news" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Berita
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem>
           <Link href="/ai" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               MRT AI
