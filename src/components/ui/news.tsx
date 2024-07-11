@@ -18,6 +18,7 @@ export default function NewsItem({ item }: NewsItemProps) {
             layout="fill"
             objectFit="cover"
             className="transition-transform duration-300 hover:scale-105"
+            unoptimized
           />
         </Link>
       </div>
