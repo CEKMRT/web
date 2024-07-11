@@ -28,9 +28,12 @@ export async function GET() {
     $('.thumb-item').each((index, element) => {
       const title = $(element).find('h3').text().trim();
       const date = $(element).find('span').text().trim();
-      const link = $(element).find('a').attr('href') || '';
-      newsItems.push({ title, date, link });
+      const link = $(element).attr('href') || '';
+      const image = $(element).find('img').attr('src') || '';
+
+      newsItems.push({ title, date, link, image });
     });
+    
 
     // Cache the new data
     await redis.set(CACHE_KEY, JSON.stringify(newsItems), { ex: CACHE_TTL });
