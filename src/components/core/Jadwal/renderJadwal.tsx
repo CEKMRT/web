@@ -100,7 +100,7 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
   };
 
   if (loading) {
-    return <LoadingComponent randomWidth={randomWidth} />;
+    return <LoadingComponent  />;
   }
 
   if (error) {
