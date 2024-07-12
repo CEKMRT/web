@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import ScrollAnimation from "../framer/animation";
 import { fadeInUpVariants } from "../framer/anima";
-
+import { CardBody, CardContainer, CardItem } from "./3dcard";
 interface NewsItemProps {
   item: MRTNewsItem;
 }
@@ -15,7 +15,7 @@ export default function NewsItem({ item }: NewsItemProps) {
 
   return (
     <ScrollAnimation variants={fadeInUpVariants}>
-    <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <CardContainer className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <Link href={`https://jakartamrt.co.id${item.link}`}>
         <div className="relative aspect-video w-full">
           {!imageLoaded && (
@@ -45,7 +45,7 @@ export default function NewsItem({ item }: NewsItemProps) {
           </span>
         </div>
       </Link>
-    </div>
+    </CardContainer>
     </ScrollAnimation>
   );
 }
