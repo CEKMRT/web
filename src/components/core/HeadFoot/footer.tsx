@@ -1,4 +1,3 @@
-// Footer.js
 import StatusButton from "../../ui/status";
 import MobileMenu from "./mobile";
 import { ModeToggle } from "@/components/ui/themebutton";
