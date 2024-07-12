@@ -3,20 +3,28 @@ import NewsItem from "@/components/ui/news";
 import NewsItemSkeleton from "@/components/ui/news-skeleton";
 import redis from "@/lib/utils/redis";
 
+const CACHE_KEY = "NewsData";
+
 async function getCombinedNews(): Promise<MRTNewsItem[]> {
-  const CACHE_KEY = "WebData";
   const cachedData = await redis.get(CACHE_KEY);
 
   if (cachedData && typeof cachedData === "string") {
     try {
-      return JSON.parse(cachedData);
+      const { data, timestamp } = JSON.parse(cachedData);
+      const isStale = Date.now() - timestamp > 60 * 60 * 1000; // 1 hour
+
+      if (!isStale) {
+        return data;
+      }
     } catch (error) {
       console.error("Error parsing cached data:", error);
     }
   }
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL || "https://www.cekmrt.xyz"}/api/news`,
+    `${
+      process.env.NEXT_PUBLIC_BASE_URL || "https://www.cekmrt.xyz"
+    }/api/news?refresh=true`,
     {
       next: { revalidate: 3600 }, // Revalidate every hour
     }
@@ -26,20 +34,34 @@ async function getCombinedNews(): Promise<MRTNewsItem[]> {
   }
 
   const newsItems: MRTNewsItem[] = await res.json();
-  await redis.set(CACHE_KEY, JSON.stringify(newsItems));
-
   return newsItems;
 }
-
 async function NewsGrid() {
   const newsItems = await getCombinedNews();
 
+  const groupedNews = newsItems.reduce((acc, item) => {
+    if (!acc[item.source]) {
+      acc[item.source] = [];
+    }
+    acc[item.source].push(item);
+    return acc;
+  }, {} as Record<string, MRTNewsItem[]>);
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {newsItems.map((item, index) => (
-        <NewsItem key={index} item={item} />
+    <>
+      {Object.entries(groupedNews).map(([source, items]) => (
+        <div key={source} className="mb-8">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">
+            {source}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {items.map((item, index) => (
+              <NewsItem key={index} item={item} />
+            ))}
+          </div>
+        </div>
       ))}
-    </div>
+    </>
   );
 }
 

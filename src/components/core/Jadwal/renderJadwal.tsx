@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { fetchScheduleData } from "@/app/api/req";
+import { fetchScheduleData } from "@/lib/utils/cache";
 import { ChevronDoubleRightIcon } from "@heroicons/react/16/solid";
 import ErrorComponent from "../../ui/LoadingError/error";
 import LoadingComponent from "../../ui/LoadingError/loading";
