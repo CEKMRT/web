@@ -7,7 +7,6 @@ import Footer from "@/components/core/HeadFoot/footer";
 import keywords from "@/lib/definition/seo";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import RunningText from "@/components/core/HeadFoot/runningText";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -55,7 +54,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <RunningText/>
           <Header />
           {children}
           <Footer />
