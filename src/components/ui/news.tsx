@@ -28,7 +28,7 @@ export default function NewsItem({ item }: NewsItemProps) {
             objectFit="cover"
             className={`transition-transform duration-300 hover:scale-105 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             onLoad={() => setImageLoaded(true)}
-            unoptimized
+            // unoptimized
           />
         </div>
         <div className="p-2 md:p-6">
