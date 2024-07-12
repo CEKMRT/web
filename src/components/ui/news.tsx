@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from 'react';
+import { useState } from "react";
 import ScrollAnimation from "../framer/animation";
 import { fadeInUpVariants } from "../framer/anima";
 
@@ -24,9 +24,9 @@ export default function NewsItem({ item }: NewsItemProps) {
           <Image
             src={`https://jakartamrt.co.id${item.image}`}
             alt={item.title}
-            layout="fill"
-            objectFit="cover"
-            className={`transition-transform duration-300 hover:scale-105 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+            fill
+            // objectFit="cover"
+            className={`transition-transform duration-300 hover:scale-105 object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             onLoad={() => setImageLoaded(true)}
             // unoptimized
           />

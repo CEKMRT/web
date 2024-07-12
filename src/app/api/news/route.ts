@@ -3,7 +3,7 @@ import axios from "axios";
 import cheerio from "cheerio";
 import redis from "@/lib/utils/redis";
 
-const CACHE_KEY = "combined_news_latest";
+const CACHE_KEY = "WebData";
 const CACHE_TTL = 24 * 60 * 60; // 24 hours
 const SWR_TTL = 60 * 60; // 1 hour
 
@@ -63,7 +63,6 @@ export async function GET() {
 
     if (cachedData && typeof cachedData === "string") {
       newsItems = JSON.parse(cachedData);
-      
       // Check if the cache is stale
       const cacheAge = await redis.ttl(CACHE_KEY);
       if (cacheAge <= SWR_TTL) {

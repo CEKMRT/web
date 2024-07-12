@@ -1,10 +1,10 @@
-import { Suspense } from 'react';
+import { Suspense } from "react";
 import NewsItem from "@/components/ui/news";
 import NewsItemSkeleton from "@/components/ui/news-skeleton";
 import redis from "@/lib/utils/redis";
 
 async function getCombinedNews(): Promise<MRTNewsItem[]> {
-  const CACHE_KEY = "combined_news_latest";
+  const CACHE_KEY = "WebData";
   const cachedData = await redis.get(CACHE_KEY);
 
   if (cachedData && typeof cachedData === "string") {
