@@ -31,6 +31,7 @@ export default function NewsItem({ item }: NewsItemProps) {
                   imageLoaded ? 'opacity-100' : 'opacity-0'
                 } transition-opacity duration-300 group-hover/card:shadow-xl`}
                 onLoad={() => setImageLoaded(true)}
+                unoptimized
               />
             </div>
           </CardItem>
