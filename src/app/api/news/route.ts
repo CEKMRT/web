@@ -7,6 +7,7 @@ const CACHE_KEY = 'mrt_news_latest';
 const CACHE_TTL = 24 * 60 * 60; 
 
 export const dynamic = 'force-dynamic';
+export const maxDuration = 30; 
 
 interface NewsItem {
   title: string;
