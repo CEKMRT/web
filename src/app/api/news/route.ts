@@ -5,7 +5,7 @@ import redis from "@/lib/utils/redis";
 import { RateLimiter } from "limiter";
 
 const CACHE_KEY = "NewsData";
-const CACHE_TTL = 24 * 60 * 60; // 24 hours
+const CACHE_TTL = 6 * 60 * 60; // 6 hours
 const STALE_TTL = 60 * 60; // 1 hour
 
 export const dynamic = "force-dynamic";
