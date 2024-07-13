@@ -47,7 +47,7 @@ async function scrapeNews(
       if (index >= limit) return false;
 
       const title = $(element).find("h3, h2").first().text().trim();
-      const date = $(element).find("span, .date").first().text().trim();
+      const date = $(element).find("span, .date").first().text().trim() || $(element).find(".date").first().text().trim() 
       let link = $(element).find("a").attr("href") || "";
       let image =
         $(element).find("img").attr("src") ||
