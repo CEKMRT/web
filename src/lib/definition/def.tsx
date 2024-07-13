@@ -36,3 +36,18 @@ interface CachedData {
   data: MRTNewsItem[];
   timestamp: number;
 }
+interface ScrapingConfig {
+  url: string;
+  articleSelector: string;
+  titleSelector: string;
+  dateSelector: string;
+  linkSelector: string;
+  imageSelector: string;
+  baseUrl?: string;
+  transformers?: {
+    title?: (el: cheerio.Cheerio) => string;
+    date?: (el: cheerio.Cheerio) => string;
+    link?: (el: cheerio.Cheerio, baseUrl: string) => string;
+    image?: (el: cheerio.Cheerio, baseUrl: string) => string;
+  };
+}

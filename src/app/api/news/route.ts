@@ -3,6 +3,9 @@ import axios from "axios";
 import cheerio from "cheerio";
 import redis from "@/lib/utils/redis";
 import { RateLimiter } from "limiter";
+import scrapingConfigs from "@/lib/definition/scrappingConfig";
+import { handleScrapingError, ScrapingError, logger } from "@/lib/definition/scrappingHandler";
+import { NewsItem, ScrapingConfig } from "@/lib/definition/scrapdata";
 
 const CACHE_KEY = "NewsData";
 const CACHE_TTL = 6 * 60 * 60; // 6 hours
@@ -11,26 +14,17 @@ const STALE_TTL = 60 * 60; // 1 hour
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
 
-interface NewsItem {
-  title: string;
-  date: string;
-  link: string;
-  image: string;
-  source: string;
-}
-
 // Rate limiter: 5 requests per minute
 const limiter = new RateLimiter({ tokensPerInterval: 5, interval: "minute" });
 
-async function scrapeNews(
-  url: string,
-  selector: string,
+export async function scrapeNews(
+  config: ScrapingConfig,
   source: string,
-  limit: number = 10
+  limit: number
 ): Promise<NewsItem[]> {
   try {
     await limiter.removeTokens(1);
-    const { data } = await axios.get(url, {
+    const { data } = await axios.get(config.url, {
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
         "Accept-Language": "en-US,en;q=0.9",
@@ -43,68 +37,53 @@ async function scrapeNews(
     const $ = cheerio.load(data);
 
     const newsItems: NewsItem[] = [];
-    $(selector).each((index, element) => {
+    $(config.articleSelector).each((index, element) => {
       if (index >= limit) return false;
 
-      const title = $(element).find("h3, h2").first().text().trim();
-      const date = $(element).find("span, .date").first().text().trim() || $(element).find(".date").first().text().trim() 
-      let link = $(element).find("a").attr("href") || "";
-      let image =
-        $(element).find("img").attr("src") ||
-        $(element).find("img").attr("data-src") ||
-        "";
-        if (source === "Berita Utama" || source === "Berita Tambahan") {
-          const domain = "https://jakartamrt.co.id";
-          if (!image.startsWith("http")) {
-            image = `${domain}${image}`;
-          }
-          if (!link.startsWith("http")) {
-            link = `${domain}${link}`;
-          }
+      const $el = $(element);
+
+      const title = config.transformers?.title 
+        ? config.transformers.title($el.find(config.titleSelector))
+        : $el.find(config.titleSelector).first().text().trim();
+
+      const date = config.transformers?.date
+        ? config.transformers.date($el.find(config.dateSelector))
+        : $el.find(config.dateSelector).first().text().trim();
+
+      let link = config.transformers?.link
+        ? config.transformers.link($el.find(config.linkSelector), config.baseUrl || '')
+        : $el.find(config.linkSelector).attr("href") || "";
+
+      let image = config.transformers?.image
+        ? config.transformers.image($el.find(config.imageSelector), config.baseUrl || '')
+        : $el.find(config.imageSelector).attr("src") || $el.find(config.imageSelector).attr("data-src") || "";
+
+      if (config.baseUrl) {
+        if (!link.startsWith("http")) {
+          link = `${config.baseUrl}${link}`;
         }
-  
-        newsItems.push({ title, date, link, image, source });
-      });
+        if (!image.startsWith("http")) {
+          image = `${config.baseUrl}${image}`;
+        }
+      }
+
+      newsItems.push({ title, date, link, image, source });
+    });
 
     return newsItems;
   } catch (error) {
-    console.error(`Error scraping ${source}:`, error);
+    handleScrapingError(error, source);
     return [];
   }
 }
 
-async function BeritaUtama(): Promise<NewsItem[]> {
-  return scrapeNews(
-    "https://jakartamrt.co.id/id",
-    ".thumb-list", 
-    "Berita Utama"
-  );
-}
-
-async function BeritaTambahan(): Promise<NewsItem[]> {
-  return scrapeNews(
-    "https://jakartamrt.co.id/id/siaran-pers",
-    ".thumb-list", 
-    "Berita Tambahan"
-  );
-}
-
-async function BeritaDetik(): Promise<NewsItem[]> {
-  return scrapeNews(
-    "https://www.detik.com/tag/mrt",
-    "article",
-    "Berita Detik",
-    3
-  );
-}
-
-async function BeritaTempo(): Promise<NewsItem[]> {
-  return scrapeNews(
-    "https://www.tempo.co/tag/mrt-jakarta",
-    ".card-box.ft240",
-    "Berita Tempo",
-    3
-  );
+async function fetchNewsForSource(source: string, limit: number): Promise<NewsItem[]> {
+  const config = scrapingConfigs[source];
+  if (!config) {
+    logger.error(`No scraping configuration found for source: ${source}`);
+    return [];
+  }
+  return scrapeNews(config, source, limit);
 }
 export async function GET(request: Request) {
   try {
@@ -133,7 +112,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json(newsItems);
   } catch (error) {
-    console.error("Error fetching combined news:", error);
+    logger.error("Error fetching combined news:", error);
     return NextResponse.json(
       { error: "Error fetching combined news" },
       { status: 500 }
@@ -142,19 +121,17 @@ export async function GET(request: Request) {
 }
 
 async function fetchFreshData(): Promise<NewsItem[]> {
-  const [detik, tempo, utama, tambahan] = await Promise.allSettled([
-    BeritaDetik(),
-    BeritaTempo(),
-    BeritaUtama(),
-    BeritaTambahan(),
-  ]);
+  const sources = Object.keys(scrapingConfigs);
+  const results = await Promise.allSettled(
+    sources.map(source => {
+      const limit = source === 'BeritaUtama' || source === 'BeritaTambahan' ? 3 : 6;
+      return fetchNewsForSource(source, limit);
+    })
+  );
 
-  const newsItems = [
-    ...(detik.status === 'fulfilled' ? detik.value : []),
-    ...(tempo.status === 'fulfilled' ? tempo.value : []),
-    ...(utama.status === 'fulfilled' ? utama.value : []),
-    ...(tambahan.status === 'fulfilled' ? tambahan.value : []),
-  ];
+  const newsItems = results.flatMap((result, index) => 
+    result.status === 'fulfilled' ? result.value : []
+  );
 
   try {
     await redis.set(CACHE_KEY, JSON.stringify({
@@ -164,7 +141,7 @@ async function fetchFreshData(): Promise<NewsItem[]> {
       ex: CACHE_TTL,
     });
   } catch (error) {
-    console.error("Error caching data:", error);
+    logger.error("Error caching data:", error);
   }
 
   return newsItems;
@@ -180,6 +157,6 @@ async function revalidateData() {
       ex: CACHE_TTL,
     });
   } catch (error) {
-    console.error("Error revalidating data:", error);
+    logger.error("Error revalidating data:", error);
   }
 }
