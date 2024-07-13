@@ -48,7 +48,7 @@ async function scrapeNews(
 
       const title = $(element).find("h3, h2").first().text().trim();
       const date = $(element).find("span, .date").first().text().trim();
-      const link = $(element).find("a").attr("href") || "";
+      const link = $(element).find("a").attr("href") || "https://jakartamrt.co.id";
       const image =
         $(element).find("img").attr("src") ||
         $(element).find("img").attr("data-src") ||
