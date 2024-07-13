@@ -48,14 +48,23 @@ async function scrapeNews(
 
       const title = $(element).find("h3, h2").first().text().trim();
       const date = $(element).find("span, .date").first().text().trim();
-      const link = $(element).find("a").attr("href") || "https://jakartamrt.co.id";
-      const image =
+      let link = $(element).find("a").attr("href") || "";
+      let image =
         $(element).find("img").attr("src") ||
         $(element).find("img").attr("data-src") ||
         "";
-
-      newsItems.push({ title, date, link, image, source });
-    });
+        if (source === "Berita Utama" || source === "Berita Tambahan") {
+          const domain = "https://jakartamrt.co.id";
+          if (!image.startsWith("http")) {
+            image = `${domain}${image}`;
+          }
+          if (!link.startsWith("http")) {
+            link = `${domain}${link}`;
+          }
+        }
+  
+        newsItems.push({ title, date, link, image, source });
+      });
 
     return newsItems;
   } catch (error) {
@@ -67,7 +76,7 @@ async function scrapeNews(
 async function BeritaUtama(): Promise<NewsItem[]> {
   return scrapeNews(
     "https://jakartamrt.co.id/id",
-    ".thumb-item",
+    ".thumb-list", 
     "Berita Utama"
   );
 }
@@ -75,7 +84,7 @@ async function BeritaUtama(): Promise<NewsItem[]> {
 async function BeritaTambahan(): Promise<NewsItem[]> {
   return scrapeNews(
     "https://jakartamrt.co.id/id/siaran-pers",
-    ".thumb-item",
+    ".thumb-list", 
     "Berita Tambahan"
   );
 }
@@ -83,7 +92,7 @@ async function BeritaTambahan(): Promise<NewsItem[]> {
 async function BeritaDetik(): Promise<NewsItem[]> {
   return scrapeNews(
     "https://www.detik.com/tag/mrt",
-    ".list.media_rows.list-berita article",
+    "article",
     "Berita Detik",
     3
   );
