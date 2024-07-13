@@ -8,7 +8,7 @@ import { handleScrapingError, logger } from "@/lib/definition/scrappingHandler";
 import { NewsItem, ScrapingConfig } from "@/lib/definition/scrapdata";
 
 const CACHE_KEY = "NewsData";
-const CACHE_TTL = 6 * 60 * 60; // 6 hours
+const CACHE_TTL = 1 * 60 * 60; // 1 hours
 const STALE_TTL = 60 * 60; // 1 hour
 
 export const dynamic = "force-dynamic";
