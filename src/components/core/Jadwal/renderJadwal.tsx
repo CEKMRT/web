@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { fetchScheduleData } from "@/app/api/req";
+import { fetchScheduleData } from "@/lib/utils/cache";
 import { ChevronDoubleRightIcon } from "@heroicons/react/16/solid";
 import ErrorComponent from "../../ui/LoadingError/error";
 import LoadingComponent from "../../ui/LoadingError/loading";
@@ -100,7 +100,7 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
   };
 
   if (loading) {
-    return <LoadingComponent  />;
+    return <LoadingComponent />;
   }
 
   if (error) {
@@ -152,19 +152,19 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
                   index === 0 &&
                   (SelisihWaktu(schedule.jadwal) === "N/A" ||
                     parseInt(SelisihWaktu(schedule.jadwal).toString()) < 3)
-                    ? "bg-red-500 text-white  " 
-                    // animate-fade animate-once animate-delay-1000 animate-ease-in
-                    : index === 0
+                    ? "bg-red-500 text-white  "
+                    : // animate-fade animate-once animate-delay-1000 animate-ease-in
+                    index === 0
                     ? "bg-green-400 dark:bg-emerald-600 text-green-000 "
-                    // animate-fade animate-once animate-delay-[1200ms] animate-ease-in
-                    : index === 1
+                    : // animate-fade animate-once animate-delay-[1200ms] animate-ease-in
+                    index === 1
                     ? "bg-green-300 dark:bg-emerald-700  dark:text-white "
-                    // animate-fade animate-once animate-delay-[1400ms] animate-ease-in
-                    : index === 2
+                    : // animate-fade animate-once animate-delay-[1400ms] animate-ease-in
+                    index === 2
                     ? "bg-green-200 dark:bg-emerald-800 text-green-800 dark:text-white "
-                    // animate-fade animate-once animate-delay-[1600ms] animate-ease-in
-                    : "bg-gray-200 dark:bg-slate-800 text-gray-800 dark:text-gray-200"
-                    //  animate-fade animate-once animate-delay-[2000ms] animate-ease-in
+                    : // animate-fade animate-once animate-delay-[1600ms] animate-ease-in
+                      "bg-gray-200 dark:bg-slate-800 text-gray-800 dark:text-gray-200"
+                  //  animate-fade animate-once animate-delay-[2000ms] animate-ease-in
                 }`}
               >
                 {formatTime(schedule.jadwal)}
@@ -231,24 +231,23 @@ const ScheduleComponent: React.FC<ScheduleComponentProps> = ({
 
         {/* Show more button */}
         <ScrollAnimation variants={bounceVariants} className="mb-6 md:mb-7">
-          
-        {!initialFetch && visibleCount < jadwalTerbaru.length && (
-          <button
-          className="bg-gray-200 dark:bg-slate-800 hover:dark:bg-emerald-700 hover:bg-green-500 text-white  px-2 py-1 text-xs md:text-sm md:px-4 md:py-2 rounded-full mx-auto block"
-          onClick={handleShowMore}
-          >
-            Lihat Semua
-          </button>
-        )}
-        {visibleCount !== 6 && (
-          <button
-          className="bg-gray-200 dark:bg-slate-800 hover:dark:bg-red-900 hover:bg-red-600 text-white px-2 py-1 text-xs md:text-sm md:px-4 md:py-2 rounded-full mx-auto block"
-          onClick={handleShowLess}
-          >
-            Sembunyikan
-          </button>
-        )}
-      </ScrollAnimation>
+          {!initialFetch && visibleCount < jadwalTerbaru.length && (
+            <button
+              className="bg-gray-200 dark:bg-slate-800 hover:dark:bg-emerald-700 hover:bg-green-500 text-white  px-2 py-1 text-xs md:text-sm md:px-4 md:py-2 rounded-full mx-auto block"
+              onClick={handleShowMore}
+            >
+              Lihat Semua
+            </button>
+          )}
+          {visibleCount !== 6 && (
+            <button
+              className="bg-gray-200 dark:bg-slate-800 hover:dark:bg-red-900 hover:bg-red-600 text-white px-2 py-1 text-xs md:text-sm md:px-4 md:py-2 rounded-full mx-auto block"
+              onClick={handleShowLess}
+            >
+              Sembunyikan
+            </button>
+          )}
+        </ScrollAnimation>
       </ScrollAnimation>
     </ScrollAnimation>
   );
