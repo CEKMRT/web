@@ -48,7 +48,7 @@ const MobileNavigation = () => {
             </Link>
           ))}
         </div>
-        <RunningText />
+        {/* <RunningText /> */}
       </motion.nav>
     </header>
   );

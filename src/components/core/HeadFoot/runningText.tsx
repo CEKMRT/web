@@ -11,6 +11,7 @@ interface NewsItem {
   title: string;
   link: string;
   date: string;
+  source: string;
 }
 
 const RunningText: React.FC = () => {
@@ -84,7 +85,7 @@ const RunningText: React.FC = () => {
                 href={`https://jakartamrt.co.id/${currentItem.link}`}
                 className="mr-4 z-0"
               >
-                {currentItem.date} - {currentItem.title}
+                {currentItem.source} - {currentItem.date} - {currentItem.title}
               </a>
               <a
                 href={`https://jakartamrt.co.id/${currentItem.link}`}

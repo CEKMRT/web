@@ -11,7 +11,7 @@ export default function Header() {
         animate-flip-down animate-once animate-delay-200 animate-ease-in md:block hidden
         "
       >
-        <RunningText />
+        {/* <RunningText /> */}
         <div className="justify-center content-center place-content-evenly max-w-sm mx-auto bg-white shadow-md rounded-lg md:max-w-2xl px-4 dark:bg-black dark:border-neutral-800 dark:border-2 z-10 pb-2  sm:pb-0 relative">
           <ModeToggle />
           <div className="px-2 text-sm font-bold text-center flex-col ">
