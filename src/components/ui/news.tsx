@@ -14,7 +14,7 @@ export default function NewsItem({ item }: NewsItemProps) {
   return (
     <CardContainer className="inter-var">
       <CardBody className="bg-white dark:bg-gray-800 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] border-black/[0.1] w-full h-auto rounded-lg p-4 border">
-        <Link href={`https://jakartamrt.co.id${item.link}`} className="block">
+        <Link href={`${item.link}`} className="block">
           <CardItem
             translateZ="100"
             className="w-full"
@@ -24,7 +24,7 @@ export default function NewsItem({ item }: NewsItemProps) {
                 <div className="absolute inset-0 bg-gray-300 dark:bg-gray-700 animate-pulse rounded-lg" />
               )}
               <Image
-                src={`https://jakartamrt.co.id${item.image}`}
+                src={`${item.image}`}
                 alt={item.title}
                 fill
                 className={`rounded-lg object-cover ${
