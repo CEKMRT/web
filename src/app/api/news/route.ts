@@ -4,7 +4,7 @@ import cheerio from "cheerio";
 import redis from "@/lib/utils/redis";
 import { RateLimiter } from "limiter";
 import scrapingConfigs from "@/lib/definition/scrappingConfig";
-import { handleScrapingError, ScrapingError, logger } from "@/lib/definition/scrappingHandler";
+import { handleScrapingError, logger } from "@/lib/definition/scrappingHandler";
 import { NewsItem, ScrapingConfig } from "@/lib/definition/scrapdata";
 
 const CACHE_KEY = "NewsData";
@@ -17,7 +17,7 @@ export const maxDuration = 30;
 // Rate limiter: 5 requests per minute
 const limiter = new RateLimiter({ tokensPerInterval: 5, interval: "minute" });
 
-export async function scrapeNews(
+async function scrapeNews(
   config: ScrapingConfig,
   source: string,
   limit: number
@@ -85,40 +85,6 @@ async function fetchNewsForSource(source: string, limit: number): Promise<NewsIt
   }
   return scrapeNews(config, source, limit);
 }
-export async function GET(request: Request) {
-  try {
-    const url = new URL(request.url);
-    const forceRefresh = url.searchParams.get('refresh') === 'true';
-    
-    let cachedData = await redis.get(CACHE_KEY);
-    let newsItems: NewsItem[] | null = null;
-
-    if (cachedData && typeof cachedData === "string" && !forceRefresh) {
-      const { data, timestamp } = JSON.parse(cachedData);
-      const isStale = Date.now() - timestamp > STALE_TTL * 1000;
-      
-      if (!isStale) {
-        return NextResponse.json(data);
-      } else {
-        newsItems = data;
-        // Trigger background revalidation
-        revalidateData();
-      }
-    }
-
-    if (!newsItems) {
-      newsItems = await fetchFreshData();
-    }
-
-    return NextResponse.json(newsItems);
-  } catch (error) {
-    logger.error("Error fetching combined news:", error);
-    return NextResponse.json(
-      { error: "Error fetching combined news" },
-      { status: 500 }
-    );
-  }
-}
 
 async function fetchFreshData(): Promise<NewsItem[]> {
   const sources = Object.keys(scrapingConfigs);
@@ -158,5 +124,40 @@ async function revalidateData() {
     });
   } catch (error) {
     logger.error("Error revalidating data:", error);
+  }
+}
+
+export async function GET(request: Request) {
+  try {
+    const url = new URL(request.url);
+    const forceRefresh = url.searchParams.get('refresh') === 'true';
+    
+    let cachedData = await redis.get(CACHE_KEY);
+    let newsItems: NewsItem[] | null = null;
+
+    if (cachedData && typeof cachedData === "string" && !forceRefresh) {
+      const { data, timestamp } = JSON.parse(cachedData);
+      const isStale = Date.now() - timestamp > STALE_TTL * 1000;
+      
+      if (!isStale) {
+        return NextResponse.json(data);
+      } else {
+        newsItems = data;
+        // Trigger background revalidation
+        revalidateData();
+      }
+    }
+
+    if (!newsItems) {
+      newsItems = await fetchFreshData();
+    }
+
+    return NextResponse.json(newsItems);
+  } catch (error) {
+    logger.error("Error fetching combined news:", error);
+    return NextResponse.json(
+      { error: "Error fetching combined news" },
+      { status: 500 }
+    );
   }
 }
