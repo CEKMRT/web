@@ -37,21 +37,20 @@ export default function NewsItem({ item }: NewsItemProps) {
           </CardItem>
           <CardItem
             translateZ="50"
-            className="text-md md:text-xl font-semibold mt-4 mb-2 text-gray-800 dark:text-gray-200 line-clamp-2"
+            className="text-md md:text-xl font-semibold mt-2 mb-2 text-gray-800 dark:text-gray-200 line-clamp-2"
           >
             {item.title}
           </CardItem>
           <CardItem
             as="p"
             translateZ="60"
-            className="text-sm text-gray-400 dark:text-gray-400 mb-4"
+            className="text-sm text-gray-400 dark:text-gray-400"
           >
             {item.date}
           </CardItem>
           <CardItem
             translateZ="40"
-            as="span"
-            className="inline-block bg-emerald-500 dark:bg-emerald-600 text-white py-2 px-4 rounded hover:bg-emerald-600 dark:hover:bg-emerald-700 transition-colors duration-600"
+            className="md:inline-block hidden bg-emerald-500 dark:bg-emerald-600 text-white py-2 px-4 rounded hover:bg-emerald-600 dark:hover:bg-emerald-700 transition-colors duration-600"
           >
             Baca Lebih
           </CardItem>
