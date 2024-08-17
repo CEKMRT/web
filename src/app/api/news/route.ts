@@ -90,7 +90,7 @@ async function fetchFreshData(): Promise<NewsItem[]> {
   const sources = Object.keys(scrapingConfigs);
   const results = await Promise.allSettled(
     sources.map(source => {
-      const limit = source === 'BeritaUtama' || source === 'BeritaTambahan' ? 3 : 6;
+      const limit = source === 'Berita_MRT' || source === 'Berita' ? 3 : 6;
       return fetchNewsForSource(source, limit);
     })
   );

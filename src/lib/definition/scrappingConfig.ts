@@ -1,5 +1,5 @@
 const scrapingConfigs: Record<string, ScrapingConfig> = {
-  BeritaUtama: {
+  Berita_MRT: {
     url: "https://jakartamrt.co.id/id",
     articleSelector: "ul.thumb-list.thumb-list-home.row li",
     titleSelector: ".thumb-info h3",
@@ -8,7 +8,7 @@ const scrapingConfigs: Record<string, ScrapingConfig> = {
     imageSelector: ".thumb-img img",
     baseUrl: "https://jakartamrt.co.id",
   },
-  BeritaTambahan: {
+  Berita: {
     url: "https://jakartamrt.co.id/id/siaran-pers",
     articleSelector: "ul.thumb-list.row li",
     titleSelector: ".thumb-info h3",
@@ -17,7 +17,7 @@ const scrapingConfigs: Record<string, ScrapingConfig> = {
     imageSelector: ".thumb-img img",
     baseUrl: "https://jakartamrt.co.id",
   },
-  BeritaDetik: {
+  Detik: {
     url: "https://www.detik.com/tag/mrt",
     articleSelector: "article",
     titleSelector: "h3, h2",
@@ -25,7 +25,7 @@ const scrapingConfigs: Record<string, ScrapingConfig> = {
     linkSelector: "a",
     imageSelector: "img",
   },
-  BeritaTempo: {
+  Tempo: {
     url: "https://www.tempo.co/tag/mrt-jakarta",
     articleSelector: ".card-box.ft240",
     titleSelector: "h2, .title",
